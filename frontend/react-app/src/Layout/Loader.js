@@ -12,7 +12,7 @@ const Loader = () => {
         transform: 'translate(-50%, -50%)',
     }}
   >
-      <CircularProgress size="10rem" thickness="5"/>
+      <CircularProgress size="10rem" thickness={5}/>
   </div> 
 )}
 

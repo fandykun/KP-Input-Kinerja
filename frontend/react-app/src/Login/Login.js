@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Loader } from '../Layout';
+import { AuthService } from '../Services';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,14 +72,12 @@ const Login = () => {
     .required('Password tidak boleh kosong')
   })
 
-  const submitHandler = async (values) => {
+  const submitHandler = async ({ username, password} ) => {
+    const payload = AuthService.login(username, password)
     await new Promise(r => setTimeout(r, 2000));
-    console.log(JSON.stringify(values))
     dispatchUser({
       type: 'LOGIN_SUCCESS', 
-      payload: {
-        username: values.username,
-      }
+      payload: payload,
     })
     setGoHome(true)
   }
@@ -141,7 +140,7 @@ const Login = () => {
                     color="primary"
                     className={classes.submit}
                   >
-                      {props.isSubmitting ? <CircularProgress size="24.5px" color="primary"/> : 'Sign In'}
+                      {props.isSubmitting ? <CircularProgress size="1.75rem" color="primary"/> : 'Sign In'}
                   </Button>
                 </Form>
                 )}

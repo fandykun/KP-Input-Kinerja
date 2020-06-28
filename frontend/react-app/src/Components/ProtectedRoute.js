@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import { Route, Redirect} from 'react-router-dom';
 import { UserContext } from '../Context';
+import { Navbar } from '../Layout';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const {user} = useContext(UserContext)
@@ -8,13 +9,19 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
     <Route {...rest} render={
       props => {
         return(
-          user.is_authenticated ? (<Component {...rest} {...props} />)
+          user.isAuthenticated ? (
+            <React.Fragment>
+              <Navbar /> 
+              <Component {...rest} {...props} />
+            </React.Fragment>
+          )
           : (<Redirect to={{
               pathname: '/login',
               state: {
                 from: props.location,
               },
-          }} />)
+          }} />
+          )
         )
       }
     } />

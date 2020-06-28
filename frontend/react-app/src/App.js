@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useReducer, useMemo} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,10 +10,12 @@ import theme from './theme'
 import { ThemeProvider} from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { UserContext } from './Context'
+import { UserContext } from './Context';
 
-import { Home } from './Home'
-import { Login } from './Login'
+import { AuthService } from './Services';
+
+import { Home } from './Home';
+import { Login } from './Login';
 
 
 const App = () => {
@@ -21,24 +23,31 @@ const App = () => {
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGIN_FAILURE: 'LOGIN_FAILURE',
   }
-  const initialState = {
-    is_authenticated: false,
+
+  const initialState = useMemo(() => (!AuthService.getSession() ? {
+    isAuthenticated: false,
     profile: null,
-  }
+    token: null,
+  } : {
+    isAuthenticated: true,
+    ...AuthService.getSession(),
+  }), [])
 
   const reducer = (state, action) => {
     switch(action.type) {
       case ACTION.LOGIN_SUCCESS:
         return {
           ...state, 
-          is_authenticated: true,
-          profile: action.payload,
+          isAuthenticated: true,
+          profile: action.payload.profile,
+          token: action.payload.token,
         }
       case ACTION.LOGIN_FAILURE:
         return {
           ...state,
-          is_authenticated: false,
-          profile: null
+          isAuthenticated: false,
+          profile: null,
+          token: null,
         }
       default:
         return state
