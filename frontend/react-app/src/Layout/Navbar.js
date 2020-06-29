@@ -1,9 +1,10 @@
 import React, { useState, useContext }from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../Context';
 import { AuthService } from '../Services';
 import { makeStyles } from '@material-ui/core/styles';
 import { AccountCircle } from '@material-ui/icons';
-import { AppBar, Typography, Toolbar, Menu, MenuItem, IconButton} from '@material-ui/core';
+import { Grid, Link, AppBar, Typography, Toolbar, Menu, MenuItem, IconButton} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
@@ -11,10 +12,14 @@ const useStyles = makeStyles((theme) => ({
   },
   brand: {
     color: theme.text.white,
-    flex: 1,
   },
   navlink: {
     color: '#ffffff',
+  },
+  logo: {
+    maxHeight: '60px',
+  },
+  supportingContent: {
   },
 }));
 
@@ -43,12 +48,20 @@ const Navbar = () => {
     <div>
       <AppBar className={classes.navbar} position="static">
         <Toolbar>
-          <Typography className={classes.brand} variant="h5">Input Kinerja</Typography>
-          <Typography color="secondary" variant="subtitle1">Selamat Datang, { user.profile.username}</Typography>
-          <div>
-            <IconButton className={classes.navlink} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-              <AccountCircle color="secondary"/>
-            </IconButton>
+          <Link className={classes.brand} component={RouterLink} to="/">
+            <img className={classes.logo} src="/static/images/logoITS-white.png" alt="Brand Logo" />
+          </Link>
+          <Grid container spacing={1} justify="flex-end" alignItems="center" className={classes.supportingContent} >
+            <Grid item xs>
+            </Grid>
+            <Grid item xs={3} alignItems="flex-end">
+              <Typography align="right" color="secondary" variant="subtitle1">Selamat Datang, { user.profile.username}</Typography>
+            </Grid>
+            <Grid item xs={0}>
+              <IconButton className={classes.navlink} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+                <AccountCircle color="secondary"/>
+              </IconButton>
+            </Grid>
             <Menu
               id="simple-menu"
               anchorEl={anchorEl}
@@ -59,7 +72,7 @@ const Navbar = () => {
               <MenuItem onClick={handleClose}>My account</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
-          </div>
+          </Grid>
         </Toolbar>
       </AppBar>
     </div>

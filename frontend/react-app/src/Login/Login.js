@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import { CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
+import { Typography, CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Loader } from '../Layout';
 import { AuthService } from '../Services';
@@ -64,6 +64,7 @@ const Login = () => {
   }
 
   const [goHome, setGoHome] = useState(false)
+  const [authError, setAuthError] = useState('')
   const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -83,16 +84,15 @@ const Login = () => {
 
   const submitHandler = async ({ username, password} ) => {
     const payload = await AuthService.login(username, password)
-    console.log(payload)
     if (payload) {
-      console.log(payload)
       dispatchUser({
         type: 'LOGIN_SUCCESS', 
         payload: payload,
       })
       setGoHome(true)
+    } else {
+      setAuthError('Login Gagal, Silakan Coba Lagi.')
     }
-    //add failed case
   }
 
   const MyTextField = (props) => {
@@ -121,6 +121,7 @@ const Login = () => {
                   title="Logo ITS"
                 />
                 <CardContent>
+                  {!!authError && <Typography color="primary" variant="h6">{authError}</Typography>}
                   <Formik
                     initialValues={initialValue}
                     onSubmit={submitHandler}

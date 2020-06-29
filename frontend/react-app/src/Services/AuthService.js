@@ -5,6 +5,7 @@ const login = (username, password) => {
     nrp: username,
     password: password,
   }).then((resp) => {
+    console.log(resp)
     const data = {
       token: resp.data.auth_token,
       profile: {
