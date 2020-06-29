@@ -1,13 +1,21 @@
+import axios from 'axios';
+
 const login = (username, password) => {
-  const resp = {
-    profile: {
-      username: username,
-    },
-    token: password,
-  }
-  localStorage.setItem('session', JSON.stringify(resp))
-  return (resp)
-  //axios part
+  return axios.post(`${process.env.REACT_APP_API_URL}/auth/token/login`, {
+    nrp: username,
+    password: password,
+  }).then((resp) => {
+    const data = {
+      token: resp.data.auth_token,
+      profile: {
+        username: username,
+      }
+    }
+    localStorage.setItem('REACT_APP_SESSION', JSON.stringify(data))
+    return data
+  }).catch((error) => {
+    console.log(error)
+  })
 }
 
 const logout = () => {
@@ -15,7 +23,7 @@ const logout = () => {
 }
 
 const getSession = () => {
-  return JSON.parse(localStorage.getItem('session'))
+  return JSON.parse(localStorage.getItem('REACT_APP_SESSION'))
 }
 
 const AuthService = {

@@ -1,17 +1,16 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
-  gradientBG: 'linear-gradient(right, #69c6af 30%, #244a80 100%)',
   text: {
     white: '#ffffff',
     light: '#88deb0',
   },
   palette: {
     primary: {
-      main: '#4eadaf',
+      main: '#013880',
     },
     secondary: {
-      main: '#152069',
+      main: '#ffc415',
     },
   },
   primary: '#4eadaf',

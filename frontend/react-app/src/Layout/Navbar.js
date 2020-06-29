@@ -7,7 +7,7 @@ import { AppBar, Typography, Toolbar, Menu, MenuItem, IconButton} from '@materia
 
 const useStyles = makeStyles((theme) => ({
   navbar: {
-    background: theme.gradientBG,
+    background: theme.palette.primary.main,
   },
   brand: {
     color: theme.text.white,
