@@ -3,19 +3,19 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
-import { ProtectedRoute } from './Components';
+import { LoginRoute, ProtectedRoute } from './Components';
 
-import theme from './theme'
+import theme from 'theme'
 import { ThemeProvider} from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 
-import { UserContext } from './Context';
+import { UserContext } from 'Context';
 
-import { AuthService } from './Services';
+import { AuthService } from 'Services';
 
-import { Home } from './Home';
-import { Login } from './Login';
+import { Dashboard, Login, Prestasi, Kultam, Jurnal, Training } from 'Pages';
 
 
 const App = () => {
@@ -62,10 +62,15 @@ const App = () => {
         <Router>
           <div className="content">
             <Switch>
-              <ProtectedRoute component={Home} path="/" exact />
-              <Route path="/login" exact>
-                <Login />
+              <Route path="/" exact>
+                <Redirect to="/dashboard" /> 
               </Route>
+              <ProtectedRoute component={Dashboard} path="/dashboard" exact />
+              <ProtectedRoute component={Kultam} path="/kultam" exact />
+              <ProtectedRoute component={Jurnal} path="/jurnal" exact />
+              <ProtectedRoute component={Prestasi} path="/prestasi" exact />
+              <ProtectedRoute component={Training} path="/jurnal" exact />
+              <LoginRoute component={Login} path="/login" exact />
               <Route path="/">
                 {() => <h1>404 Page not Found</h1>}
               </Route>

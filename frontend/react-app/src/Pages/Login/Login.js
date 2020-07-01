@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { UserContext } from '../Context';
+import { UserContext } from 'Context';
 import {useField, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -10,8 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography, CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Loader } from '../Layout';
-import { AuthService } from '../Services';
+import { Loader } from 'Layout';
+import { AuthService } from 'Services';
 
 const useStyles = makeStyles((theme) => ({
   root: {

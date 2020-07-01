@@ -35,24 +35,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const HomeNavigation = (props) => {
+const DashboardNavigation = ({item}) => {
+  const {logo, title, href} = item
   const classes = useStyles()
   return (
     <React.Fragment>
-    <Grid item xs>
-        <Grid component={Card} container alignItems="stretch" className={classes.cards}>
-          <Grid item alignItems="center" className={classes.navTitle}  xs={8} >
-            <CardActionArea component={Link} to="#" classes={{root:classes.actionArea}}>
-              <Typography variant="h5" color="primary">{props.title}</Typography>
-            </CardActionArea>
-          </Grid>
-          <Grid item alignItems="center" xs={4} component={Paper} className={classes.navLogo} elevation={6} square >
-            {props.logo}
-          </Grid>
+    <Grid item xs={12} sm={6} md={3}>
+      <Grid component={Card} container  className={classes.cards} elevation={6}>
+        <Grid item alignItems="center" className={classes.navTitle}  xs={8} >
+          <CardActionArea component={Link} to={href} classes={{root:classes.actionArea}}>
+            <Typography variant="h5" color="primary">{title}</Typography>
+          </CardActionArea>
         </Grid>
+        <Grid item alignItems="center" xs={4} component={Paper} className={classes.navLogo} elevation={6} square >
+          {logo}
+        </Grid>
+      </Grid>
     </Grid>
     </React.Fragment>
   )
 }
 
-export default HomeNavigation
+export default DashboardNavigation
