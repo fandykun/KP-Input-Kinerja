@@ -14,21 +14,25 @@ const Nav = [
     title: "Kuliah Tamu",
     logo: <CastForEducation style={largeIcon}/>,
     href: '/kultam',
+    delay: '0.3s',
   },
   {
     title: "Konferensi / Jurnal",
     logo: <FolderSharedOutlined style={largeIcon}/>,
     href: '/jurnal',
+    delay: '0.5s',
   },
   {
     title: "Prestasi",
     logo: <EmojiEventsOutlined style={largeIcon}/>,
     href: '/prestasi',
+    delay: '0.7s',
   },
   {
     title: "Training",
     logo: <FitnessCenterOutlined style={largeIcon}/>,
     href: '/kultam',
+    delay: '0.9s',
   },
 ]
 
@@ -48,7 +52,7 @@ const Dashboard = () => {
     <div className={classes.root}>
       <CssBaseline />
       <Grid container justify="center" spacing={5} style={{paddingTop:"50px", paddingLeft:"50px", maxWidth: "100%", maxHeight: "75%"}}>
-        {Nav.map((item) => (<DashboardNavigation item={item}/>))}
+        {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
       </Grid>
     </div>
   )

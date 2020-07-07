@@ -2,11 +2,13 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import { Typography, Paper, Grid, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import './index.css';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = delay => makeStyles((theme) => ({
   cards: {
     height: '300px', 
     display: 'flex',
+    animationDelay: delay,
   },
   navTitle: {
     height: '100%',
@@ -36,18 +38,19 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const DashboardNavigation = ({item}) => {
-  const {logo, title, href} = item
-  const classes = useStyles()
+  const {logo, title, href, delay} = item
+  console.log(delay);
+  const classes = useStyles(delay)()
   return (
     <React.Fragment>
     <Grid item xs={12} sm={6} md={3}>
-      <Grid component={Card} container  className={classes.cards} elevation={6}>
-        <Grid item alignItems="center" className={classes.navTitle}  xs={8} >
+      <Grid component={Card} container className={`${classes.cards} slide-up-fade-in`} elevation={6}>
+        <Grid item className={classes.navTitle}  xs={8} >
           <CardActionArea component={Link} to={href} classes={{root:classes.actionArea}}>
             <Typography variant="h5" color="primary">{title}</Typography>
           </CardActionArea>
         </Grid>
-        <Grid item alignItems="center" xs={4} component={Paper} className={classes.navLogo} elevation={6} square >
+        <Grid item xs={4} component={Paper} className={classes.navLogo} elevation={6} square >
           {logo}
         </Grid>
       </Grid>
