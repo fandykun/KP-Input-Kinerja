@@ -5,6 +5,7 @@
 - Requirements
 ```bash
     pip install -r requirements.txt
+    sudo apt install libmysqlclient-dev
 ```
 
 - Konfigurasi DB (Menggunakan MySQL)
@@ -16,5 +17,5 @@
 - Init DB `python manage.py makemigrations`
 - migrate DB `python manage.py migrate`
 
-# How to run
+## How to run
 - `python manage.py runserver`
