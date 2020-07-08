@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -68,9 +69,12 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   tableRow: {
-      '&:hover': {
-        backgroundColor: "rgba(255, 196, 21, 0.3) !important",
-      }
+    cursor: 'pointer',
+    textDecoration: 'none',
+    transition: '0.5s',
+    '&:hover': {
+      backgroundColor: "rgba(255, 196, 21, 0.3) !important",
+    }
   }
 }));
 
@@ -215,6 +219,8 @@ const PageList = ({title, rows, headCells}) => {
                           role="checkbox"
                           tabIndex={-1}
                           key={row.id}
+                          component={Link}
+                          to={row.link}
                         >
                           <TableCell scope="row">
                             <StyledName name={row.name} company={row.company} date={row.date} />

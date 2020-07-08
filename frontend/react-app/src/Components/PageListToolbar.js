@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Fab, Grid, TextField } from '@material-ui/core';
+import { Hidden, Fab, Grid, TextField } from '@material-ui/core';
 import { ArrowBack, Search } from '@material-ui/icons';
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -24,20 +25,31 @@ const PageListToolbar = (props) => {
     >
       <Grid container alignItems="flex-end">
         <Grid item container xs={6} spacing={2} justify="flex-start" alignItems="center">
-          <Grid item>
-            <Fab variant="extended" color="primary">
-              <ArrowBack />
-              Dashboard
-            </Fab>
-          </Grid>
+          <Hidden mdDown>
+            <Grid item>
+              <Fab variant="extended" color="primary" component={Link} to='/dashboard'>
+                <ArrowBack />
+                Dashboard
+              </Fab>
+            </Grid>
+          </Hidden>
+          <Hidden lgUp>
+            <Grid item>
+              <Fab color="primary">
+                <ArrowBack />
+              </Fab>
+            </Grid>
+          </Hidden>
         </Grid>
         <Grid item container xs={6} justify="flex-end" alignItems="flex-end">
           <Grid item>
             <TextField label="Cari" value={search} onChange={handleSearchChange} />
           </Grid>
-          <Grid item>
-            <Search />
-          </Grid>
+          <Hidden mdDown>
+            <Grid item>
+              <Search />
+            </Grid>
+          </Hidden>
         </Grid>
       </Grid>
     </Toolbar>

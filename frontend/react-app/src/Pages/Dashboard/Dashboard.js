@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { PageContext } from 'Context';
 import { CssBaseline, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
@@ -48,6 +49,15 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = () => {
   const classes = useStyles()
+  const {dispatchPage} = useContext(PageContext)
+  useEffect(() => {
+    const pageDetail = {
+      title: "Dashboard",
+      routeStack: [],
+    }
+    dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
+    console.log("rerender")
+  }, [dispatchPage])
   return(
     <div className={classes.root}>
       <CssBaseline />

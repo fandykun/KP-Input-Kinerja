@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { PageContext } from 'Context';
 import { PageList } from 'Components';
+import { Loader } from 'Layout';
 
 const headCells = [
-  { id: 'detail', numeric: false, disablePadding: true, label: 'Detail Kuliah Tamu' },
+  { id: 'detail', numeric: false, disablePadding: true, label: 'Kuliah Tamu' },
   { id: 'departemen', numeric: false, disablePadding: false, label: 'Departemen' },
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 
 function createData(id, name, departemen, tingkat, company, date) {
-  return { id, name, departemen, tingkat, company, date};
+  return { id, name, departemen, tingkat, company, date, link:'/dashboard' };
 }
 
 const rows = [
@@ -34,9 +36,25 @@ const rows = [
 ];
 
 const Kultam = () => {
+  const [isLoading, setLoading] = useState(true)
+  const {dispatchPage} = useContext(PageContext)
+  useEffect(() => {
+    const pageDetail = {
+      title: "Kuliah Tamu",
+      routeStack: ["Kuliah Tamu"],
+    }
+    dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
+    const fetchAPI = async () => {
+      await new Promise(r => setTimeout(r, 2000));
+      setLoading(false)
+    }
+    fetchAPI()
+  }, [dispatchPage])
   return (
     <React.Fragment>
+      {isLoading ? <Loader /> : 
       <PageList title="Kuliah Tamu" rows={rows} headCells={headCells} />
+      }
     </React.Fragment>
   )
 }

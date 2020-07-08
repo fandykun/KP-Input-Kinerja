@@ -30,6 +30,7 @@ const useStyles = delay => makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     opacity: 0.8,
+    color: theme.palette.primary.main,
     '&:hover':{
       color: theme.palette.text.white,
       backgroundColor: theme.palette.secondary.main,
@@ -39,7 +40,6 @@ const useStyles = delay => makeStyles((theme) => ({
 
 const DashboardNavigation = ({item}) => {
   const {logo, title, href, delay} = item
-  console.log(delay);
   const classes = useStyles(delay)()
   return (
     <React.Fragment>
@@ -47,7 +47,7 @@ const DashboardNavigation = ({item}) => {
       <Grid component={Card} container className={`${classes.cards} slide-up-fade-in`} elevation={6}>
         <Grid item className={classes.navTitle}  xs={8} >
           <CardActionArea component={Link} to={href} classes={{root:classes.actionArea}}>
-            <Typography variant="h5" color="primary">{title}</Typography>
+            <Typography variant="h5" color="inherit">{title}</Typography>
           </CardActionArea>
         </Grid>
         <Grid item xs={4} component={Paper} className={classes.navLogo} elevation={6} square >
