@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const login = (username, password) => {
-  return axios.post(`${process.env.REACT_APP_API_URL}/auth/token/login`, {
-    nrp: username,
+  return axios.post(`${process.env.REACT_APP_API_URL}auth/token/`, {
+    username: username,
     password: password,
   }).then((resp) => {
     console.log(resp)

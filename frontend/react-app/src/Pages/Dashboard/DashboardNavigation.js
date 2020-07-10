@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import {Link} from 'react-router-dom';
 import { Typography, Paper, Grid, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import './index.css';
 
-const useStyles = delay => makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   cards: {
     height: '300px', 
     display: 'flex',
-    animationDelay: delay,
   },
   navTitle: {
     height: '100%',
@@ -40,11 +40,22 @@ const useStyles = delay => makeStyles((theme) => ({
 
 const DashboardNavigation = ({item}) => {
   const {logo, title, href, delay} = item
-  const classes = useStyles(delay)()
+  const [inProps, setInProps] = useState(false)
+  const classes = useStyles()
+  useEffect(() => {
+    setTimeout(() => {setInProps(true)}, delay)
+  }, [delay])
   return (
     <React.Fragment>
     <Grid item xs={12} sm={6} md={3}>
-      <Grid component={Card} container className={`${classes.cards} slide-up-fade-in`} elevation={6}>
+      <CSSTransition
+        in={inProps}
+        timeout={1000}
+        classNames="page"
+        mountOnEnter
+      >
+      <div>
+      <Grid component={Card} container className={classes.cards} elevation={6}>
         <Grid item className={classes.navTitle}  xs={8} >
           <CardActionArea component={Link} to={href} classes={{root:classes.actionArea}}>
             <Typography variant="h5" color="inherit">{title}</Typography>
@@ -54,6 +65,8 @@ const DashboardNavigation = ({item}) => {
           {logo}
         </Grid>
       </Grid>
+      </div>
+      </CSSTransition>
     </Grid>
     </React.Fragment>
   )

@@ -36,9 +36,10 @@ const rows = [
 ];
 
 const Kultam = () => {
-  const [isLoading, setLoading] = useState(true)
+  const [isLoading, setLoading] = useState(false)
   const {dispatchPage} = useContext(PageContext)
   useEffect(() => {
+    setLoading(true)
     const pageDetail = {
       title: "Kuliah Tamu",
       routeStack: ["Kuliah Tamu"],
@@ -52,9 +53,8 @@ const Kultam = () => {
   }, [dispatchPage])
   return (
     <React.Fragment>
-      {isLoading ? <Loader /> : 
-      <PageList title="Kuliah Tamu" rows={rows} headCells={headCells} />
-      }
+      <Loader isLoading={isLoading} />
+      {!isLoading && <PageList title="Kuliah Tamu" rows={rows} headCells={headCells} />}
     </React.Fragment>
   )
 }

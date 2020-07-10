@@ -1,11 +1,6 @@
 import React, {useReducer, useMemo} from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
-import { LoginRoute, ProtectedRoute } from './Components';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { RouterContainer } from 'Components';
 
 import theme from 'theme'
 import { ThemeProvider} from '@material-ui/core/styles';
@@ -14,9 +9,6 @@ import { CssBaseline } from '@material-ui/core';
 import { UserContext, PageContext } from 'Context';
 
 import { AuthService } from 'Services';
-
-import { Dashboard, Login, Prestasi, Kultam, Jurnal, Training } from 'Pages';
-
 
 const App = () => {
   const ACTION = {
@@ -35,6 +27,7 @@ const App = () => {
   }), [])
 
   const initialPageState = {
+    prevTitle: '',
     title: '',
     routeStack: [],
   }
@@ -66,6 +59,7 @@ const App = () => {
         document.title = action.data.title
         return {
           ...state,
+          prevTitle: state.title,
           title: action.data.title,
           routeStack: action.data.routeStack,
         }
@@ -84,20 +78,7 @@ const App = () => {
         <UserContext.Provider value={{user, dispatchUser}}>
           <Router>
             <div className="content">
-              <Switch>
-                <Route path="/" exact>
-                  <Redirect to="/dashboard" /> 
-                </Route>
-                <ProtectedRoute component={Dashboard} path="/dashboard" exact />
-                <ProtectedRoute component={Kultam} path="/kultam" exact />
-                <ProtectedRoute component={Jurnal} path="/jurnal" exact />
-                <ProtectedRoute component={Prestasi} path="/prestasi" exact />
-                <ProtectedRoute component={Training} path="/jurnal" exact />
-                <LoginRoute component={Login} path="/login" exact />
-                <Route path="*">
-                  {() => <h1>404 Page not Found</h1>}
-                </Route>
-              </Switch>
+              <RouterContainer />
             </div>
           </Router>
         </UserContext.Provider>

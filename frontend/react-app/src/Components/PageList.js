@@ -43,7 +43,11 @@ function stableSort(array, comparator) {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    paddingTop: theme.spacing(4),
+    height: 'calc(100vh - 64px)',
+    paddingTop: theme.spacing(2),
+    backgroundImage: 'url(/static/images/bg-light.jpg)',
+    background: '#fff',
+    backgroundSize: 'cover',
   },
   paper: {
     width: '100%',
@@ -151,8 +155,8 @@ const PageList = ({title, rows, headCells}) => {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
   const [search, setSearch] = useState('')
+  const rowsPerPage = 5
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -164,10 +168,6 @@ const PageList = ({title, rows, headCells}) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
@@ -192,7 +192,7 @@ const PageList = ({title, rows, headCells}) => {
       <Grid container justify="center">
         <Grid item xs={8} >
           <PageListToolbar title={title} search={search} handleSearchChange={handleSearchChange}/>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} elevation={5}>
             <TableContainer className={classes.tableContainer} >
               <Table
                 className={classes.table}
@@ -234,13 +234,12 @@ const PageList = ({title, rows, headCells}) => {
               </Table>
             </TableContainer>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[]}
               component="div"
               count={rows.length}
               rowsPerPage={rowsPerPage}
               page={page}
               onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
             />
           </Paper>
         </Grid>

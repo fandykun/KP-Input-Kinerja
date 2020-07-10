@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Typography, CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { Loader } from 'Layout';
 import { AuthService } from 'Services';
 
 const useStyles = makeStyles((theme) => ({
@@ -65,12 +64,10 @@ const Login = () => {
 
   const [goHome, setGoHome] = useState(false)
   const [authError, setAuthError] = useState('')
-  const [isLoading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchAPI = async () => {
       await new Promise(r => setTimeout(r, 2000));
-      setLoading(false)
     }
     fetchAPI()
   }, [])
@@ -106,70 +103,68 @@ const Login = () => {
   return (
     <React.Fragment>
       {goHome && <Redirect to='/' />}
-      {isLoading ? <Loader />
-        : (<Grid container component="main" className={classes.root}>
-          <CssBaseline />
-          <Grid item xs={false} sm={4} md={7} className={classes.blank} />
-          <Grid className={classes.loginGrid} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-            <div className={classes.paper}>
-              <Card raised={true} elevation={20}>
-                <CardMedia
-                  component="img"
-                  className={classes.media}
-                  alt="Logo ITS"
-                  image="/static/images/logoITS.png"
-                  title="Logo ITS"
-                />
-                <CardContent>
-                  {!!authError && <Typography color="primary" variant="h6">{authError}</Typography>}
-                  <Formik
-                    initialValues={initialValue}
-                    onSubmit={submitHandler}
-                    validationSchema={loginSchema}  
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={7} className={classes.blank} />
+        <Grid className={classes.loginGrid} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <Card raised={true} elevation={20}>
+              <CardMedia
+                component="img"
+                className={classes.media}
+                alt="Logo ITS"
+                image="/static/images/logoITS.png"
+                title="Logo ITS"
+              />
+              <CardContent>
+                {!!authError && <Typography color="primary" variant="h6">{authError}</Typography>}
+                <Formik
+                  initialValues={initialValue}
+                  onSubmit={submitHandler}
+                  validationSchema={loginSchema}  
+                  >
+                  {props => (
+                  <Form>
+                    <MyTextField 
+                      required
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      label="Username"
+                      name="username"
+                      color="secondary"
+                      autoComplete="off"
+                      autoFocus
+                    />
+                    <MyTextField
+                      required
+                      variant="outlined"
+                      margin="normal"
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      color="secondary"
+                      autoComplete="off"
+                    />
+                    <Button
+                      disabled={!props.dirty || !props.isValid || props.isSubmitting}
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      className={classes.submit}
                     >
-                    {props => (
-                    <Form>
-                      <MyTextField 
-                        required
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        label="Username"
-                        name="username"
-                        color="secondary"
-                        autoComplete="off"
-                        autoFocus
-                      />
-                      <MyTextField
-                        required
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        color="secondary"
-                        autoComplete="off"
-                      />
-                      <Button
-                        disabled={!props.dirty || !props.isValid || props.isSubmitting}
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                      >
-                          {props.isSubmitting ? <CircularProgress size="1.75rem" color="primary"/> : 'Sign In'}
-                      </Button>
-                    </Form>
-                    )}
-                  </Formik>
-                </CardContent>
-              </Card>
-            </div>
-          </Grid>
-        </Grid>)
-      }        
+                        {props.isSubmitting ? <CircularProgress size="1.75rem" color="primary"/> : 'Sign In'}
+                    </Button>
+                  </Form>
+                  )}
+                </Formik>
+              </CardContent>
+            </Card>
+          </div>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 }

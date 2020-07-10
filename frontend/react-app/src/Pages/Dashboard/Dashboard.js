@@ -4,6 +4,7 @@ import { CssBaseline, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
 import DashboardNavigation from './DashboardNavigation';
+import './index.css';
 
 const largeIcon = {
   transform: 'scale(4)',
@@ -15,32 +16,32 @@ const Nav = [
     title: "Kuliah Tamu",
     logo: <CastForEducation style={largeIcon}/>,
     href: '/kultam',
-    delay: '0.3s',
+    delay: 300,
   },
   {
     title: "Konferensi / Jurnal",
     logo: <FolderSharedOutlined style={largeIcon}/>,
     href: '/jurnal',
-    delay: '0.5s',
+    delay: 500,
   },
   {
     title: "Prestasi",
     logo: <EmojiEventsOutlined style={largeIcon}/>,
     href: '/prestasi',
-    delay: '0.7s',
+    delay: 700,
   },
   {
     title: "Training",
     logo: <FitnessCenterOutlined style={largeIcon}/>,
-    href: '/kultam',
-    delay: '0.9s',
+    href: '/training',
+    delay: 900,
   },
 ]
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    height: 'calc(100vh - 70px)',
+    height: 'calc(100vh - 64px)',
     backgroundImage: 'url(/static/images/bg-light.jpg)',
     background: '#fff',
     backgroundSize: 'cover',
@@ -56,15 +57,14 @@ const Dashboard = () => {
       routeStack: [],
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
-    console.log("rerender")
   }, [dispatchPage])
   return(
-    <div className={classes.root}>
-      <CssBaseline />
-      <Grid container justify="center" spacing={5} style={{paddingTop:"50px", paddingLeft:"50px", maxWidth: "100%", maxHeight: "75%"}}>
-        {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
-      </Grid>
-    </div>
+      <div className={classes.root}>
+        <CssBaseline />
+        <Grid container justify="center" spacing={5} style={{paddingTop:"50px", paddingLeft:"50px", maxWidth: "100%", maxHeight: "75%"}}>
+          {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
+        </Grid>
+      </div>
   )
 }
 

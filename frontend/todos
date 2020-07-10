@@ -1,0 +1,10 @@
+Todos:
+- Change Pagelisting && DashboardNavigation to ButtonBase
+- Add dashboard welcome message
+- Change navbar icon
+- create page change transition
+- Add form Page
+- Add Account Page
+
+Revised:
+-Django Trailing slash (APPEND_SLASH = False)
