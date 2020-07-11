@@ -39,6 +39,7 @@ const Kultam = () => {
   const [isLoading, setLoading] = useState(false)
   const {dispatchPage} = useContext(PageContext)
   useEffect(() => {
+    console.log("render Kultam")
     setLoading(true)
     const pageDetail = {
       title: "Kuliah Tamu",

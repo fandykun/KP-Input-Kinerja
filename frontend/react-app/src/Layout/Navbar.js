@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext }from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { useState, useContext }from 'react';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Link as RouterLink } from 'react-router-dom';
 import { PageContext, UserContext } from 'Context';
 import { AuthService } from 'Services';
@@ -33,16 +33,6 @@ const Navbar = () => {
   const { user, dispatchUser } = useContext(UserContext)
   const {page} = useContext(PageContext)
   const [anchorEl, setAnchorEl] = useState(null);
-  const [inTitle, setInTitle] = useState(false);
-
-  useEffect(() => {
-    setInTitle(false)
-    const sleep = async () => {
-      await new Promise(r => setTimeout(r, 500));
-      setInTitle(true)
-    }
-    sleep()
-  }, [page])
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -72,16 +62,18 @@ const Navbar = () => {
                   <img className={classes.logo} src="/static/images/logoITS-white.png" alt="Brand Logo" />
                 </Link>
               </div>
-              <CSSTransition
-                in={inTitle}
-                timeout={500}
-                classNames="title"
-                appear
-              >
-                <Typography color="inherit" variant="h6">
-                  {inTitle ? page.title : page.prevTitle}
-                </Typography>
-              </CSSTransition>
+              <SwitchTransition mode="out-in">
+                <CSSTransition
+                  key={page.title}
+                  timeout={500}
+                  classNames="title"
+                  appear
+                >
+                  <Typography color="inherit" variant="h6">
+                    { page.title }
+                  </Typography>
+                </CSSTransition>
+              </SwitchTransition>
             </Grid>
             <Grid item container xs={6} justify="flex-end" alignItems="center" className={classes.supportingContent} >
               <Typography align="right" color="secondary" variant="subtitle1">{ user.profile.username}</Typography>

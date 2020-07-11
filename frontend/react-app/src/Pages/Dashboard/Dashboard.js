@@ -1,9 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import { PageContext } from 'Context';
-import { CssBaseline, Grid } from '@material-ui/core';
+import { Hidden, CssBaseline, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
 import DashboardNavigation from './DashboardNavigation';
+import WelcomeMessage from './WelcomeMessage';
 import './index.css';
 
 const largeIcon = {
@@ -61,8 +62,15 @@ const Dashboard = () => {
   return(
       <div className={classes.root}>
         <CssBaseline />
-        <Grid container justify="center" spacing={5} style={{paddingTop:"50px", paddingLeft:"50px", maxWidth: "100%", maxHeight: "75%"}}>
-          {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
+        <Grid justify="space-evenly" container style={{padding:"50px", maxWidth: "100%", maxHeight: "75%"}}>
+          <Grid item xs={12} justify="center" spacing={5}>
+            <Hidden mdDown>
+              <WelcomeMessage user="Fadhil Musaad" />
+            </Hidden>
+          </Grid>
+          <Grid spacing={5} item container justify="space-between">
+            {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
+          </Grid>
         </Grid>
       </div>
   )

@@ -35,7 +35,7 @@ const PageListToolbar = (props) => {
           </Hidden>
           <Hidden lgUp>
             <Grid item>
-              <Fab color="primary">
+              <Fab color="primary" component={Link} to='/dashboard'>
                 <ArrowBack />
               </Fab>
             </Grid>

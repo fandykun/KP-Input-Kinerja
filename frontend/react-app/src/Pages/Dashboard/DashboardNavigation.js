@@ -43,6 +43,7 @@ const DashboardNavigation = ({item}) => {
   const [inProps, setInProps] = useState(false)
   const classes = useStyles()
   useEffect(() => {
+    setInProps(false)
     setTimeout(() => {setInProps(true)}, delay)
   }, [delay])
   return (
@@ -52,7 +53,7 @@ const DashboardNavigation = ({item}) => {
         in={inProps}
         timeout={1000}
         classNames="page"
-        mountOnEnter
+        unmountOnExit
       >
       <div>
       <Grid component={Card} container className={classes.cards} elevation={6}>
