@@ -23,5 +23,8 @@ from authentication import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.HelloView.as_view()),
-    path('', include('authentication.urls')),
+    path('api/', include([
+        path('', include('authentication.urls')),
+        path('', include('kuliahtamu.urls'))
+    ])),
 ]

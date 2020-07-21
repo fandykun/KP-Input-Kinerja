@@ -1,7 +1,6 @@
 from django.contrib import admin
 
 from .models import (Departemen,
-                    Fakultas,
                     MasterDosen,
                     MasterMahasiswa,
                     MasterTendik)
@@ -10,7 +9,6 @@ from .models import (Departemen,
 
 # Register your models here.
 admin.site.register([
-    Fakultas,
     Departemen,
     MasterDosen,
     MasterTendik,
