@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     #local apps
-    # 'users',
-    'authentication'
+    'authentication',
+    'masters'
 ]
 
 MIDDLEWARE = [
