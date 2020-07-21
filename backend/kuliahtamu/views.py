@@ -7,6 +7,7 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
 
 # Create your views here.
 class KuliahTamuAPIView(APIView):
@@ -27,19 +28,19 @@ class KuliahTamuAPIView(APIView):
 
 class KuliahTamuDetailsAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
-    def get_object(self, id):
+    def get_object(self, pk):
         try:
-            return KuliahTamu.objects.get(id=id)
+            return KuliahTamu.objects.get(pk=pk)
         except KuliahTamu.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+            raise NotFound
 
-    def get(self, request, id):
-        kultam = self.get_object(id)
+    def get(self, request, pk):
+        kultam = self.get_object(pk)
         serializer = KuliahTamuSerializer(kultam)
         return Response(serializer.data)
 
-    def put(self, request, id):
-        kultam = self.get_object(id)
+    def put(self, request, pk):
+        kultam = self.get_object(pk)
         serializer = KuliahTamuSerializer(kultam, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -47,7 +48,7 @@ class KuliahTamuDetailsAPIView(APIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
-        kultam = self.get_object(id)
+    def delete(self, request, pk):
+        kultam = self.get_object(pk)
         kultam.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
