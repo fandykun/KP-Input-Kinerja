@@ -8,10 +8,13 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class KuliahTamuAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
+    permission_classes = (IsAuthenticated,)
+
     def get(self, request):
         kultams = KuliahTamu.objects.all()
         serializer = KuliahTamuSerializer(kultams, many=True)
@@ -28,6 +31,8 @@ class KuliahTamuAPIView(APIView):
 
 class KuliahTamuDetailsAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
+    permission_classes = (IsAuthenticated, )
+
     def get_object(self, pk):
         try:
             return KuliahTamu.objects.get(pk=pk)
