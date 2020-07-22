@@ -25,6 +25,7 @@ urlpatterns = [
     path('hello/', views.HelloView.as_view()),
     path('api/', include([
         path('', include('apps.authentication.urls')),
-        path('', include('apps.kuliahtamu.urls'))
+        path('', include('apps.kuliahtamu.urls')),
+        path('', include('apps.masters.urls')),
     ])),
 ]
