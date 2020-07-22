@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'djoser',
     'corsheaders',
     #local apps
-    'authentication',
-    'masters',
-    'kuliahtamu'
+    'apps.authentication',
+    'apps.masters',
+    'apps.kuliahtamu'
 ]
 
 MIDDLEWARE = [

@@ -1,6 +1,6 @@
 from django.db import models
 
-from authentication.models import User
+from apps.authentication.models import User
 
 class Departemen(models.Model):
     nama = models.CharField(max_length=100)

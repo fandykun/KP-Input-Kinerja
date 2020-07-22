@@ -18,13 +18,13 @@ from django.urls import path, include
 
 from rest_framework.authtoken.views import obtain_auth_token
 
-from authentication import views
+from apps.authentication import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('hello/', views.HelloView.as_view()),
     path('api/', include([
-        path('', include('authentication.urls')),
-        path('', include('kuliahtamu.urls'))
+        path('', include('apps.authentication.urls')),
+        path('', include('apps.kuliahtamu.urls'))
     ])),
 ]
