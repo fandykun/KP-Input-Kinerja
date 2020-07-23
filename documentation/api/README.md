@@ -16,6 +16,10 @@ request. A Token can be acquired from the Login view above.
 }
 ```
 
+## Departemen
+
+* [Show All Departemen](departemen/get.md) : `GET /api/departemen/`
+
 ## Kuliah Tamu
 
 Endpoints for viewing and manipulating kuliahtamu data.
