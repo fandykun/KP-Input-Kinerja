@@ -9,7 +9,7 @@
 Closed endpoints require a valid Token to be included in the header of the
 request. A Token can be acquired from the Login view above.
 
-** Header Example **
+**Header Example**
 ```json
 {
     "Authorization" : "Token f8d615f1add4b513dbb2f6f0debe72fb19940a26"
