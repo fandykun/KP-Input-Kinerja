@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     #local apps
     'apps.authentication',
     'apps.masters',
-    'apps.kuliahtamu'
+    'apps.kuliahtamu',
+    'apps.konferensi'
 ]
 
 MIDDLEWARE = [

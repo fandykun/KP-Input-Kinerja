@@ -26,6 +26,7 @@ urlpatterns = [
     path('api/', include([
         path('', include('apps.authentication.urls')),
         path('', include('apps.kuliahtamu.urls')),
+        path('', include('apps.konferensi.urls')),
         path('', include('apps.masters.urls')),
     ])),
 ]
