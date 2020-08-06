@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from .models import Konferensi
-from .serializers import KonferensiSerializers
+from .models import Prestasi
+from .serializers import PrestasiSerializer
 
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -11,17 +11,17 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
-class KonferensiAppView(APIView):
+class PrestasiAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        konfs = Konferensi.objects.all()
-        serializer = KonferensiSerializers(konfs, many=True)
+        achievements = Prestasi.objects.all()
+        serializer = PrestasiSerializer(achievements, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = KonferensiSerializers(data=request.data)
+        serializer = PrestasiSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -29,24 +29,24 @@ class KonferensiAppView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class KonferensiDetailsAPIView(APIView):
+class PrestasiDetailsAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = (IsAuthenticated, )
 
     def get_object(self, pk):
         try:
-            return Konferensi.objects.get(pk=pk)
-        except Konferensi.DoesNotExist:
+            return Prestasi.objects.get(pk=pk)
+        except Prestasi.DoesNotExist:
             raise NotFound
 
     def get(self, request, pk):
-        konf = self.get_object(pk)
-        serializer = KonferensiSerializers(konf)
+        achievement = self.get_object(pk)
+        serializer = PrestasiSerializer(achievement)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        konf = self.get_object(pk)
-        serializer = KonferensiSerializers(konf, data=request.data)
+        achievement = self.get_object(pk)
+        serializer = PrestasiSerializer(achievement, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -54,6 +54,6 @@ class KonferensiDetailsAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
-        konf = self.get_object(pk)
-        konf.delete()
+        achievement = self.get_object(pk)
+        achievement.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

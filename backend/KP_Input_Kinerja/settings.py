@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'apps.authentication',
     'apps.masters',
     'apps.kuliahtamu',
-    'apps.konferensi'
+    'apps.konferensi',
+    'apps.prestasi'
 ]
 
 MIDDLEWARE = [
