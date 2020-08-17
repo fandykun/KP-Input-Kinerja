@@ -18,6 +18,7 @@ server.
 ```json
 {
     "name": "[unicode 255 chars max]",
+    "lomba": "[unicode 255 chars max]",
     "tingkat": "[unicode 100 chars max]",
     "peringkat": "[unicode 100 chars max]",
     "tanggal": "[date field (format: YYYY-MM-DD)]",
@@ -32,6 +33,7 @@ server.
 ```json
 {
     "name": "Fadhil Musaad, Fandykun",
+    "lomba": "Compfest",
     "tingkat": "Nasional",
     "peringkat": "Pertama",
     "tanggal": "2020-08-25",
@@ -54,6 +56,7 @@ posted to `/api/prestasi/2/`...
 {
     "id":2,
     "name": "Fadhil Musaad, Fandykuncoro",
+    "lomba": "Compfest",
     "tingkat": "Nasional",
     "peringkat": "Pertama",
     "tanggal": "2020-08-25",

@@ -28,6 +28,7 @@ urlpatterns = [
         path('', include('apps.kuliahtamu.urls')),
         path('', include('apps.konferensi.urls')),
         path('', include('apps.prestasi.urls')),
+        path('', include('apps.trainingdosen.urls')),
         path('', include('apps.masters.urls')),
     ])),
 ]

@@ -50,6 +50,7 @@ Create a prestasi data
 {
     "id":2,
     "name": "Fadhil Musaad, Fandykun",
+    "lomba": "Compfest",
     "tingkat": "Nasional",
     "peringkat": "Pertama",
     "tanggal": "2020-08-25",
