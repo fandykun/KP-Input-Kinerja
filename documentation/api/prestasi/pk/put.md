@@ -49,7 +49,7 @@ server.
 
 **Code** : `200 OK`
 
-**Content example** : For the example above, when the 'author' is updated and
+**Content example** : For the example above, when the 'name' is updated and
 posted to `/api/prestasi/2/`...
 
 ```json
