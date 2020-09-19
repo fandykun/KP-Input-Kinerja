@@ -12,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_mahasiswa = models.BooleanField(default=False)
     is_dosen = models.BooleanField(default=False)
     is_tendik = models.BooleanField(default=False)
-    date_joined = models.DateTimeField(default=timezone.now)
+    date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
 
@@ -21,7 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
-    
+
     @property
     def is_staff(self):
         return self.is_superuser

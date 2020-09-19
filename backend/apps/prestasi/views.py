@@ -9,6 +9,9 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 class PrestasiAPIView(APIView):
@@ -57,3 +60,13 @@ class PrestasiDetailsAPIView(APIView):
         achievement = self.get_object(pk)
         achievement.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+# Filtering API
+class PrestasiList(ListAPIView):
+    serializer_class = PrestasiSerializer
+    queryset = Prestasi.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['name', 'lomba', 'tingkat', 'peringkat']
+
+        
+    
