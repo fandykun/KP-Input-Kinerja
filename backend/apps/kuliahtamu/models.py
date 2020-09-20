@@ -10,5 +10,5 @@ class KuliahTamu(models.Model):
     filepath = models.FileField(upload_to='kuliahtamu/')
     uploaded_at = models.DateTimeField(auto_now=True)
     
-    def __str(self):
+    def __str__(self):
         return self.topik

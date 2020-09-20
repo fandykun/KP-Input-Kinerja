@@ -16,5 +16,5 @@ class Konferensi(models.Model):
     tanggal_selesai = models.DateField()
     uploaded_at = models.DateTimeField(auto_now=True)
     
-    def __str(self):
+    def __str__(self):
         return self.judul

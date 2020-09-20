@@ -9,5 +9,5 @@ class TrainingDosen(models.Model):
     filepath = models.FileField(upload_to='trainingdosen/')
     updated_at = models.DateTimeField(auto_now=True)
     
-    def __str(self):
+    def __str__(self):
         return self.judul

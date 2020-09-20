@@ -12,5 +12,5 @@ class Prestasi(models.Model):
     uploaded_at = models.DateTimeField(auto_now=True)
     is_validated = models.BooleanField(default=0)
     
-    def __str(self):
+    def __str__(self):
         return self.name

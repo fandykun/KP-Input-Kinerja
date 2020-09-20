@@ -9,6 +9,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 # Create your views here.
 class TrainingKaryawanAPIView(APIView):
@@ -57,3 +61,13 @@ class TrainingKaryawanDetailsAPIView(APIView):
         train_Karyawan = self.get_object(pk)
         train_Karyawan.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TrainingKaryawanList(ListAPIView):
+    serializer_class = TrainingKaryawanSerializer
+    queryset = TrainingKaryawan.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = [
+        'jenis_pelatihan',
+        'tanggal',
+        'tempat'
+    ]
