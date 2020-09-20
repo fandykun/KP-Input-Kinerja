@@ -33,6 +33,7 @@ urlpatterns = [
         path('', include('apps.trainingdosen.urls')),
         path('', include('apps.trainingkaryawan.urls')),
         path('', include('apps.masters.urls')),
+        path('', include('apps.jurnal.urls')),
     ])),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # Todo: give specific permissions on media file
