@@ -63,6 +63,7 @@ class KuliahTamuDetailsAPIView(APIView):
 
 # Filtering API
 class KuliahTamuList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = KuliahTamuSerializer
     queryset = KuliahTamu.objects.all()
     filter_backends = [DjangoFilterBackend]

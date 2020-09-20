@@ -62,6 +62,7 @@ class KonferensiDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class KonferensiList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = KonferensiSerializers
     queryset = Konferensi.objects.all()
     filter_backends = [DjangoFilterBackend]

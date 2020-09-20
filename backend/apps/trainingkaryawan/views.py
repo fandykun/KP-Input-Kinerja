@@ -63,6 +63,7 @@ class TrainingKaryawanDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TrainingKaryawanList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = TrainingKaryawanSerializer
     queryset = TrainingKaryawan.objects.all()
     filter_backends = [DjangoFilterBackend]

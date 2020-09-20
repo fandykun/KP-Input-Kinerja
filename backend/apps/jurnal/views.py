@@ -62,6 +62,7 @@ class JurnalDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class JurnalList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = JurnalSerializer
     queryset = Jurnal.objects.all()
     filter_backends = [DjangoFilterBackend]

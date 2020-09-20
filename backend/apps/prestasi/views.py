@@ -63,6 +63,7 @@ class PrestasiDetailsAPIView(APIView):
 
 # Filtering API
 class PrestasiList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = PrestasiSerializer
     queryset = Prestasi.objects.all()
     filter_backends = [DjangoFilterBackend]

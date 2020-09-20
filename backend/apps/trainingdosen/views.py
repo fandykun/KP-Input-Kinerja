@@ -62,6 +62,7 @@ class TrainingDosenDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TrainingDosenList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = TrainingDosenSerializer
     queryset = TrainingDosen.objects.all()
     filter_backends = [DjangoFilterBackend]
