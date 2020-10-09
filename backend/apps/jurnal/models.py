@@ -10,9 +10,8 @@ class Jurnal(models.Model):
     url = models.CharField(max_length=255)
     tahun = models.CharField(max_length=4)
     tingkat = models.CharField(max_length=50)
-    pi = models.SmallIntegerField()
-    pn = models.SmallIntegerField()
-    jurnalnasional = models.SmallIntegerField()
+    pi = models.BooleanField()
+    pn = models.BooleanField()
     uploaded_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
