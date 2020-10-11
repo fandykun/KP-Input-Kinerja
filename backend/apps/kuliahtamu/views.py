@@ -11,7 +11,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 
-from django_filters.rest_framework import DjangoFilterBackend
+from url_filter.integrations.drf import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 class KuliahTamuAPIView(APIView):
@@ -63,6 +64,7 @@ class KuliahTamuDetailsAPIView(APIView):
 
 # Filtering API
 class KuliahTamuList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = KuliahTamuSerializer
     queryset = KuliahTamu.objects.all()
     filter_backends = [DjangoFilterBackend]

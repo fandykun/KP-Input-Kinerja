@@ -11,7 +11,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 
-from django_filters.rest_framework import DjangoFilterBackend
+from url_filter.integrations.drf import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 
 # Create your views here.
@@ -63,6 +64,7 @@ class TrainingKaryawanDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TrainingKaryawanList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = TrainingKaryawanSerializer
     queryset = TrainingKaryawan.objects.all()
     filter_backends = [DjangoFilterBackend]

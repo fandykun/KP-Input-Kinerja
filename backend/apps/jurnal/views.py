@@ -12,7 +12,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 
-from django_filters.rest_framework import DjangoFilterBackend
+from url_filter.integrations.drf import DjangoFilterBackend
+# from django_filters.rest_framework import DjangoFilterBackend
 
 class JurnalAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser,)
@@ -62,6 +63,7 @@ class JurnalDetailsAPIView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class JurnalList(ListAPIView):
+    permission_classes = (IsAuthenticated, )
     serializer_class = JurnalSerializer
     queryset = Jurnal.objects.all()
     filter_backends = [DjangoFilterBackend]
