@@ -1,8 +1,8 @@
 Todos:
 - Change Pagelisting && DashboardNavigation to ButtonBase
-- Change to Dynamic User Welcome Message
 - Add form Page
 - Add Account Page
+- Create Dynamic Row Table and Row header for every PageList
 
 Unnecessary:
 - Change navbar icon 

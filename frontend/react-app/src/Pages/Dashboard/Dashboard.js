@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { PageContext } from 'Context';
+import { PageContext, UserContext } from 'Context';
 import { Hidden, CssBaseline, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
   const classes = useStyles()
   const {dispatchPage} = useContext(PageContext)
+  const {user} = useContext(UserContext)
   useEffect(() => {
     const pageDetail = {
       title: "Dashboard",
@@ -65,7 +66,7 @@ const Dashboard = () => {
         <Grid justify="space-evenly" container style={{padding:"50px", maxWidth: "100%", maxHeight: "75%"}}>
           <Grid item xs={12} justify="center" spacing={5}>
             <Hidden mdDown>
-              <WelcomeMessage user="Fadhil Musaad" />
+              <WelcomeMessage user={user.profile.username} />
             </Hidden>
           </Grid>
           <Grid spacing={5} item container justify="space-between">
