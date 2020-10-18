@@ -10,7 +10,7 @@ class Konferensi(models.Model):
     tingkat = models.CharField(max_length=50)
     pi = models.BooleanField(default=False)
     pn = models.BooleanField(default=False)
-    scopus = models.BooleanField()
+    scopus = models.BooleanField(default=False)
     konf_hal = models.CharField(max_length=255)
     tempat = models.CharField(max_length=255)
     tanggal_mulai = models.DateField()
