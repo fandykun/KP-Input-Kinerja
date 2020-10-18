@@ -12,6 +12,7 @@ class Jurnal(models.Model):
     tingkat = models.CharField(max_length=50)
     pi = models.BooleanField()
     pn = models.BooleanField()
+    scopus = models.BooleanField()
     uploaded_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
