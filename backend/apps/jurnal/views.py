@@ -78,5 +78,5 @@ class JurnalList(ListAPIView):
         'tingkat',
         'pi',
         'pn',
-        'jurnalnasional'
+        'scopus'
         ]

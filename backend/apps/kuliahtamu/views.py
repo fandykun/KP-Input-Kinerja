@@ -68,4 +68,4 @@ class KuliahTamuList(ListAPIView):
     serializer_class = KuliahTamuSerializer
     queryset = KuliahTamu.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['topik', 'pemateri', 'institusi' ]
+    filter_fields = ['topik', 'pemateri', 'institusi', 'tingkat', 'tanggal']

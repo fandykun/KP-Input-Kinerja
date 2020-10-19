@@ -76,6 +76,7 @@ class KonferensiList(ListAPIView):
         'tingkat',
         'pi',
         'pn',
+        'scopus',
         'konf_hal',
         'tempat',
         'tanggal_mulai',
