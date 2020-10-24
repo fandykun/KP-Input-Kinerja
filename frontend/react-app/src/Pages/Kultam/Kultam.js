@@ -9,8 +9,8 @@ const headCells = [
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 
-function createData(id, name, departemen, tingkat, company, date) {
-  return { id, name, departemen, tingkat, company, date, link:'/dashboard' };
+function createData(id, name, departemen, tingkat, source, date) {
+  return { id, type:"Kultam", name, departemen, tingkat, source, date, link:'/dashboard' };
 }
 
 const rows = [

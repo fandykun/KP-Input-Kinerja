@@ -9,12 +9,14 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Badge, Grid, Typography } from '@material-ui/core';
-import { Business, Event } from '@material-ui/icons';
+import { People, EmojiEvents, Create, Business, Event } from '@material-ui/icons';
 
 import PageListToolbar from './PageListToolbar';
 import PageListHead from './PageListHead';
 
 function descendingComparator(a, b, orderBy) {
+  if (orderBy === "detail")
+    orderBy = "date"
   if (b[orderBy] < a[orderBy]) {
     return -1;
   }
@@ -82,7 +84,38 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const StyledName = ({ name, company, date }) => {
+const styledJurnal = jurnal => {
+  const { vol, no, category } = jurnal
+  let data = "Vol. " + vol + ", No. " + no + ", ";
+  if (category.length > 0)
+    data = data + "(";
+  for (let i = 0; i < category.length; i++) {
+    if (i > 0)
+      data = data + ", "
+    data = data + category[i]
+  }
+  if (category.length > 0)
+    data = data + ")"
+  return data
+}
+
+const styledKonferensi = jurnal => {
+  const { konfhal, tempat, category } = jurnal
+  let data = "Konf hal. " + konfhal + ", " + tempat + ", ";
+  if (category.length > 0)
+    data = data + "(";
+  for (let i = 0; i < category.length; i++) {
+    if (i > 0)
+      data = data + ", "
+    data = data + category[i]
+  }
+  if (category.length > 0)
+    data = data + ")"
+  return data
+}
+
+const StyledName = ({row}) => {
+  const { name, type, source, date } = row
   const months = [
     'Januari',
     'Februari',
@@ -112,19 +145,38 @@ const StyledName = ({ name, company, date }) => {
   const numDate = d.getDate()
   const day = d.getDay()
   const fullDate = `${days[day]}, ${numDate} ${months[month]}`
+  const renderSourceIcon = type => {
+    switch(type) {
+      case "Kultam":
+        return <Business />
+      case "Jurnal":
+        return <Create />
+      case "Konferensi":
+        return <Create />
+      case "Prestasi":
+        return <EmojiEvents />
+      case "Training":
+        return <People />
+      default:
+        return null;
+    }
+  }
   return (
     <div>
       <Grid container direction="column">
+        { type !== "Submission" &&
         <Grid item>
           <Badge badgeContent={year} max={999999} color="secondary" component="div"/>
         </Grid>
+        }
         <Grid item>
           <Typography variant="h6" color="primary">
             { name }
           </Typography>
         </Grid>
+        { type !== "Submission" && 
         <Grid item container direction="row" alignItems="center">
-          <Grid item container lg={3} xs={5}>
+          <Grid item container lg={4} xs={6}>
             <Grid item>
               <Event />
             </Grid>
@@ -134,19 +186,46 @@ const StyledName = ({ name, company, date }) => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item container lg={9} xs={7}>
+          <Grid item container lg={8} xs={6}>
             <Grid item>
-              <Business />
+              { renderSourceIcon(type) }
             </Grid>
             <Grid item>
               <Typography variant="caption" component="div" style={{margin:'4px'}}>
-                { company }
+                { source }
               </Typography>
             </Grid>
           </Grid>
         </Grid>
+        }
       </Grid>
     </div>
+  )
+}
+
+const renderRow = (row) => {
+  const second = type => {
+    switch (type) {
+      case "Kultam":
+        return <TableCell align="left">{row.departemen}</TableCell>
+      case "Jurnal":
+        return <TableCell align="left">{styledJurnal(row.detail)}</TableCell>
+      case "Konferensi":
+        return <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
+      case "Training":
+        return <TableCell align="left">{row.tempat}</TableCell>
+      default:
+        return null;
+    }
+  }
+  return (
+    <>
+    <TableCell scope="row">
+      <StyledName row={row} />
+    </TableCell>
+    {second(row.type)}
+    <TableCell align="left">{row.tingkat}</TableCell>
+    </>
   )
 }
 
@@ -211,7 +290,6 @@ const PageList = ({title, rows, headCells}) => {
                   {stableSort(filterSearch(rows), getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-
                       return (
                         <TableRow
                           classes={{hover: classes.tableRow, root:classes.tableRowHover}}
@@ -222,11 +300,7 @@ const PageList = ({title, rows, headCells}) => {
                           component={Link}
                           to={row.link}
                         >
-                          <TableCell scope="row">
-                            <StyledName name={row.name} company={row.company} date={row.date} />
-                          </TableCell>
-                          <TableCell align="left">{row.departemen}</TableCell>
-                          <TableCell align="left">{row.tingkat}</TableCell>
+                        { renderRow(row) }
                         </TableRow>
                       );
                     })}

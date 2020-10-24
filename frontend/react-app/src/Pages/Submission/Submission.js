@@ -4,27 +4,27 @@ import { PageList } from 'Components';
 import { Loader } from 'Layout';
 
 const headCells = [
-  { id: 'detail', numeric: false, disablePadding: true, label: 'Lomba' },
-  { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
+  { id: 'detail', numeric: false, disablePadding: true, label: 'Submission' },
+  { id: 'jenis', numeric: false, disablePadding: false, label: 'Jenis' },
 ];
 
-function createData(id, name, tingkat, source, date) {
-  return { id, type:"Prestasi", name, tingkat, source, date, link:'/dashboard'};
+function createData(id, name, tingkat) {
+  return { id, type:"Submission", name, tingkat, link:'/dashboard'};
 }
 
 const rows = [
-  createData(1, "Lomba Makan Kerupuk", "Internasional", "Fandy Kuncoro", '2019-10-23'),
-  createData(2, "Competitive Programming", "Kampung", "Arif Darma", '2019-06-11'),
+  createData(1, "Lomba Makan Kerupuk", "Prestasi"),
+  createData(2, "Competitive Programming", "Jurnal"),
 ];
 
-const Prestasi = () => {
+const Submission = () => {
   const [isLoading, setLoading] = useState(false)
   const {dispatchPage} = useContext(PageContext)
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
-      title: "Prestasi",
-      routeStack: ["Pretasi"],
+      title: "Submission",
+      routeStack: ["Submission"],
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
@@ -36,9 +36,9 @@ const Prestasi = () => {
   return (
     <React.Fragment>
       <Loader isLoading={isLoading} />
-      {!isLoading && <PageList title="Prestasi" rows={rows} headCells={headCells} />}
+      {!isLoading && <PageList title="Submission" rows={rows} headCells={headCells} />}
     </React.Fragment>
   )
 }
 
-export { Prestasi }
+export { Submission }

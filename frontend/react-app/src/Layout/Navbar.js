@@ -1,6 +1,6 @@
 import React, { useState, useContext }from 'react';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
-import { Link as RouterLink } from 'react-router-dom';
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 import { PageContext, UserContext } from 'Context';
 import { AuthService } from 'Services';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Navbar = () => {
   const { user, dispatchUser } = useContext(UserContext)
+  const history = useHistory()
   const {page} = useContext(PageContext)
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -41,6 +42,10 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSubmission = () => {
+    history.push('submission')
+  }
 
   const handleLogout = () => {
     AuthService.logout()
@@ -88,6 +93,7 @@ const Navbar = () => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleSubmission}>Submission</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Grid>

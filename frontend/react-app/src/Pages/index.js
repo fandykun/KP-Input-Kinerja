@@ -4,3 +4,4 @@ export * from './Prestasi';
 export * from './Kultam';
 export * from './Training';
 export * from './Jurnal';
+export * from './Submission';
