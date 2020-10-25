@@ -20,3 +20,35 @@
   transition: opacity 500ms, transform 500ms;
 }
 
+.form-appear {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.form-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.form-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.form-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.form-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-exit-active {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 500ms, transform 500ms;
+}

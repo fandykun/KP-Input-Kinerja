@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 import { LoginRoute } from './LoginRoute';
 import { ProtectedRoute } from './ProtectedRoute';
-import { Dashboard, Login, Prestasi, Kultam, Jurnal, Training, Submission } from 'Pages';
+import { Entry, Dashboard, Login, Prestasi, Kultam, Jurnal, Training, Submission } from 'Pages';
 import { UserContext } from 'Context';
 import { Navbar } from 'Layout';
 import './index.css';
@@ -23,6 +23,7 @@ const RouterContainer = () => {
       <ProtectedRoute component={Prestasi} path="/prestasi" exact />
       <ProtectedRoute component={Training} path="/training" exact />
       <ProtectedRoute component={Submission} path="/submission" exact />
+      <ProtectedRoute component={Entry} path="/entry" exact />
       <LoginRoute component={Login} path="/login" exact />
       <Route path="*">
         {() => <h1>404 Page not Found</h1>}

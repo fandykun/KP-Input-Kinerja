@@ -176,7 +176,7 @@ const StyledName = ({row}) => {
         </Grid>
         { type !== "Submission" && 
         <Grid item container direction="row" alignItems="center">
-          <Grid item container lg={4} xs={6}>
+          <Grid item container lg={5} xs={6}>
             <Grid item>
               <Event />
             </Grid>
@@ -186,7 +186,7 @@ const StyledName = ({row}) => {
               </Typography>
             </Grid>
           </Grid>
-          <Grid item container lg={8} xs={6}>
+          <Grid item container lg={7} xs={6}>
             <Grid item>
               { renderSourceIcon(type) }
             </Grid>
