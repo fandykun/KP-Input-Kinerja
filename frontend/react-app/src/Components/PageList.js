@@ -8,8 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import { Badge, Grid, Typography } from '@material-ui/core';
-import { People, EmojiEvents, Create, Business, Event } from '@material-ui/icons';
+import { Hidden, Fab, Badge, Grid, Typography } from '@material-ui/core';
+import { Add, People, EmojiEvents, Create, Business, Event } from '@material-ui/icons';
 
 import PageListToolbar from './PageListToolbar';
 import PageListHead from './PageListHead';
@@ -81,7 +81,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: "rgba(255, 196, 21, 0.3) !important",
     }
-  }
+  },
+  entry: {
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 const styledJurnal = jurnal => {
@@ -230,6 +233,7 @@ const renderRow = (row) => {
 }
 
 const PageList = ({title, rows, headCells}) => {
+  const isSubmission = rows[0].type === "Submission"
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -316,6 +320,25 @@ const PageList = ({title, rows, headCells}) => {
               onChangePage={handleChangePage}
             />
           </Paper>
+          { isSubmission &&
+            <>
+              <Hidden mdDown>
+                <Grid item>
+                  <Fab variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
+                    <Add />
+                    Tambah
+                  </Fab>
+                </Grid>
+              </Hidden>
+              <Hidden lgUp>
+                <Grid item>
+                  <Fab color="secondary" component={Link} to='/entry' className={classes.entry}>
+                    <Add />
+                  </Fab>
+                </Grid>
+              </Hidden>
+            </>
+          }
         </Grid>
       </Grid>
     </div>

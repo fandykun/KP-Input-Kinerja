@@ -7,6 +7,7 @@ import { CircularProgress, Button, Typography, Paper, Grid } from '@material-ui/
 
 import SelectForm from './SelectForm'
 import TextFieldForm from './TextFieldForm'
+import CheckboxForm from './CheckboxForm'
 import './index.css';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,6 @@ const useStyles = makeStyles((theme) => ({
   },
   field: {
     marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(3),
   },
   bigField: {
     width: '90%',
@@ -45,6 +45,304 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const dropdownDepartemen = [
+  {label: "Teknik Elektro", value: "Teknik Elektro"},
+  {label: "Teknik Informatika", value: "Teknik Informatika"},
+  {label: "Sistem Informasi", value: "Teknik Informasi"},
+  {label: "Teknik Komputer", value: "Teknik Komputer"},
+  {label: "Teknik Biomedik", value: "Teknik Biomedik"},
+  {label: "Teknologi Informasi", value: "Teknologi Informasi"},
+]
+
+const dropdownTingkat = [
+  {label: "Internasional", value: "Internasional"},
+  {label: "Nasional", value: "Nasional"},
+  {label: "Provinsi", value: "Provinsi"},
+  {label: "Kota", value: "Kota"},
+  {label: "Lokal", value: "Lokal"},
+]
+
+const dropdownCategory = [
+  {label: "Pi", value: "Pi"},
+  {label: "Pn", value: "Pn"},
+  {label: "Scopus", value: "Scopus"},
+]
+
+const dropdownJenisTraining = [
+  {label: "Dosen", value: "Dosen"},
+  {label: "Karyawan", value: "Karyawan"},
+]
+
+const RenderCheckbox = (props) => {
+  const {options, ...rest} = props
+  return (
+    <>
+    { options.map((option) => (
+        <CheckboxForm
+          {...rest}
+          type="checkbox"
+          name="category"
+          value={option.value}
+          label={option.label}
+          key={option.value}
+        />
+      ))
+    }
+    </>
+  )
+}
+
+const DetailControl = (props) => {
+  const {type} = props
+  switch (type) {
+    case "Kultam":
+      return <DetailKultam {...props} />
+    case "Jurnal":
+      return <DetailJurnal {...props} />
+    case "Konferensi":
+      return <DetailKonferensi {...props} />
+    case "Prestasi":
+      return <DetailPrestasi {...props} />
+    case "Training":
+      return <DetailTraining {...props} />
+    default:
+      return null
+  }
+}
+
+const DetailKultam = ({classes}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama Instansi"
+          name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Departemen"
+          name="departemen"
+          color="secondary"
+          options={dropdownDepartemen}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Tingkat"
+          name="tingkat"
+          color="secondary"
+          options={dropdownTingkat}
+        />
+      </Grid>
+    </>
+  )
+}
+
+const DetailJurnal = ({classes}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama yang melakukan kegiatan"
+          name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm
+          required
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Volume"
+          name="vol"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm
+          required
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Nomor"
+          name="no"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <RenderCheckbox className={classes.field} options={dropdownCategory}/>
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Tingkat"
+          name="tingkat"
+          color="secondary"
+          options={dropdownTingkat}
+        />
+      </Grid>
+    </>
+  )
+}
+
+const DetailKonferensi = ({classes}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama yang melakukan kegiatan"
+          name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm
+          required
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Konf Hal"
+          name="konfhal"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <RenderCheckbox className={classes.field} options={dropdownCategory}/>
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Tingkat"
+          name="tingkat"
+          color="secondary"
+          options={dropdownTingkat}
+        />
+      </Grid>
+    </>
+  )
+}
+
+const DetailPrestasi = ({classes}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama yang melakukan kegiatan"
+          name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm
+          required
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Peringkat"
+          name="rank"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Tingkat"
+          name="tingkat"
+          color="secondary"
+          options={dropdownTingkat}
+        />
+      </Grid>
+    </>
+  )
+}
+
+const DetailTraining = ({classes}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama yang melakukan kegiatan"
+          name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm
+          required
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Tempat"
+          name="tempat"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Jenis"
+          name="jenis"
+          color="secondary"
+          options={dropdownJenisTraining}
+        />
+      </Grid>
+    </>
+  )
+}
+
 const EntryForm = () => {
   const [type, setType] = useState('Kultam')
 
@@ -52,26 +350,10 @@ const EntryForm = () => {
     {label: "Kuliah Tamu", value: "Kultam"},
     {label: "Jurnal", value: "Jurnal"},
     {label: "Konferensi", value: "Konferensi"},
-    {label: "Training", value: "Training"},
     {label: "Prestasi", value: "Prestasi"},
+    {label: "Training", value: "Training"},
   ]
 
-  const dropdownDepartemen = [
-    {label: "Teknik Elektro", value: "Teknik Elektro"},
-    {label: "Teknik Informatika", value: "Teknik Informatika"},
-    {label: "Sistem Informasi", value: "Teknik Informasi"},
-    {label: "Teknik Komputer", value: "Teknik Komputer"},
-    {label: "Teknik Biomedik", value: "Teknik Biomedik"},
-    {label: "Teknologi Informasi", value: "Teknologi Informasi"},
-  ]
-
-  const dropdownTingkat = [
-    {label: "Internasional", value: "Internasional"},
-    {label: "Nasional", value: "Nasional"},
-    {label: "Provinsi", value: "Provinsi"},
-    {label: "Kota", value: "Kota"},
-    {label: "Lokal", value: "Lokal"},
-  ]
 
   const dropdownHandler = (name, e) => {
     const {value} = e.target
@@ -93,14 +375,23 @@ const EntryForm = () => {
   }
   const initialValues = {
     type: 'Kultam',
+    name: '',
+    source: '',
+    vol: '',
+    no: '',
+    konfhal: '',
+    rank: '',
+    jenis: 'Dosen',
+    tempat: '',
     tingkat: 'Internasional',
     departemen: 'Teknik Informatika',
+    category: [],
   }
   const ValidationSchema = Yup.object({
     type: Yup.string()
     .required('Jenis Tidak boleh kosong')
   })
-  const classes = useStyles()
+const classes = useStyles()
   return (
     <div className={classes.root} >
       <Formik
@@ -133,7 +424,7 @@ const EntryForm = () => {
                       required
                       variant="outlined"
                       margin="normal"
-                      label="Nama Kegiatan"
+                      label="Judul Kegiatan"
                       name="name"
                       color="secondary"
                       autoComplete="off"
@@ -172,42 +463,7 @@ const EntryForm = () => {
                       <Typography color="primary" variant="h5" className={classes.title}>
                         Detail Kegiatan
                       </Typography>
-                      <Grid item xs={12}>
-                        <TextFieldForm 
-                          className={classes.bigField}
-                          required
-                          variant="outlined"
-                          margin="normal"
-                          label="Nama Instansi"
-                          name="source"
-                          color="secondary"
-                          autoComplete="off"
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <SelectForm
-                          select
-                          className={classes.field}
-                          margin="normal"
-                          variant="outlined"
-                          label="Departemen"
-                          name="departemen"
-                          color="secondary"
-                          options={dropdownDepartemen}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <SelectForm
-                          select
-                          className={classes.field}
-                          margin="normal"
-                          variant="outlined"
-                          label="Tingkat"
-                          name="tingkat"
-                          color="secondary"
-                          options={dropdownTingkat}
-                        />
-                      </Grid>
+                      <DetailControl type={type} classes={classes} />
                       <Button
                         disabled={props.isSubmitting}
                         type="submit"

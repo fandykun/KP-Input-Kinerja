@@ -45,6 +45,7 @@ const Navbar = () => {
 
   const handleSubmission = () => {
     history.push('submission')
+    setAnchorEl(null);
   }
 
   const handleLogout = () => {
