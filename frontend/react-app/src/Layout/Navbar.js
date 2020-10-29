@@ -44,7 +44,7 @@ const Navbar = () => {
   };
 
   const handleSubmission = () => {
-    history.push('submission')
+    history.push('/submission')
     setAnchorEl(null);
   }
 

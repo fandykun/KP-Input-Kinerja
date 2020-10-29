@@ -6,3 +6,4 @@ export * from './Training';
 export * from './Jurnal';
 export * from './Submission';
 export * from './Entry';
+export * from './Detail';

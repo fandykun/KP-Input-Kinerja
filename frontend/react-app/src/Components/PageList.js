@@ -324,7 +324,7 @@ const PageList = ({title, rows, headCells}) => {
             <>
               <Hidden mdDown>
                 <Grid item>
-                  <Fab variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
+                  <Fab size="medium" variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
                     <Add />
                     Tambah
                   </Fab>

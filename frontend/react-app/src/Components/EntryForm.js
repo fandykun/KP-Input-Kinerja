@@ -387,9 +387,11 @@ const EntryForm = () => {
     departemen: 'Teknik Informatika',
     category: [],
   }
-  const ValidationSchema = Yup.object({
+  const ValidationSchema = Yup.object().shape({
     type: Yup.string()
-    .required('Jenis Tidak boleh kosong')
+    .required('Jenis Tidak boleh kosong'),
+    name: Yup.string()
+    .required('Judul Kegiatan tidak boleh kosong'),
   })
 const classes = useStyles()
   return (
@@ -420,8 +422,8 @@ const classes = useStyles()
                   </Grid>
                   <Grid item xs={12}>
                     <TextFieldForm 
-                      className={classes.bigField}
                       required
+                      className={classes.bigField}
                       variant="outlined"
                       margin="normal"
                       label="Judul Kegiatan"
@@ -433,8 +435,8 @@ const classes = useStyles()
                   </Grid>
                   <Grid item xs={12}>
                     <TextFieldForm 
-                      className={classes.field}
                       required
+                      className={classes.field}
                       variant="outlined"
                       type="date"
                       margin="normal"
