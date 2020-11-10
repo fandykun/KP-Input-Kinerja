@@ -5,6 +5,9 @@ from apps.authentication.models import User
 class Departemen(models.Model):
     nama = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.nama
+
 # Create your models here.
 class MasterDosen(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True)
