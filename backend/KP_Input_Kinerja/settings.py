@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     #third-party apps
     'rest_framework',
     'rest_framework.authtoken',
-    'djoser',
     'corsheaders',
     'django_filters',
     #local apps
