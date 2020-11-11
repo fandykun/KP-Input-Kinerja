@@ -1,11 +1,11 @@
 //Need Refactor
-export default function authHeader() {
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.accessToken) {
-    return { Authorization: 'Token ' + user.accessToken };
+const AuthHeader = () => {
+  const user = JSON.parse(localStorage.getItem('REACT_APP_SESSION'));
+  if (user && user.token) {
+    return { Authorization: 'Token ' + user.token };
   } else {
     return {};
   }
 }
 
+export { AuthHeader }

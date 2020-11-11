@@ -233,7 +233,6 @@ const renderRow = (row) => {
 }
 
 const PageList = ({title, rows, headCells}) => {
-  const isSubmission = rows[0].type === "Submission"
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('calories');
@@ -276,55 +275,60 @@ const PageList = ({title, rows, headCells}) => {
         <Grid item xs={8} >
           <PageListToolbar title={title} search={search} handleSearchChange={handleSearchChange}/>
           <Paper className={classes.paper} elevation={5}>
-            <TableContainer className={classes.tableContainer} >
-              <Table
-                className={classes.table}
-                aria-labelledby="tableTitle"
-                aria-label="enhanced table"
-              >
-                <PageListHead
-                  headCells={headCells}
-                  classes={classes}
-                  order={order}
-                  orderBy={orderBy}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <TableBody>
-                  {stableSort(filterSearch(rows), getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <TableRow
-                          classes={{hover: classes.tableRow, root:classes.tableRowHover}}
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.id}
-                          component={Link}
-                          to={row.link}
-                        >
-                        { renderRow(row) }
-                        </TableRow>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-            />
+            { rows.length !== 0 ? (
+            <>
+              <TableContainer className={classes.tableContainer} >
+                <Table
+                  className={classes.table}
+                  aria-labelledby="tableTitle"
+                  aria-label="enhanced table"
+                >
+                  <PageListHead
+                    headCells={headCells}
+                    classes={classes}
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                  />
+                  <TableBody>
+                    {stableSort(filterSearch(rows), getComparator(order, orderBy))
+                      .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                      .map((row) => {
+                        return (
+                          <TableRow
+                            classes={{hover: classes.tableRow, root:classes.tableRowHover}}
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.id}
+                            component={Link}
+                            to={row.link}
+                          >
+                          { row ? renderRow(row) : "Tidak Ada Data" }
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+              />
+            </>
+            ) : "Tidak Ada Data"
+          }
           </Paper>
-          { isSubmission &&
+          { title === 'Submission' &&
             <>
               <Hidden mdDown>
                 <Grid item>
-                  <Fab size="medium" variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
+                  <Fab variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
                     <Add />
                     Tambah
                   </Fab>

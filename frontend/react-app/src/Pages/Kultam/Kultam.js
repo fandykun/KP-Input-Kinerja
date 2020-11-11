@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { AuthHeader } from 'Helper';
+import axios from 'axios';
 import { PageContext } from 'Context';
 import { PageList } from 'Components';
 import { Loader } from 'Layout';
@@ -10,34 +12,15 @@ const headCells = [
 ];
 
 function createData(id, name, departemen, tingkat, source, date) {
-  return { id, type:"Kultam", name, departemen, tingkat, source, date, link:'/dashboard' };
+  return { id, type:"Kultam", name, departemen, tingkat, source, date, link:'/detail/kultam/' + id };
 }
 
-const rows = [
-  createData(1, "ABC", "Informatika", "Internasional", "Sinarmas", '2019-10-23'),
-  createData(2, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(3, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(4, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(5, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(6, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(7, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(8, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(9, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(10, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(11, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(12, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(13, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(14, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(15, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(16, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(17, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(18, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-  createData(19, "ML/AI", "Sistem Informasi", "Provinsi", "ICPC", '2019-06-11'),
-];
+// let rows = [{}];
 
 const Kultam = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
+  const [rows, setRows] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
@@ -46,7 +29,20 @@ const Kultam = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}kuliah-tamu/`, {
+        headers: AuthHeader()
+      })
+      const departemen = await axios.get(`${process.env.REACT_APP_API_URL}departemen/`, {
+        headers: AuthHeader()
+      })
+      const nama = departemen.data
+      const { data } = resp
+      let r = []
+      for (let i = 0; i < resp.data.length; i++) {
+        const cur = data[i]
+        r.push(createData(cur.id, cur.topik, nama[cur.departemen - 1].nama, cur.tingkat, cur.pemateri, cur.tanggal))
+      }
+      setRows(r)
       setLoading(false)
     }
     fetchAPI()

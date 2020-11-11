@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { PageContext } from 'Context';
 import { PageList } from 'Components';
 import { Loader } from 'Layout';
@@ -9,17 +11,14 @@ const headCells = [
 ];
 
 function createData(id, name, tingkat, source, date) {
-  return { id, type:"Prestasi", name, tingkat, source, date, link:'/dashboard'};
+  return { id, type:"Prestasi", name, tingkat, source, date, link:'/detail/prestasi/' + id};
 }
 
-const rows = [
-  createData(1, "Lomba Makan Kerupuk", "Internasional", "Fandy Kuncoro", '2019-10-23'),
-  createData(2, "Competitive Programming", "Kampung", "Arif Darma", '2019-06-11'),
-];
 
 const Prestasi = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
+  const [rows, setRows] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
@@ -28,7 +27,16 @@ const Prestasi = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}prestasi/`, {
+        headers: AuthHeader()
+      })
+      const { data } = resp
+      let r = []
+      for (let i = 0; i < resp.data.length; i++) {
+        const cur = data[i]
+        r.push(createData(cur.id, cur.lomba, cur.tingkat, cur.name, cur.tanggal))
+      }
+      setRows(r)
       setLoading(false)
     }
     fetchAPI()

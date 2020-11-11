@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { PageContext } from 'Context';
 import { PageList } from 'Components';
 import { Loader } from 'Layout';
@@ -10,18 +12,13 @@ const headCells = [
 ];
 
 function createData(id, type, name, tingkat, source, date, detail) {
-  return { id, type, name, tingkat, source, date, link:'/dashboard', detail };
+  return { id, type, name, tingkat, source, date, link:'/detail/' + type.toLowerCase() + "/" + id, detail };
 }
 
-const rows = [
-  createData(1, "Jurnal", "ABC", "Internasional", "Fandy Kuncoro", '2019-10-23', { vol: '1', no: '1', category: ["Pi",  "Scopus"]}),
-  createData(2, "Jurnal", "ML/AI", "Provinsi", "Arif Darma", '2019-06-11', { vol: '1', no: '1', category: ["Pn",  "Scopus"]}),
-  createData(3, "Konferensi", "ML/AI", "Provinsi", "Arif Darma", '2019-06-11', { konfhal: '20', tempat: 'Konferensi Nasional Indonesia, Jakarta', category:['Scopus']}),
-];
-
 const Jurnal = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
+  const [rows, setRows] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
@@ -30,7 +27,16 @@ const Jurnal = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}konferensi/`, {
+        headers: AuthHeader()
+      })
+      const { data } = resp
+      let r = []
+      for (let i = 0; i < resp.data.length; i++) {
+        const cur = data[i]
+        r.push(createData(cur.id, "Konferensi", cur.judul, cur.tingkat, cur.author, cur.tanggal_mulai, { konfhal: cur.konf_hal, tempat: cur.tempat, category: []}))
+      }
+      setRows(r)
       setLoading(false)
     }
     fetchAPI()

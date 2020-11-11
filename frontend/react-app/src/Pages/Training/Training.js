@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { PageContext } from 'Context';
 import { PageList } from 'Components';
 import { Loader } from 'Layout';
@@ -10,17 +12,13 @@ const headCells = [
 ];
 
 function createData(id, name, tingkat, source, date, tempat) {
-  return { id, type:"Training", name, tingkat, source, date, link:'/dashboard', tempat};
+  return { id, type:"Training", name, tingkat, source, date, link:'/detail/training/' + id, tempat};
 }
 
-const rows = [
-  createData(1, "Pelatihan VM", "Dosen", "Muhammad Rafi F.", '2019-10-23', "Ruang Dosen"),
-  createData(2, "Competitive Programming", "Karyawan", "Novan Ardhana", '2019-06-11', "Aula"),
-];
-
 const Training = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
+  const [rows, setRows] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
@@ -29,7 +27,16 @@ const Training = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}trainingkaryawan/`, {
+        headers: AuthHeader()
+      })
+      const karyawan = resp.data
+      let r = []
+      for (let i = 0; i < karyawan.length; i++) {
+        const cur = karyawan[i]
+        r.push(createData(cur.id, cur.jenis_pelatihan, 'Karyawan', 'Abdul', cur.tanggal, cur.tempat))
+      }
+      setRows(r)
       setLoading(false)
     }
     fetchAPI()
