@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
-from .models import TrainingDosen
-from .serializers import TrainingDosenSerializer
+from .models import Training
+from .serializers import TrainingSerializer
 
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -15,17 +15,17 @@ from url_filter.integrations.drf import DjangoFilterBackend
 # from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
-class TrainingDosenAPIView(APIView):
+class TrainingAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        trains_dosen = TrainingDosen.objects.all()
-        serializer = TrainingDosenSerializer(trains_dosen, many=True)
+        trains_dosen = Training.objects.all()
+        serializer = TrainingSerializer(trains_dosen, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = TrainingDosenSerializer(data=request.data)
+        serializer = TrainingSerializer(data=request.data)
 
         if serializer.is_valid():
             serializer.save()
@@ -33,24 +33,24 @@ class TrainingDosenAPIView(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class TrainingDosenDetailsAPIView(APIView):
+class TrainingDetailsAPIView(APIView):
     parser_classes = (MultiPartParser, FormParser)
     permission_classes = (IsAuthenticated, )
 
     def get_object(self, pk):
         try:
-            return TrainingDosen.objects.get(pk=pk)
-        except TrainingDosen.DoesNotExist:
+            return Training.objects.get(pk=pk)
+        except Training.DoesNotExist:
             raise NotFound
 
     def get(self, request, pk):
         train_dosen = self.get_object(pk)
-        serializer = TrainingDosenSerializer(train_dosen)
+        serializer = TrainingSerializer(train_dosen)
         return Response(serializer.data)
 
     def put(self, request, pk):
         train_dosen = self.get_object(pk)
-        serializer = TrainingDosenSerializer(train_dosen, data=request.data)
+        serializer = TrainingSerializer(train_dosen, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -62,10 +62,10 @@ class TrainingDosenDetailsAPIView(APIView):
         train_dosen.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-class TrainingDosenList(ListAPIView):
+class TrainingList(ListAPIView):
     permission_classes = (IsAuthenticated, )
-    serializer_class = TrainingDosenSerializer
-    queryset = TrainingDosen.objects.all()
+    serializer_class = TrainingSerializer
+    queryset = Training.objects.all()
     filter_backends = [DjangoFilterBackend]
     filter_fields = [
         'judul',

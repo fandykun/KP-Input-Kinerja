@@ -12,12 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='TrainingDosen',
+            name='Training',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('peserta', models.TextField()),
                 ('judul', models.CharField(max_length=255)),
                 ('tempat', models.CharField(max_length=255)),
-                ('filepath', models.FileField(upload_to='trainingdosen/')),
+                ('filepath', models.FileField(upload_to='training/')),
                 ('date_start', models.DateField()),
                 ('date_end', models.DateField()),
                 ('updated_at', models.DateTimeField(auto_now=True)),
