@@ -60,7 +60,7 @@ class JurnalViewSet(viewsets.ViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 # Validated API
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([isAdminPermission])
 def set_validate(request, pk):
     if request.method == 'POST':

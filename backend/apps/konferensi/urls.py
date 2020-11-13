@@ -1,9 +1,14 @@
 from django.urls import path, include
 
-from .views import KonferensiAppView, KonferensiDetailsAPIView, KonferensiList
+from . import views
+
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register('konferensi', views.KonferensiViewSet, basename='konferensi')
 
 urlpatterns = [
-    path('konferensi', KonferensiList.as_view()),
-    path('konferensi/', KonferensiAppView.as_view()),
-    path('konferensi/<int:pk>/', KonferensiDetailsAPIView.as_view()),
+    path('', include(router.urls)),
+    path('konferensi', views.KonferensiList.as_view(), name='Filter Konferensi API'),
+    path('konferensi/<pk>/validate', views.set_validate),
 ]
