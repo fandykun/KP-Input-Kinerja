@@ -12,9 +12,7 @@ class UserManager(BaseUserManager):
         return user
     
     def create_superuser(self, username, password, **extra_fields):
-        extra_fields.setdefault('is_mahasiswa', True)
-        extra_fields.setdefault('is_dosen', True)
-        extra_fields.setdefault('is_tendik', True)
+        extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault('is_active', True)
         extra_fields.setdefault('is_superuser', True)
         

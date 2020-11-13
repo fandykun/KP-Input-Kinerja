@@ -16,6 +16,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from rest_framework.permissions import IsAuthenticated
 
+from ..authentication.permissions import isAdminPermission
+
 # Create your views here.
 class DepartemenAPIView(APIView):
     def get(self, request):

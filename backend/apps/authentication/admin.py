@@ -9,19 +9,19 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ('username', 'is_active', 'is_mahasiswa', 'is_dosen', 'is_tendik', )
-    list_filter = ('username', 'is_active', 'is_mahasiswa', 'is_dosen', 'is_tendik', )
+    list_display = ('username', 'is_active', 'is_admin', 'mahasiswa', 'dosen', 'tendik', )
+    list_filter = ('username', 'is_active', 'is_admin', 'mahasiswa', 'dosen', 'tendik', )
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
-        ('Permissions', {'fields': ('is_active', 'is_mahasiswa', 'is_dosen', 'is_tendik')}),
+        ('Permissions', {'fields': ('is_active', 'is_admin', 'mahasiswa', 'dosen', 'tendik')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide', ),
-            'fields': ('username', 'password1', 'password2', 'is_active', 'is_mahasiswa', 'is_dosen', 'is_tendik')
+            'fields': ('username', 'password1', 'password2', 'is_active', 'is_admin', 'mahasiswa', 'dosen', 'tendik')
         }),
     )
-    search_fields = ('username', 'is_mahasiswa', 'is_dosen', 'is_tendik',)
+    search_fields = ('username', 'is_admin', 'mahasiswa', 'dosen', 'tendik',)
     ordering = ('date_joined',)
 
 admin.site.register(User, CustomUserAdmin)

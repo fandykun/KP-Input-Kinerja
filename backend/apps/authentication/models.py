@@ -5,13 +5,18 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
 from .managers import UserManager
+from apps.masters.models import (MasterMahasiswa,
+                                MasterDosen,
+                                MasterTendik)
 
 class User(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=150, unique=True)
+    is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
-    is_mahasiswa = models.BooleanField(default=False)
-    is_dosen = models.BooleanField(default=False)
-    is_tendik = models.BooleanField(default=False)
+    
+    mahasiswa = models.OneToOneField(MasterMahasiswa, on_delete=models.CASCADE, null=True, blank=True)
+    dosen = models.OneToOneField(MasterDosen, on_delete=models.CASCADE, null=True, blank=True)
+    tendik = models.OneToOneField(MasterTendik, on_delete=models.CASCADE, null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
     objects = UserManager()
