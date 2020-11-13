@@ -15,7 +15,7 @@ def departemen_seed(apps, schema_editor):
     for nama in nama_departemens:
         d = Departemen(nama=nama)
         d.save()
-
+ 
 class Migration(migrations.Migration):
 
     dependencies = [
