@@ -1,8 +1,8 @@
-# Show Single Konferensi Data
+# Show Single Jurnal Data
 
-Show a single konferensi data if current User has access permissions to it.
+Show a single Jurnal data
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/jurnal/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Konferensi data on the
 server.
@@ -11,13 +11,13 @@ server.
 
 **Auth required** : YES
 
-**Permissions required** : User has logged in.
+**Permissions required** : None
 
 **Data**: `{}`
 
 ## Success Response
 
-**Condition** : If Konferensi data exists and Authorized User has required permissions.
+**Condition** : If Konferensi data exists.
 
 **Code** : `200 OK`
 
@@ -57,7 +57,7 @@ server.
 
 ### Or
 
-**Condition** : If Konferensi exists but Authorized User does not have required permissions.
+**Condition** : If Konferensi exists but AnonymousUser does not have required permissions.
 
 **Code** : `403 FORBIDDEN`
 
@@ -66,12 +66,3 @@ server.
 ```json
 {"detail": "You do not have permission to perform this action."}
 ```
-
-<!-- ## Notes
-
-There are security issues:
-
-* This view allows existing users to test for existence of accounts that exist
-    but that they do not have access to.
-* Account IDs are sequential so an authorized user can count all the Accounts
-    on the system. -->

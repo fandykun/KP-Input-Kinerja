@@ -35,3 +35,16 @@ database.
     "detail": "Not found."
 }
 ```
+
+### Or
+
+**Condition** : Authorized User is not an Admin.
+
+**Code** : `403 FORBIDDEN`
+
+**Content** : 
+```json
+{
+    "detail": "You do not have permission to perform this action."
+}
+```

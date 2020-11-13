@@ -2,7 +2,7 @@
 
 Show a single konferensi data if current User has access permissions to it.
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/konferensi/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Konferensi data on the
 server.
@@ -11,7 +11,7 @@ server.
 
 **Auth required** : YES
 
-**Permissions required** : User has logged in.
+**Permissions required** : None
 
 **Data**: `{}`
 
@@ -25,20 +25,22 @@ server.
 
 ```json
 {
-    "id":2,
+    "id": 1,
     "judul": "The 3rd International Conference on Sustainable Energy Engineering and Application (ICSEEA 2015)",
     "author": "Profesor Alex",
     "published_at": "Konferensi Surabaya",
     "url": "www.konferensi.com",
     "tahun": "2020",
     "tingkat": "Nasional",
-    "pi": "4",
-    "pn": "4",
+    "pi": false,
+    "pn": false,
+    "scopus": false,
     "konf_hal": "100",
     "tempat": "Surabaya",
     "tanggal_mulai": "2020-07-25",
     "tanggal_selesai": "2020-07-30",
-    "uploaded_at": "2020-07-25 06:20:38.974508"
+    "is_validated": false,
+    "uploaded_at": "2020-11-13T12:56:05.185367Z"
 }
 ```
 
@@ -57,7 +59,7 @@ server.
 
 ### Or
 
-**Condition** : If Konferensi exists but Authorized User does not have required permissions.
+**Condition** : If Konferensi exists but Anonymous User does not have required permissions.
 
 **Code** : `403 FORBIDDEN`
 
@@ -66,12 +68,3 @@ server.
 ```json
 {"detail": "You do not have permission to perform this action."}
 ```
-
-<!-- ## Notes
-
-There are security issues:
-
-* This view allows existing users to test for existence of accounts that exist
-    but that they do not have access to.
-* Account IDs are sequential so an authorized user can count all the Accounts
-    on the system. -->

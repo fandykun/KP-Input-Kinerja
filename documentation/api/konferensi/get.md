@@ -31,20 +31,22 @@ Show all Konferensi Data
 ```json
 [
     {
-        "id":2,
+        "id": 1,
         "judul": "The 3rd International Conference on Sustainable Energy Engineering and Application (ICSEEA 2015)",
         "author": "Profesor Alex",
         "published_at": "Konferensi Surabaya",
         "url": "www.konferensi.com",
         "tahun": "2020",
         "tingkat": "Nasional",
-        "pi": "4",
-        "pn": "4",
+        "pi": false,
+        "pn": false,
+        "scopus": false,
         "konf_hal": "100",
         "tempat": "Surabaya",
         "tanggal_mulai": "2020-07-25",
         "tanggal_selesai": "2020-07-30",
-        "uploaded_at": "2020-07-25 06:20:38.974508"
+        "is_validated": false,
+        "uploaded_at": "2020-11-13T12:56:05.185367Z"
     }
 ]
 ```
