@@ -2,7 +2,7 @@
 
 Show a single prestasi data if current User has access permissions to it.
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/prestasi/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Prestasi data on the
 server.
@@ -11,7 +11,7 @@ server.
 
 **Auth required** : YES
 
-**Permissions required** : User has logged in.
+**Permissions required** : None
 
 **Data**: `{}`
 
@@ -34,7 +34,7 @@ server.
     "url": "www.prestasi.com",
     "filepath": "/media/prestasi/prestasi_mhs1.png",
     "uploaded_at": "2020-07-25 06:20:38.974508",
-    "is_validated": "1"
+    "is_validated": false,
 }
 ```
 
@@ -62,12 +62,3 @@ server.
 ```json
 {"detail": "You do not have permission to perform this action."}
 ```
-
-<!-- ## Notes
-
-There are security issues:
-
-* This view allows existing users to test for existence of accounts that exist
-    but that they do not have access to.
-* Account IDs are sequential so an authorized user can count all the Accounts
-    on the system. -->

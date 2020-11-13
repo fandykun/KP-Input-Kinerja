@@ -20,6 +20,13 @@ from url_filter.integrations.drf import DjangoFilterBackend
 class KuliahTamuViewSet(viewsets.ViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
+    def get_permissions(self):
+        if self.action == 'destroy':
+            permission_classes = [isAdminPermission]
+        else:
+            permission_classes = [IsAuthenticated]
+        return [permission() for permission in permission_classes]
+
     def list(self, request):
         queryset = KuliahTamu.objects.all()
         serializer = KuliahTamuSerializer(queryset, many=True)

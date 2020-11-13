@@ -2,7 +2,7 @@
 
 Allow the Authenticated User to delete Prestasi data
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/prestasi/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Account in the
 database.
@@ -11,7 +11,7 @@ database.
 
 **Auth required** : YES
 
-**Permissions required** : User has logged in.
+**Permissions required** : user has admin privilege (`is_admin = True`)
 
 **Data** : `{}`
 
@@ -36,15 +36,15 @@ database.
 }
 ```
 
-<!-- ### Or
+### Or
 
-**Condition** : Authorized User is not Owner of Account at URL.
+**Condition** : Authorized User is not an Admin.
 
 **Code** : `403 FORBIDDEN`
 
-**Content** : `{}`
-
-
-## Notes
-
-* Will remove memberships for this Account for all Users that had access. -->
+**Content** : 
+```json
+{
+    "detail": "You do not have permission to perform this action."
+}
+```
