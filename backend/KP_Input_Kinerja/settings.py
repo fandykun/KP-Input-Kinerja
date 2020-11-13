@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'apps.kuliahtamu',
     'apps.konferensi',
     'apps.prestasi',
-    'apps.trainingdosen',
+    'apps.training',
     'apps.trainingkaryawan',
     'apps.jurnal'
 ]
