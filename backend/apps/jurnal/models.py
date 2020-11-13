@@ -13,6 +13,7 @@ class Jurnal(models.Model):
     pi = models.BooleanField(default=False)
     pn = models.BooleanField(default=False)
     scopus = models.BooleanField(default=False)
+    is_validated = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):

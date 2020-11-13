@@ -1,11 +1,14 @@
 from django.urls import path, include
 
-from .views import JurnalAPIView, \
-                JurnalDetailsAPIView, \
-                JurnalList
+from rest_framework.routers import SimpleRouter
+
+from . import views
+
+router = SimpleRouter()
+router.register('jurnal', views.JurnalViewSet, basename='jurnal')
 
 urlpatterns = [
-    path('jurnal', JurnalList.as_view()),
-    path('jurnal/', JurnalAPIView.as_view()),
-    path('jurnal/<int:pk>/', JurnalDetailsAPIView.as_view())
+    path('', include(router.urls)),
+    path('jurnal', views.JurnalList.as_view(), name='Filter Jurnal API'),
+    path('jurnal/<pk>/validate', views.set_validate),
 ]
