@@ -1,10 +1,10 @@
-# Update a TrainingDosen Data
+# Update a Training Data
 
-Allow the Authenticated User to update trainingdosen data
+Allow the Authenticated User to update training data
 
-**URL** : `/api/trainingdosen/:pk/`
+**URL** : `/api/training/:pk/`
 
-**URL Parameters** : `pk=[integer]` where `pk` is the ID of the trainingdosen data on the
+**URL Parameters** : `pk=[integer]` where `pk` is the ID of the training data on the
 server.
 
 **Method** : `PUT`
@@ -17,6 +17,7 @@ server.
 
 ```json
 {
+    "peserta":"[unicode longtext field]",
     "judul": "[unicode 255 chars max]",
     "tempat": "[unicode 255 chars max]",
     "date_start": "[date field (format: YYYY-MM-DD)]",
@@ -29,11 +30,12 @@ server.
 
 ```json
 {
+    "peserta":"Bapak dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
     "date_end": "2020-08-26",
-    "filepath": "/media/trainingdosen/trainingdosen1.png"
+    "filepath": "/media/training/training1.png"
 }
 ```
 
@@ -44,23 +46,24 @@ server.
 **Code** : `200 OK`
 
 **Content example** : For the example above, when the 'judul' is updated and
-posted to `/api/trainingdosen/2/`...
+posted to `/api/training/2/`...
 
 ```json
 {
     "id":2,
+    "peserta":"Bapak dosen",
     "judul": "Pelatihan Mengajar Dosen",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
     "date_end": "2020-08-26",
-    "filepath": "/media/trainingdosen/trainingdosen1.png",
+    "filepath": "/media/training/training1.png",
     "uploaded_at": "2020-07-25 06:20:38.974508"
 }
 ```
 
 ## Error Response
 
-**Condition** : TrainingDosen does not exist at URL
+**Condition** : training does not exist at URL
 
 **Code** : `404 NOT FOUND`
 

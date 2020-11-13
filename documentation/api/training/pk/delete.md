@@ -1,6 +1,6 @@
-# Delete a TrainingDosen Data
+# Delete a Training Data
 
-Allow the Authenticated User to delete TrainingDosen data
+Allow the Authenticated User to delete Training data
 
 **URL** : `/api/accounts/:pk/`
 
@@ -17,7 +17,7 @@ database.
 
 ## Success Response
 
-**Condition** : If the TrainingDosen data exists.
+**Condition** : If the Training data exists.
 
 **Code** : `204 NO CONTENT`
 
@@ -25,7 +25,7 @@ database.
 
 ## Error Responses
 
-**Condition** : If there was no TrainingDosen data available to delete.
+**Condition** : If there was no Training data available to delete.
 
 **Code** : `404 NOT FOUND`
 

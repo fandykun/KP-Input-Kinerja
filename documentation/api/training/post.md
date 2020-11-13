@@ -1,8 +1,8 @@
-# Create a TrainingDosen
+# Create a Training
 
-Create a trainingdosen data
+Create a training data
 
-**URL** : `/api trainingdosen/`
+**URL** : `/api training/`
 
 **Method** : `POST`
 
@@ -14,6 +14,7 @@ Create a trainingdosen data
 
 ```json
 {
+    "peserta":"[unicode longtext field]",
     "judul": "[unicode 255 chars max]",
     "tempat": "[unicode 255 chars max]",
     "date_start": "[date field (format: YYYY-MM-DD)]",
@@ -26,11 +27,12 @@ Create a trainingdosen data
 
 ```json
 {
+    "peserta":"Bapak dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
     "date_end": "2020-08-26",
-    "filepath": "/media/trainingdosen/trainingdosen1.png"
+    "filepath": "/media/training/training1.png"
 }
 ```
 
@@ -45,11 +47,12 @@ Create a trainingdosen data
 ```json
 {
     "id":2,
+    "peserta":"Bapak dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
     "date_end": "2020-08-26",
-    "filepath": "/media/trainingdosen/trainingdosen1.png",
+    "filepath": "/media/training/training1.png",
     "uploaded_at": "2020-07-25 06:20:38.974508"
 }
 ```

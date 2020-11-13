@@ -1,8 +1,8 @@
-# Show All TrainingDosen
+# Show All Training
 
-Show all TrainingDosen Data
+Show all Training Data
 
-**URL** : `/api/trainingdosen/`
+**URL** : `/api/training/`
 
 **Method** : `GET`
 
@@ -14,7 +14,7 @@ Show all TrainingDosen Data
 
 ## Success Responses
 
-**Condition** : User can not see any trainingdosen data.
+**Condition** : User can not see any training data.
 
 **Code** : `200 OK`
 
@@ -22,21 +22,22 @@ Show all TrainingDosen Data
 
 ### OR
 
-**Condition** : User can see one or more trainingdosen data.
+**Condition** : User can see one or more training data.
 
 **Code** : `200 OK`
 
-**Content** : In this example, the User can see one trainingdosen data
+**Content** : In this example, the User can see one training data
 
 ```json
 [
     {
         "id":2,
+        "peserta":"Bapak dosen",
         "judul": "Pelatihan Mengajar",
         "tempat": "Surabaya",
         "date_start": "2020-08-25",
         "date_end": "2020-08-26",
-        "filepath": "/media/trainingdosen/trainingdosen1.png",
+        "filepath": "/media/training/training1.png",
         "uploaded_at": "2020-07-25 06:20:38.974508"
     }
 ]
