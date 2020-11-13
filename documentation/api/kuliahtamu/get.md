@@ -32,13 +32,15 @@ Show all Kuliah Tamu Data
 [
     {
         "id": 1,
-        "topik": "asdfg",
-        "pemateri": "lalalalalala",
-        "institusi": "zxcv",
-        "tingkat": "nasional",
+        "topik": "Machine Learning for Dummies",
+        "pemateri": "Prof. Budi",
+        "institusi": "Universitas Indonesia",
+        "tingkat": "Nasional",
         "tanggal": "2020-07-21",
-        "filepath": "/media/kuliahtamu/Screenshot_1_IJjmJ7i.png",
-        "uploaded_at": "2020-07-21T04:00:52.702137Z"
+        "filepath": "/media/kuliahtamu/Capture2.PNG",
+        "is_validated": false,
+        "uploaded_at": "2020-11-13T14:38:54.222053Z",
+        "departemen": 1
     }
 ]
 ```

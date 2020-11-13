@@ -19,6 +19,7 @@ Create a kuliah tamu data
     "institusi": "[unicode 255 chars max]",
     "tingkat": "[unicode 100 chars max]",
     "tanggal": "[date field (format: YYYY-MM-DD)]",
+    "departemen": "[departemen_id]",
     "filepath": "[file uploaded using multipart/form-data]"
 }
 ```
@@ -32,7 +33,8 @@ Create a kuliah tamu data
     "institusi": "Universitas Indonesia",
     "tingkat": "Nasional",
     "tanggal": "2020-07-21",
-    "filepath": "dokumentasi-kultam.png"
+    "departemen": 1,
+    "filepath": "Capture2.png"
 }
 ```
 
@@ -46,14 +48,16 @@ Create a kuliah tamu data
 
 ```json
 {
-    "id": 2,
+    "id": 1,
     "topik": "Machine Learning for Dummies",
     "pemateri": "Prof. Budi",
     "institusi": "Universitas Indonesia",
     "tingkat": "Nasional",
     "tanggal": "2020-07-21",
-    "filepath": "/media/kuliahtamu/dokumentasi-kultam.png",
-    "uploaded_at": "2020-07-21T05:16:40.733429Z"
+    "filepath": "/media/kuliahtamu/Capture2.PNG",
+    "is_validated": false,
+    "uploaded_at": "2020-11-13T14:38:54.222053Z",
+    "departemen": 1
 }
 ```
 

@@ -1,9 +1,14 @@
 from django.urls import path, include
 
-from .views import KuliahTamuAPIView, KuliahTamuDetailsAPIView, KuliahTamuList
+from rest_framework.routers import SimpleRouter
+
+from . import views
+
+router = SimpleRouter()
+router.register('kuliah-tamu', views.KuliahTamuViewSet, basename='kuliah-tamu')
 
 urlpatterns = [
-    path('kuliah-tamu', KuliahTamuList.as_view()),
-    path('kuliah-tamu/', KuliahTamuAPIView.as_view()),
-    path('kuliah-tamu/<int:pk>/', KuliahTamuDetailsAPIView.as_view()),
+    path('', include(router.urls)),
+    path('kuliah-tamu', views.KuliahTamuList.as_view()),
+    path('kuliah-tamu/<pk>/validate', views.set_validate),
 ]

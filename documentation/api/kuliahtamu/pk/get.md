@@ -2,7 +2,7 @@
 
 Show a single kuliah tamu data if current User has access permissions to it.
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/kuliah-tamu/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the kuliah tamu data on the
 server.
@@ -11,8 +11,7 @@ server.
 
 **Auth required** : YES
 
-**Permissions required** : User has logged in.
-
+**Permissions required** : None
 **Data**: `{}`
 
 ## Success Response
@@ -25,14 +24,16 @@ server.
 
 ```json
 {
-    "id": 2,
+    "id": 1,
     "topik": "Machine Learning for Dummies",
     "pemateri": "Prof. Budi",
     "institusi": "Universitas Indonesia",
     "tingkat": "Nasional",
     "tanggal": "2020-07-21",
-    "filepath": "/media/kuliahtamu/dokumentasi-kultam.png",
-    "uploaded_at": "2020-07-21T05:16:40.733429Z"
+    "filepath": "/media/kuliahtamu/Capture2.PNG",
+    "is_validated": false,
+    "uploaded_at": "2020-11-13T14:38:54.222053Z",
+    "departemen": 1
 }
 ```
 
@@ -60,12 +61,3 @@ server.
 ```json
 {"detail": "You do not have permission to perform this action."}
 ```
-
-<!-- ## Notes
-
-There are security issues:
-
-* This view allows existing users to test for existence of accounts that exist
-    but that they do not have access to.
-* Account IDs are sequential so an authorized user can count all the Accounts
-    on the system. -->

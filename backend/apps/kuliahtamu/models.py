@@ -9,7 +9,8 @@ class KuliahTamu(models.Model):
     tingkat = models.CharField(max_length=100)
     tanggal = models.DateField()
     filepath = models.FileField(upload_to='kuliahtamu/')
-    departemen = models.ForeignKey(to=Departemen, on_delete=models.DO_NOTHING, null=True)
+    departemen = models.ForeignKey(to=Departemen, on_delete=models.DO_NOTHING)
+    is_validated = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
