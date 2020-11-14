@@ -7,3 +7,4 @@ class PrestasiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Prestasi
         fields = '__all__'
+        read_only_fields = ['is_validated']

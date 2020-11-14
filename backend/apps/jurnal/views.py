@@ -20,6 +20,13 @@ from url_filter.integrations.drf import DjangoFilterBackend
 class JurnalViewSet(viewsets.ViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
+    def get_all_objects(self, request):
+        if request.user.is_admin:
+            queryset = Jurnal.objects.all()
+        else:
+            queryset = Jurnal.objects.filter(is_validated=True)
+        return queryset
+
     def get_permissions(self):
         if self.action == 'destroy':
             permission_classes = [isAdminPermission]
@@ -28,7 +35,7 @@ class JurnalViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def list(self, request):
-        jurnals = Jurnal.objects.all()
+        jurnals = self.get_all_objects(request)
         serializer = JurnalSerializer(jurnals, many=True)
         return Response(serializer.data)
 
@@ -42,7 +49,7 @@ class JurnalViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def retrieve(self, request, pk=None):
-        queryset = Jurnal.objects.all()
+        queryset = self.get_all_objects(request)
         jurnal = get_object_or_404(queryset, pk=pk)
         serializer = JurnalSerializer(jurnal)
         return Response(serializer.data)

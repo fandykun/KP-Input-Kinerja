@@ -7,3 +7,4 @@ class KonferensiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Konferensi
         fields = '__all__'
+        read_only_fields = ['is_validated']

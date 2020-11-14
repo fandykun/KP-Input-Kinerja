@@ -20,6 +20,13 @@ from url_filter.integrations.drf import DjangoFilterBackend
 class KonferensiViewSet(viewsets.ViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
+    def get_all_objects(self, request):
+        if request.user.is_admin:
+            queryset = Konferensi.objects.all()
+        else:
+            queryset = Konferensi.objects.filter(is_validated=True)
+        return queryset
+
     def get_permissions(self):
         if self.action == 'destroy':
             permission_classes = [isAdminPermission]
@@ -28,7 +35,7 @@ class KonferensiViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def list(self, request):
-        queryset = Konferensi.objects.all()
+        queryset = self.get_all_objects(request)
         serializer = KonferensiSerializer(queryset, many=True)
         return Response(serializer.data)
     
@@ -42,7 +49,7 @@ class KonferensiViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk=None):
-        queryset = Konferensi.objects.all()
+        queryset = self.get_all_objects(request)
         konferensi = get_object_or_404(queryset, pk=pk)
         serializer = KonferensiSerializer(konferensi)
         return Response(serializer.data)

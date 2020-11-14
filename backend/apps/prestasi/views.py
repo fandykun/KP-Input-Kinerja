@@ -19,6 +19,13 @@ from url_filter.integrations.drf import DjangoFilterBackend
 class PrestasiViewSet(viewsets.ViewSet):
     parser_classes = (MultiPartParser, FormParser)
 
+    def get_all_objects(self, request):
+        if request.user.is_admin:
+            queryset = Prestasi.objects.all()
+        else:
+            queryset = Prestasi.objects.filter(is_validated=True)
+        return queryset
+
     def get_permissions(self):
         if self.action == 'destroy':
             permission_classes = [isAdminPermission]
@@ -27,7 +34,7 @@ class PrestasiViewSet(viewsets.ViewSet):
         return [permission() for permission in permission_classes]
 
     def list(self, request):
-        queryset = Prestasi.objects.all()
+        queryset = self.get_all_objects(request)
         serializer = PrestasiSerializer(queryset, many=True)
         return Response(serializer.data)
     
@@ -41,7 +48,7 @@ class PrestasiViewSet(viewsets.ViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def retrieve(self, request, pk=None):
-        queryset = Prestasi.objects.all()
+        queryset = self.get_all_objects(request)
         prestasi = get_object_or_404(queryset, pk=pk)
         serializer = PrestasiSerializer(prestasi)
         return Response(serializer.data)
