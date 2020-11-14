@@ -69,6 +69,8 @@ class TrainingList(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filter_fields = [
         'judul',
+        'peserta',
+        'jenis',
         'date_start',
         'date_end',
         'tempat',
