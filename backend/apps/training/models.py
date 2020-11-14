@@ -9,6 +9,7 @@ class Training(models.Model):
     date_end = models.DateField()
     tempat = models.CharField(max_length=255)
     filepath = models.FileField(upload_to='training/')
+    is_validated = models.BooleanField(default=False)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
