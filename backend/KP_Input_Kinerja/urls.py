@@ -20,11 +20,8 @@ from django.conf.urls.static import static
 
 from rest_framework.authtoken.views import obtain_auth_token
 
-from apps.authentication import views
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('hello/', views.HelloView.as_view()),
     path('api/', include([
         path('', include('apps.authentication.urls')),
         path('', include('apps.kuliahtamu.urls')),
