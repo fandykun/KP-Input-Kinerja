@@ -22,7 +22,7 @@ const Nav = [
   {
     title: "Konferensi / Jurnal",
     logo: <FolderSharedOutlined style={largeIcon}/>,
-    href: '/jurnal',
+    href: '/konferensi',
     delay: 500,
   },
   {

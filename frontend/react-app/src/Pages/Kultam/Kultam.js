@@ -40,7 +40,7 @@ const Kultam = () => {
       let r = []
       for (let i = 0; i < resp.data.length; i++) {
         const cur = data[i]
-        r.push(createData(cur.id, cur.topik, nama[cur.departemen - 1].nama, cur.tingkat, cur.pemateri, cur.tanggal))
+        r.push(createData(cur.id, cur.topik, cur.departemen ? nama[cur.departemen - 1].nama : "undefined", cur.tingkat, cur.pemateri, cur.tanggal))
       }
       setRows(r)
       setLoading(false)

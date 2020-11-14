@@ -1,0 +1,27 @@
+.text-enter {
+  opacity:0;
+  transform:  translate(0, 80px)  ;
+}
+
+.text-enter-active {
+  opacity:1;
+  transform:  translate(0, 0)  ;
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+.button-enter {
+  opacity:0;
+  transform:  translate(0, 80px)  ;
+}
+
+.button-enter-active {
+  opacity:1;
+  transform:  translate(0, 0)  ;
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+.bounding-box {
+  overflow: hidden;
+  height: 100%;
+}
+

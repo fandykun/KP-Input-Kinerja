@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { PageContext } from 'Context';
-import { Loader } from 'Layout';
 import { EntryForm } from 'Components';
+import { Loader } from 'Layout';
 
 const Entry = () => {
-  const [isLoading, setLoading] = useState(false)
   const {dispatchPage} = useContext(PageContext)
+  const [isLoading, setLoading] = useState(true)
+  const [departemen, setDepartemen] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
@@ -14,7 +17,14 @@ const Entry = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}departemen/`, {
+        headers: AuthHeader()
+      })
+      let r = []
+      resp.data.forEach((val) => {
+        r.push({"label": val.nama, "value": val.id})
+      })
+      setDepartemen(r)
       setLoading(false)
     }
     fetchAPI()
@@ -22,7 +32,7 @@ const Entry = () => {
   return (
     <React.Fragment>
       <Loader isLoading={isLoading} />
-      {!isLoading && <EntryForm />}
+      {!isLoading && <EntryForm departemen={departemen}/>}
     </React.Fragment>
   )
 }

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
+import axios from 'axios'
+import { AuthHeader } from 'Helper';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Fab, Hidden, TextField, Button, Paper, Grid } from '@material-ui/core';
-import { ArrowBack } from '@material-ui/icons';
+import { FormControlLabel, Checkbox, Fab, Hidden, TextField, Button, Paper, Grid } from '@material-ui/core';
+import { CheckCircle, Delete, ArrowBack } from '@material-ui/icons';
+import { AlertDialog } from 'Components'
 
 import './index.css';
 
@@ -36,8 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(2),
     marginBottom: theme.spacing(1),
   },
   media: {
@@ -48,59 +51,168 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: "auto",
     marginRight: "auto",
   }, 
+  checkbox: {
+    marginTop: theme.spacing(2),
+    width: '75%',
+    marginLeft: theme.spacing(2),
+  },
 }));
 
-const deleteHandler = () => {
-  console.log("Deleted")
-}
-
-const Field = ({classes, data}) => {
+const Field = ({classes, data, isAdmin, isValidated, openHandlerValidate, openHandlerDelete}) => {
   return (
   <Grid container>
     { 
       data.map((field) => {
-      if (field.label !== 'media') {
-        return (
-          <Grid item xs={6} key={field.label}>
-            <TextField
-              margin="normal"
-              label={field.label}
-              value={field.value}
-              color="secondary"
-              className={classes.field}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          </Grid>
-        )
-      } else {
-        return (
-          <Grid item xs={12} key={field.label}>
-            <img className={classes.media} src={`${process.env.REACT_APP_MEDIA_URL}${field.value}`} alt="media"/>
-          </Grid>
-        )
-      }
+      switch(field.form) {
+        case 'text':
+          return (
+            <Grid item xs={6} key={field.label}>
+              <TextField
+                margin="normal"
+                label={field.label}
+                value={field.value}
+                color="secondary"
+                className={classes.field}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Grid>
+          )
+        case 'media':
+          return (
+            <Grid item xs={12} key={field.label}>
+              <img className={classes.media} src={`${process.env.REACT_APP_MEDIA_URL}${field.value}`} alt="media"/>
+            </Grid>
+          )
+        case 'checkbox':
+          return (
+            <Grid item xs={6} key={field.label}>
+              <FormControlLabel className={classes.checkbox}
+                control={
+                <Checkbox
+                  checked={field.value}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                  color="secondary"
+                />
+                }
+                label={field.label}
+              />
+            </Grid>
+          )
+        default:
+          return null
+        }
       })
     }
+    { isAdmin && 
       <Grid item xs={12}>
         <Button
           type="submit"
           variant="contained"
           color="secondary"
           className={classes.submit}
-          onClick={deleteHandler}
+          onClick={openHandlerDelete}
         >
-          Delete
+          <Delete/>
+          Hapus
         </Button>
+        { !isValidated &&
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+          onClick={openHandlerValidate}
+        >
+          <CheckCircle/>
+          Validasi
+        </Button>
+        }
       </Grid>
+    }
     </Grid>
   )
 }
 
-const ViewDetail = ({data, type}) => {
+const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
+  const history = useHistory();
+  const [openValidate, setOpenValidate] = useState(false)
+  const [isSubmittingValidate, setIsSubmittingValidate] = useState(false)
+  const [submitStatusValidate, setSubmitStatusValidate] = useState('')
+  const [openDelete, setOpenDelete] = useState(false)
+  const [isSubmittingDelete, setIsSubmittingDelete] = useState(false)
+  const [submitStatusDelete, setSubmitStatusDelete] = useState('')
   const classes = useStyles()
-  const backLink = type === 'konferensi' ? 'jurnal' : type;
+  const backLink = type;
+  const openHandlerValidate = () => {
+    setOpenValidate(true)
+  }
+
+  const openHandlerDelete = () => {
+    setOpenDelete(true)
+  }
+
+  const closeHandlerValidate = async () => {
+    await setOpenValidate(false)
+    await new Promise(r => setTimeout(r, 500));
+    setSubmitStatusValidate('')
+  }
+
+  const closeHandlerDelete = async () => {
+    await setOpenDelete(false)
+    await new Promise(r => setTimeout(r, 500));
+    setSubmitStatusDelete('')
+  }
+
+  const agreeValidateHandler = async () => {
+    setIsSubmittingValidate(true)
+    try {
+      const apiType = type === 'kultam' ? 'kuliah-tamu' : type;
+      await axios.post(`${process.env.REACT_APP_API_URL}${apiType}/${id}/validate`, {}, {
+        headers: AuthHeader()
+      })
+      setIsValidated(true)
+      setIsSubmittingValidate(false)
+      setSubmitStatusValidate('success')
+    } catch (error) {
+      setIsSubmittingValidate(false)
+      setSubmitStatusValidate('fail')
+    }
+    await new Promise(r => setTimeout(r, 1000));
+    closeHandlerValidate()
+  }
+
+  const agreeDeleteHandler = async () => {
+    setIsSubmittingDelete(true)
+    try {
+      const apiType = type === 'kultam' ? 'kuliah-tamu' : type;
+      await axios.delete(`${process.env.REACT_APP_API_URL}${apiType}/${id}`, {
+        headers: AuthHeader()
+      })
+      await setIsSubmittingDelete(false)
+      await setSubmitStatusDelete('success')
+      await new Promise(r => setTimeout(r, 1000));
+      history.push(`/${type}`)
+
+    } catch (error) {
+      setIsSubmittingDelete(false)
+      setSubmitStatusDelete('fail')
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    closeHandlerDelete()
+  }
+
+  const disagreeValidateHandler = () => {
+    closeHandlerValidate()
+  }
+
+  const disagreeDeleteHandler = () => {
+    closeHandlerDelete()
+  }
+
   return (
     <div className={classes.root}>
       <Grid container justify="center">
@@ -125,8 +237,49 @@ const ViewDetail = ({data, type}) => {
         </Grid>
         <Grid item xs={7}>
           <Paper className={classes.paper} elevation={6}>
-            <Field classes={classes} data={data}/> 
+            <Field 
+              classes={classes} 
+              data={data} 
+              isAdmin={isAdmin} 
+              isValidated={isValidated} 
+              openHandlerValidate={openHandlerValidate}
+              openHandlerDelete={openHandlerDelete}
+            /> 
           </Paper>
+        </Grid>
+        <Grid item xs={12}>
+          <AlertDialog 
+            title="Apakah anda yakin?"
+            content="Silakan periksa kembali data yang anda ajukan jika belum yakin"
+            agreeText="Ya"
+            disagreeText="Tidak"
+            successMessage="Data Berhasil di Validasi"
+            failMessage="Data Gagal di Validasi"
+            submitMessage="Sedang Melakukan Validasi Data"
+            open={openValidate} 
+            openHandler={openHandlerValidate} 
+            closeHandler={closeHandlerValidate} 
+            agreeHandler={agreeValidateHandler} 
+            disagreeHandler={disagreeValidateHandler}
+            isSubmitting={isSubmittingValidate}
+            submitStatus={submitStatusValidate}
+          />
+          <AlertDialog 
+            title="Apakah anda yakin?"
+            content="Silakan periksa kembali data yang anda ajukan jika belum yakin"
+            agreeText="Ya"
+            disagreeText="Tidak"
+            successMessage="Data Berhasil di Hapus"
+            failMessage="Data Gagal di Hapus"
+            submitMessage="Sedang Melakukan Peghapusan Data"
+            open={openDelete} 
+            openHandler={openHandlerDelete} 
+            closeHandler={closeHandlerDelete} 
+            agreeHandler={agreeDeleteHandler} 
+            disagreeHandler={disagreeDeleteHandler}
+            isSubmitting={isSubmittingDelete}
+            submitStatus={submitStatusDelete}
+          />
         </Grid>
       </Grid>
     </div>
