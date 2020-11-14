@@ -33,6 +33,7 @@ Show all Training Data
     {
         "id":2,
         "peserta":"Bapak dosen",
+        "jenis":"Dosen",
         "judul": "Pelatihan Mengajar",
         "tempat": "Surabaya",
         "date_start": "2020-08-25",

@@ -15,6 +15,7 @@ Create a training data
 ```json
 {
     "peserta":"[unicode longtext field]",
+    "jenis":"[unicode 50 chars max]",
     "judul": "[unicode 255 chars max]",
     "tempat": "[unicode 255 chars max]",
     "date_start": "[date field (format: YYYY-MM-DD)]",
@@ -28,6 +29,7 @@ Create a training data
 ```json
 {
     "peserta":"Bapak dosen",
+    "jenis":"Dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
@@ -48,6 +50,7 @@ Create a training data
 {
     "id":2,
     "peserta":"Bapak dosen",
+    "jenis":"Dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
     "date_start": "2020-08-25",
