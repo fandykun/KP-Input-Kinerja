@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import axios from 'axios';
 import { AuthHeader } from 'Helper';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
@@ -520,15 +520,14 @@ const DetailTraining = ({classes, setFieldValue}) => {
 
 const EntryForm = ({departemen}) => {
   dropdownDepartemen = departemen
+  const formRef = useRef()
   const [type, setType] = useState('Kultam')
   const [submitStatus, setSubmitStatus] = useState('')
-  const [value, setValue] = useState()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const openHandler = (value, {setSubmitting}) => {
-    setSubmitting(false)
-    setValue(value)
+  const openHandler = () => {
+    formRef.current.setSubmitting(false)
     setOpen(true)
   }
 
@@ -543,7 +542,7 @@ const EntryForm = ({departemen}) => {
   }
 
   const agreeHandler = async () => {
-    console.log(value)
+    const value = formRef.current.values
     setIsSubmitting(true)
     setSubmitStatus('')
     let data = new FormData();
@@ -563,6 +562,12 @@ const EntryForm = ({departemen}) => {
           })
           setSubmitStatus('success')
           setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
           await new Promise(r => setTimeout(r, 1000));
           break
         case "Konferensi":
@@ -587,6 +592,12 @@ const EntryForm = ({departemen}) => {
           })
           setSubmitStatus('success')
           setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
           await new Promise(r => setTimeout(r, 1000));
           break
         case "Jurnal":
@@ -609,6 +620,12 @@ const EntryForm = ({departemen}) => {
           })
           setSubmitStatus('success')
           setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
           await new Promise(r => setTimeout(r, 1000));
           break
         case "Prestasi":
@@ -624,6 +641,12 @@ const EntryForm = ({departemen}) => {
           })
           setSubmitStatus('success')
           setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
           await new Promise(r => setTimeout(r, 1000));
           break
         case "Training":
@@ -639,6 +662,12 @@ const EntryForm = ({departemen}) => {
           })
           setSubmitStatus('success')
           setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
           await new Promise(r => setTimeout(r, 1000));
           break
         default:
@@ -671,8 +700,18 @@ const EntryForm = ({departemen}) => {
         break;
     }
     for (let idx in dropdown) {
-      if (dropdown[idx].value === value) 
+      if (dropdown[idx].value === value)  {
+        const data = formRef.current.values
+        formRef.current.resetForm({
+          values: {
+            ...initialValues,
+            type: value,
+            name: data.name,
+            date: data.date,
+          }
+        })
         setType(value)
+      }
     }
   }
   const initialValues = {
@@ -706,6 +745,7 @@ const EntryForm = ({departemen}) => {
   return (
     <div className={classes.root} >
       <Formik
+        innerRef={formRef}
         initialValues={initialValues}
         validationSchema={ValidationSchema}
         onSubmit={openHandler}

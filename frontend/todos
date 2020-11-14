@@ -1,11 +1,9 @@
 Todos:
-- Change Pagelisting && DashboardNavigation to ButtonBase
-- Add form Page
 - Add Account Page
 
 Unnecessary:
-- Change navbar icon 
-- create page change transition
+- Take is admin from login to context
+- Fix Sorting
 
 Revised:
 -Django Trailing slash (APPEND_SLASH = False)

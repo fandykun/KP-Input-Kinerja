@@ -218,6 +218,8 @@ const renderRow = (row) => {
         return <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
       case "Training":
         return <TableCell align="left">{row.tempat}</TableCell>
+      case "Submission":
+        return <TableCell align="left">{row.source}</TableCell>
       default:
         return null;
     }

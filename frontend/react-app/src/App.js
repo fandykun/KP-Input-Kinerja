@@ -19,6 +19,7 @@ const App = () => {
 
   const initialUserState = useMemo(() => (!AuthService.getSession() ? {
     isAuthenticated: false,
+    isAdmin: false,
     profile: null,
     token: null,
   } : {
@@ -38,6 +39,7 @@ const App = () => {
         return {
           ...state, 
           isAuthenticated: true,
+          isAdmin: action.payload.is_admin,
           profile: action.payload.profile,
           token: action.payload.token,
         }
@@ -45,6 +47,7 @@ const App = () => {
         return {
           ...state,
           isAuthenticated: false,
+          isAdmin: false,
           profile: null,
           token: null,
         }

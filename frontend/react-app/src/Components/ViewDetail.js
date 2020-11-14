@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useHistory } from "react-router-dom";
 import axios from 'axios'
 import { AuthHeader } from 'Helper';
-import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControlLabel, Checkbox, Fab, Hidden, TextField, Button, Paper, Grid } from '@material-ui/core';
 import { CheckCircle, Delete, ArrowBack } from '@material-ui/icons';
@@ -146,7 +145,6 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
   const [isSubmittingDelete, setIsSubmittingDelete] = useState(false)
   const [submitStatusDelete, setSubmitStatusDelete] = useState('')
   const classes = useStyles()
-  const backLink = type;
   const openHandlerValidate = () => {
     setOpenValidate(true)
   }
@@ -195,7 +193,7 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
       await setIsSubmittingDelete(false)
       await setSubmitStatusDelete('success')
       await new Promise(r => setTimeout(r, 1000));
-      history.push(`/${type}`)
+      history.goBack()
 
     } catch (error) {
       setIsSubmittingDelete(false)
@@ -213,6 +211,10 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
     closeHandlerDelete()
   }
 
+  const handleBackLink = () => {
+    history.goBack()
+  }
+
   return (
     <div className={classes.root}>
       <Grid container justify="center">
@@ -220,7 +222,7 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
           <>
             <Hidden mdDown>
               <Grid item>
-                <Fab variant="extended" color="secondary" component={Link} to={`/${backLink}`} >
+                <Fab variant="extended" color="secondary" onClick={handleBackLink} >
                   <ArrowBack />
                     Kembali
                 </Fab>
@@ -228,7 +230,7 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
             </Hidden>
             <Hidden lgUp>
               <Grid item>
-                <Fab color="secondary" component={Link} to={`/${backLink}`} >
+                <Fab color="secondary" onClick={handleBackLink} >
                   <ArrowBack />
                 </Fab>
               </Grid>
