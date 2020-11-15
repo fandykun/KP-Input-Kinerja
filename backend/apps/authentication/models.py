@@ -40,3 +40,13 @@ class User(AbstractBaseUser, PermissionsMixin):
             return self.tendik.departemen.nama
         else:
             return None
+    
+    def get_nama(self):
+        if self.mahasiswa:
+            return self.mahasiswa.nama
+        elif self.dosen:
+            return self.dosen.nama
+        elif self.tendik:
+            return self.tendik.nama
+        else:
+            return None
