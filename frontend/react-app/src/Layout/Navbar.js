@@ -94,7 +94,9 @@ const Navbar = () => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleSubmission}>Submission</MenuItem>
+                { user.isAdmin &&
+                  <MenuItem onClick={handleSubmission}>Submission</MenuItem>
+                }
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Grid>

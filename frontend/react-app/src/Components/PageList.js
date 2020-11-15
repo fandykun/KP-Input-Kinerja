@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { Hidden, Fab, Badge, Grid, Typography } from '@material-ui/core';
-import { Add, People, EmojiEvents, Create, Business, Event } from '@material-ui/icons';
+import { PostAdd, People, EmojiEvents, Create, Business, Event } from '@material-ui/icons';
 
 import PageListToolbar from './PageListToolbar';
 import PageListHead from './PageListHead';
@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 750,
   },
   tableContainer: {
+    maxHeight: "600px",
     paddingLeft: theme.spacing(3),
     paddingRight: theme.spacing(3),
   },
@@ -168,7 +169,7 @@ const StyledName = ({row}) => {
     <div>
       <Grid container direction="column">
         { type !== "Submission" &&
-        <Grid item>
+        <Grid item style={{marginLeft: "8px"}}>
           <Badge badgeContent={year} max={999999} color="secondary" component="div"/>
         </Grid>
         }
@@ -217,13 +218,15 @@ const renderRow = (row) => {
         return <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
       case "Training":
         return <TableCell align="left">{row.tempat}</TableCell>
+      case "Submission":
+        return <TableCell align="left">{row.source}</TableCell>
       default:
         return null;
     }
   }
   return (
     <>
-    <TableCell scope="row">
+    <TableCell>
       <StyledName row={row} />
     </TableCell>
     {second(row.type)}
@@ -282,6 +285,7 @@ const PageList = ({title, rows, headCells}) => {
                   className={classes.table}
                   aria-labelledby="tableTitle"
                   aria-label="enhanced table"
+                  stickyHeader
                 >
                   <PageListHead
                     headCells={headCells}
@@ -305,7 +309,7 @@ const PageList = ({title, rows, headCells}) => {
                             component={Link}
                             to={row.link}
                           >
-                          { row ? renderRow(row) : "Tidak Ada Data" }
+                          {renderRow(row)}
                           </TableRow>
                         );
                       })}
@@ -321,28 +325,28 @@ const PageList = ({title, rows, headCells}) => {
                 onChangePage={handleChangePage}
               />
             </>
-            ) : "Tidak Ada Data"
+            ) : (
+              <Typography color="primary" variant="h5" style={{fontWeight: "bold", height: "60px", textAlign: "center", paddingTop: "16px"}}>
+                Tidak Ada Data
+              </Typography>
+            )
           }
           </Paper>
-          { title === 'Submission' &&
-            <>
-              <Hidden mdDown>
-                <Grid item>
-                  <Fab variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
-                    <Add />
-                    Tambah
-                  </Fab>
-                </Grid>
-              </Hidden>
-              <Hidden lgUp>
-                <Grid item>
-                  <Fab color="secondary" component={Link} to='/entry' className={classes.entry}>
-                    <Add />
-                  </Fab>
-                </Grid>
-              </Hidden>
-            </>
-          }
+            <Hidden mdDown>
+              <Grid item>
+                <Fab variant="extended" color="secondary" component={Link} to='/entry' className={classes.entry}>
+                  <PostAdd />
+                  Tambah
+                </Fab>
+              </Grid>
+            </Hidden>
+            <Hidden lgUp>
+              <Grid item>
+                <Fab color="secondary" component={Link} to='/entry' className={classes.entry}>
+                  <PostAdd />
+                </Fab>
+              </Grid>
+            </Hidden>
         </Grid>
       </Grid>
     </div>

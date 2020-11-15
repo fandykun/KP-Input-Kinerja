@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress, Button, Typography, Paper, Grid } from '@material-ui/core';
+import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
+import { AlertDialog } from 'Components';
 
 import SelectForm from './SelectForm'
 import TextFieldForm from './TextFieldForm'
@@ -37,6 +40,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginLeft: theme.spacing(3),
   },
+  message: {
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(4),
+    marginRight: theme.spacing(4),
+  },
   submit: {
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(3),
@@ -45,26 +53,24 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const dropdownDepartemen = [
-  {label: "Teknik Elektro", value: "Teknik Elektro"},
-  {label: "Teknik Informatika", value: "Teknik Informatika"},
-  {label: "Sistem Informasi", value: "Teknik Informasi"},
-  {label: "Teknik Komputer", value: "Teknik Komputer"},
-  {label: "Teknik Biomedik", value: "Teknik Biomedik"},
-  {label: "Teknologi Informasi", value: "Teknologi Informasi"},
-]
+let dropdownDepartemen = []
 
 const dropdownTingkat = [
   {label: "Internasional", value: "Internasional"},
   {label: "Nasional", value: "Nasional"},
-  {label: "Provinsi", value: "Provinsi"},
-  {label: "Kota", value: "Kota"},
-  {label: "Lokal", value: "Lokal"},
+  {label: "Regional", value: "Regional"},
+  {label: "Institut", value: "Institut"},
 ]
 
+const dropdownTingkatOther = [
+  {label: "Internasional Terakreditasi", value: "Internasional Terakreditasi"},
+  {label: "Internasional", value: "Internasional"},
+  {label: "Nasional Terakreditasi", value: "Nasional Terakreditasi"},
+  {label: "Nasional", value: "Nasional"},
+]
+
+
 const dropdownCategory = [
-  {label: "Pi", value: "Pi"},
-  {label: "Pn", value: "Pn"},
   {label: "Scopus", value: "Scopus"},
 ]
 
@@ -110,7 +116,7 @@ const DetailControl = (props) => {
   }
 }
 
-const DetailKultam = ({classes}) => {
+const DetailKultam = ({classes, setFieldValue}) => {
   return (
     <>
       <Grid item xs={12}>
@@ -126,7 +132,20 @@ const DetailKultam = ({classes}) => {
         />
       </Grid>
       <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama Pemateri, jika majemuk pisahkan dengan (,)"
+          name="pemateri"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
         <SelectForm
+          required
           select
           className={classes.field}
           margin="normal"
@@ -149,6 +168,23 @@ const DetailKultam = ({classes}) => {
           options={dropdownTingkat}
         />
       </Grid>
+      <Grid item xs={12}>
+        <TextField 
+          variant="outlined" 
+          type="file" 
+          color="secondary" 
+          autoComplete="off"
+          label="Bukti"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          className={classes.field}
+          style={{marginTop: '12px'}}
+          onChange={(event) => {
+            setFieldValue("file", event.currentTarget.files[0]);
+          }}
+        />
+      </Grid>
     </>
   )
 }
@@ -162,8 +198,32 @@ const DetailJurnal = ({classes}) => {
           required
           variant="outlined"
           margin="normal"
-          label="Nama yang melakukan kegiatan"
+          label="Nama pelaku kegiatan, jika majemuk pisahkan dengan (,)"
           name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Dipublish di"
+          name="published_at"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="URL"
+          name="url"
           color="secondary"
           autoComplete="off"
         />
@@ -202,9 +262,9 @@ const DetailJurnal = ({classes}) => {
           margin="normal"
           variant="outlined"
           label="Tingkat"
-          name="tingkat"
+          name="tingkatOther"
           color="secondary"
-          options={dropdownTingkat}
+          options={dropdownTingkatOther}
         />
       </Grid>
     </>
@@ -220,8 +280,32 @@ const DetailKonferensi = ({classes}) => {
           required
           variant="outlined"
           margin="normal"
-          label="Nama yang melakukan kegiatan"
+          label="Nama pelaku kegiatan, jika majemuk pisahkan dengan (,)"
           name="source"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Dipublish di"
+          name="published_at"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="URL"
+          name="url"
           color="secondary"
           autoComplete="off"
         />
@@ -239,6 +323,18 @@ const DetailKonferensi = ({classes}) => {
         />
       </Grid>
       <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Tempat"
+          name="tempat"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
         <RenderCheckbox className={classes.field} options={dropdownCategory}/>
       </Grid>
       <Grid item xs={12}>
@@ -248,16 +344,32 @@ const DetailKonferensi = ({classes}) => {
           margin="normal"
           variant="outlined"
           label="Tingkat"
-          name="tingkat"
+          name="tingkatOther"
           color="secondary"
-          options={dropdownTingkat}
+          options={dropdownTingkatOther}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          required
+          className={classes.field}
+          variant="outlined"
+          type="date"
+          margin="normal"
+          label="Tanggal Selesai Kegiatan"
+          name="date_end"
+          color="secondary"
+          autoComplete="off"
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       </Grid>
     </>
   )
 }
 
-const DetailPrestasi = ({classes}) => {
+const DetailPrestasi = ({classes, setFieldValue}) => {
   return (
     <>
       <Grid item xs={12}>
@@ -266,7 +378,7 @@ const DetailPrestasi = ({classes}) => {
           required
           variant="outlined"
           margin="normal"
-          label="Nama yang melakukan kegiatan"
+          label="Nama pelaku kegiatan, jika majemuk pisahkan dengan (,)"
           name="source"
           color="secondary"
           autoComplete="off"
@@ -296,20 +408,62 @@ const DetailPrestasi = ({classes}) => {
           options={dropdownTingkat}
         />
       </Grid>
-    </>
-  )
-}
-
-const DetailTraining = ({classes}) => {
-  return (
-    <>
       <Grid item xs={12}>
         <TextFieldForm 
           className={classes.bigField}
           required
           variant="outlined"
           margin="normal"
-          label="Nama yang melakukan kegiatan"
+          label="URL"
+          name="url"
+          color="secondary"
+          autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField 
+          variant="outlined" 
+          type="file" 
+          color="secondary" 
+          autoComplete="off"
+          label="Bukti"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          className={classes.field}
+          style={{marginTop: '12px'}}
+          onChange={(event) => {
+            setFieldValue("file", event.currentTarget.files[0]);
+          }}
+        />
+      </Grid>
+    </>
+  )
+}
+
+const DetailTraining = ({classes, setFieldValue}) => {
+  return (
+    <>
+      <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Jenis"
+          name="jenis"
+          color="secondary"
+          options={dropdownJenisTraining}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextFieldForm 
+          className={classes.bigField}
+          required
+          variant="outlined"
+          margin="normal"
+          label="Nama pelaku kegiatan, jika majemuk pisahkan dengan (,)"
           name="source"
           color="secondary"
           autoComplete="off"
@@ -328,23 +482,204 @@ const DetailTraining = ({classes}) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <SelectForm
-          select
+        <TextFieldForm 
+          required
           className={classes.field}
-          margin="normal"
           variant="outlined"
-          label="Jenis"
-          name="jenis"
+          type="date"
+          margin="normal"
+          label="Tanggal Selesai Kegiatan"
+          name="date_end"
           color="secondary"
-          options={dropdownJenisTraining}
+          autoComplete="off"
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <TextField 
+          variant="outlined" 
+          type="file" 
+          color="secondary" 
+          autoComplete="off"
+          label="Bukti"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          className={classes.field}
+          style={{marginTop: '12px'}}
+          onChange={(event) => {
+            setFieldValue("file", event.currentTarget.files[0]);
+          }}
         />
       </Grid>
     </>
   )
 }
 
-const EntryForm = () => {
+const EntryForm = ({departemen}) => {
+  dropdownDepartemen = departemen
+  const formRef = useRef()
   const [type, setType] = useState('Kultam')
+  const [submitStatus, setSubmitStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [open, setOpen] = useState(false)
+
+  const openHandler = () => {
+    formRef.current.setSubmitting(false)
+    setOpen(true)
+  }
+
+  const closeHandler = async () => {
+    await setOpen(false)
+    await new Promise(r => setTimeout(r, 500));
+    setSubmitStatus('')
+  }
+
+  const disagreeHandler = () => {
+    closeHandler()
+  }
+
+  const agreeHandler = async () => {
+    const value = formRef.current.values
+    setIsSubmitting(true)
+    setSubmitStatus('')
+    let data = new FormData();
+    let year, scopus, pi;
+    try {
+      switch (value.type) {
+        case "Kultam":
+          data.append("topik", value.name)
+          data.append("pemateri", value.pemateri)
+          data.append("institusi", value.source)
+          data.append("tingkat", value.tingkat)
+          data.append("tanggal", value.date)
+          data.append("departemen", value.departemen)
+          data.append("filepath", value.file)
+          await axios.post(`${process.env.REACT_APP_API_URL}kuliah-tamu/`, data, {
+            headers: AuthHeader({'Content-Type': 'multipart/form-data'})
+          })
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
+          await new Promise(r => setTimeout(r, 1000));
+          break
+        case "Konferensi":
+          year = parseInt(value.date)
+          scopus = value.category.indexOf('Scopus') !== -1
+          pi = value.tingkatOther.indexOf('Internasional') !== -1
+          data.append("judul", value.name)
+          data.append("author", value.source)
+          data.append("published_at", value.published_at)
+          data.append("url", value.url)
+          data.append("tahun", year.toString())
+          data.append("tingkat", value.tingkatOther)
+          data.append("pi", pi)
+          data.append("pn", !pi)
+          data.append("scopus", scopus)
+          data.append("konf_hal", value.konfhal)
+          data.append("tempat", value.tempat)
+          data.append("tanggal_mulai", value.date)
+          data.append("tanggal_selesai", value.date_end)
+          await axios.post(`${process.env.REACT_APP_API_URL}konferensi/`, data, {
+            headers: AuthHeader({'Content-Type': 'multipart/form-data'})
+          })
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
+          await new Promise(r => setTimeout(r, 1000));
+          break
+        case "Jurnal":
+          year = parseInt(value.date)
+          scopus = value.category.indexOf('Scopus') !== -1
+          pi = value.tingkatOther.indexOf('Internasional') !== -1
+          data.append("judul", value.name)
+          data.append("author", value.source)
+          data.append("published_at", value.published_at)
+          data.append("url", value.url)
+          data.append("tahun", year.toString())
+          data.append("tingkat", value.tingkatOther)
+          data.append("pi", pi)
+          data.append("pn", !pi)
+          data.append("scopus", scopus)
+          data.append("jurnal_vol", value.vol)
+          data.append("jurnal_no", value.no)
+          await axios.post(`${process.env.REACT_APP_API_URL}jurnal/`, data, {
+            headers: AuthHeader({'Content-Type': 'multipart/form-data'})
+          })
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
+          await new Promise(r => setTimeout(r, 1000));
+          break
+        case "Prestasi":
+          data.append("name", value.source)
+          data.append("lomba", value.name)
+          data.append("peringkat", value.rank)
+          data.append("tingkat", value.tingkat)
+          data.append("url", value.url)
+          data.append("tanggal", value.date)
+          data.append("filepath", value.file)
+          await axios.post(`${process.env.REACT_APP_API_URL}prestasi/`, data, {
+            headers: AuthHeader({'Content-Type': 'multipart/form-data'})
+          })
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
+          await new Promise(r => setTimeout(r, 1000));
+          break
+        case "Training":
+          data.append("peserta", value.source)
+          data.append("jenis", value.jenis)
+          data.append("judul", value.name)
+          data.append("tempat", value.tempat)
+          data.append("date_start", value.date)
+          data.append("date_end", value.date_end)
+          data.append("filepath", value.file)
+          await axios.post(`${process.env.REACT_APP_API_URL}training/`, data, {
+            headers: AuthHeader({'Content-Type': 'multipart/form-data'})
+          })
+          setSubmitStatus('success')
+          setIsSubmitting(false)
+          formRef.current.resetForm({
+            values: {
+              ...initialValues,
+              type: value.type,
+            }
+          })
+          await new Promise(r => setTimeout(r, 1000));
+          break
+        default:
+          break
+      }
+    } catch (error) {
+      setIsSubmitting(false)
+      setSubmitStatus('fail')
+      await new Promise(r => setTimeout(r, 1000));
+    }
+    closeHandler()
+  }
 
   const dropdownJenis = [
     {label: "Kuliah Tamu", value: "Kultam"},
@@ -353,7 +688,6 @@ const EntryForm = () => {
     {label: "Prestasi", value: "Prestasi"},
     {label: "Training", value: "Training"},
   ]
-
 
   const dropdownHandler = (name, e) => {
     const {value} = e.target
@@ -366,25 +700,39 @@ const EntryForm = () => {
         break;
     }
     for (let idx in dropdown) {
-      if (dropdown[idx].value === value) 
+      if (dropdown[idx].value === value)  {
+        const data = formRef.current.values
+        formRef.current.resetForm({
+          values: {
+            ...initialValues,
+            type: value,
+            name: data.name,
+            date: data.date,
+          }
+        })
         setType(value)
+      }
     }
-  }
-  const submitHandler = (value) => {
-    console.log(value)
   }
   const initialValues = {
     type: 'Kultam',
     name: '',
+    date: '',
+    date_end: '',
     source: '',
+    pemateri: '',
     vol: '',
     no: '',
+    published_at: '', 
+    url: '',
     konfhal: '',
     rank: '',
     jenis: 'Dosen',
     tempat: '',
     tingkat: 'Internasional',
-    departemen: 'Teknik Informatika',
+    tingkatOther: 'Internasional Terakreditasi',
+    departemen: 1,
+    file: null,
     category: [],
   }
   const ValidationSchema = Yup.object().shape({
@@ -393,15 +741,17 @@ const EntryForm = () => {
     name: Yup.string()
     .required('Judul Kegiatan tidak boleh kosong'),
   })
-const classes = useStyles()
+  const classes = useStyles()
   return (
     <div className={classes.root} >
       <Formik
+        innerRef={formRef}
         initialValues={initialValues}
         validationSchema={ValidationSchema}
-        onSubmit={submitHandler}
+        onSubmit={openHandler}
       >
       {props => (
+        <>
         <Form>
           <Grid container justify="flex-start">
             <Grid item xs={4}>
@@ -465,7 +815,7 @@ const classes = useStyles()
                       <Typography color="primary" variant="h5" className={classes.title}>
                         Detail Kegiatan
                       </Typography>
-                      <DetailControl type={type} classes={classes} />
+                      <DetailControl type={type} classes={classes} setFieldValue={props.setFieldValue} />
                       <Button
                         disabled={props.isSubmitting}
                         type="submit"
@@ -473,7 +823,7 @@ const classes = useStyles()
                         color="primary"
                         className={classes.submit}
                       >
-                          {props.isSubmitting ? <CircularProgress size="1.5rem" color="primary"/> : 'Submit'}
+                          Submit
                       </Button>
                     </Paper>
                   </div>
@@ -482,6 +832,23 @@ const classes = useStyles()
             </Grid>
           </Grid>
        </Form>
+      <AlertDialog 
+        title="Apakah anda yakin?"
+        content="Silakan periksa kembali data yang anda ajukan jika belum yakin"
+        agreeText="Ya"
+        disagreeText="Tidak"
+        successMessage="Data Berhasil di Entry"
+        failMessage="Data Gagal di Entry"
+        submitMessage="Sedang Melakukan Entry Data"
+        open={open} 
+        openHandler={openHandler} 
+        closeHandler={closeHandler} 
+        agreeHandler={agreeHandler} 
+        disagreeHandler={disagreeHandler}
+        isSubmitting={isSubmitting}
+        submitStatus={submitStatus}
+      />
+      </>
       )}
       </Formik>
     </div>

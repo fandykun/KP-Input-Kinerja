@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Hidden, Fab, Grid, TextField } from '@material-ui/core';
-import { ArrowBack, Search } from '@material-ui/icons';
+import { Loop, ArrowBack, Search } from '@material-ui/icons';
 
 const useToolbarStyles = makeStyles((theme) => ({
   root: {
@@ -13,11 +13,62 @@ const useToolbarStyles = makeStyles((theme) => ({
   title: {
     flex: '1 1 100%',
   },
+  flip: {
+    marginLeft: theme.spacing(2),
+  },
 }));
+
+const FlipButton = ({type, classes}) => {
+  switch (type) {
+    case 'Konferensi':
+      return (
+      <>
+        <Fab variant="extended" color="secondary" component={Link} to='/jurnal' className={classes.flip}>
+          <Loop />
+          Jurnal
+        </Fab>
+      </>
+      )
+    case 'Jurnal':
+      return (
+      <>
+        <Fab variant="extended" color="secondary" component={Link} to='/konferensi' className={classes.flip}>
+          <Loop />
+          Konferensi
+        </Fab>
+      </>
+      )
+    default:
+      return null
+  }
+}
+
+const FlipIcon = ({type, classes}) => {
+  switch (type) {
+    case 'Konferensi':
+      return (
+      <>
+        <Fab color="secondary" component={Link} to='/jurnal' className={classes.flip}>
+          <Loop />
+        </Fab>
+      </>
+      )
+    case 'Jurnal':
+      return (
+      <>
+        <Fab color="secondary" component={Link} to='/konferensi' className={classes.flip}>
+          <Loop />
+        </Fab>
+      </>
+      )
+    default:
+      return null
+  }
+}
 
 const PageListToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { search, handleSearchChange } = props;
+  const { title, search, handleSearchChange } = props;
 
   return (
     <Toolbar
@@ -31,6 +82,7 @@ const PageListToolbar = (props) => {
                 <ArrowBack />
                 Dashboard
               </Fab>
+              <FlipButton type={title} classes={classes}/>
             </Grid>
           </Hidden>
           <Hidden lgUp>
@@ -38,6 +90,7 @@ const PageListToolbar = (props) => {
               <Fab color="primary" component={Link} to='/dashboard'>
                 <ArrowBack />
               </Fab>
+              <FlipIcon type={title} classes={classes}/>
             </Grid>
           </Hidden>
         </Grid>

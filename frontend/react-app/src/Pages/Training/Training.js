@@ -27,14 +27,15 @@ const Training = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      const resp = await axios.get(`${process.env.REACT_APP_API_URL}trainingkaryawan/`, {
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}training/`, {
         headers: AuthHeader()
       })
-      const karyawan = resp.data
+      const { data } = resp
+      console.log(data)
       let r = []
-      for (let i = 0; i < karyawan.length; i++) {
-        const cur = karyawan[i]
-        r.push(createData(cur.id, cur.jenis_pelatihan, 'Karyawan', 'Abdul', cur.tanggal, cur.tempat))
+      for (let i = 0; i < data.length; i++) {
+        const cur = data[i]
+        r.push(createData(cur.id, cur.judul, cur.jenis, cur.peserta, cur.date_start, cur.tempat))
       }
       setRows(r)
       setLoading(false)
