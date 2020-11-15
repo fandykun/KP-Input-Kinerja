@@ -9,13 +9,14 @@ from ..masters.serializers import (MasterMahasiswaSerializer,
                                 MasterTendikSerializer)
 
 class UserSerializer(serializers.ModelSerializer):
+    departemen = serializers.CharField(source='get_departemen')
     mahasiswa = MasterMahasiswaSerializer()
     dosen = MasterDosenSerializer()
     tendik = MasterTendikSerializer()
 
     class Meta:
         model = User
-        fields = ['username', 'is_admin', 'mahasiswa', 'dosen', 'tendik']
+        fields = ['username', 'is_admin', 'departemen', 'mahasiswa', 'dosen', 'tendik']
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
