@@ -1,7 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth.hashers import check_password
 
 from .models import User
-from .serializers import UserSerializer
+from .serializers import UserSerializer, ChangePasswordSerializer
 from .permissions import isAdminPermission
 
 from ..jurnal.models import Jurnal
@@ -14,12 +15,60 @@ from ..konferensi.serializers import KonferensiSerializer
 from ..kuliahtamu.serializers import KuliahTamuSerializer
 from ..prestasi.serializers import PrestasiSerializer
 
-# Create your views here.
+from rest_framework import parsers, renderers
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.compat import coreapi, coreschema
+from rest_framework.response import Response
+from rest_framework.schemas import ManualSchema
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
 
 from itertools import chain
+
+class ObtainAuthToken(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+    if coreapi is not None and coreschema is not None:
+        schema = ManualSchema(
+            fields=[
+                coreapi.Field(
+                    name="username",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Username",
+                        description="Valid username for authentication",
+                    ),
+                ),
+                coreapi.Field(
+                    name="password",
+                    required=True,
+                    location='form',
+                    schema=coreschema.String(
+                        title="Password",
+                        description="Valid password for authentication",
+                    ),
+                ),
+            ],
+            encoding="application/json",
+        )
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'is_admin': user.is_admin})
+
+custom_auth_token = ObtainAuthToken.as_view()
 
 class UserInfoView(APIView):
     permission_classes = (IsAuthenticated,)
@@ -27,8 +76,20 @@ class UserInfoView(APIView):
     def get(self, request):
         user = User.objects.get(username=request.user.username)
         serializer = UserSerializer(user)
-        print(repr(serializer.data['username']))
         return Response(serializer.data)
+
+class UserChangePasswordView(APIView):
+    permission_classes = (IsAuthenticated, )
+
+    def post(self, request):
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            request.user.set_password(serializer.validated_data['new_password'])
+            request.user.save()
+            return Response(status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # modul, id, judul, nama
 class AllNonValidateView(APIView):
@@ -72,3 +133,4 @@ class AllNonValidateView(APIView):
             })
         
         return Response(results)
+

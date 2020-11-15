@@ -34,7 +34,8 @@ Used to collect a Token for a registered User.
 
 ```json
 {
-    "token": "93144b288eb1fdccbe46d6fc0f241a51766ecd3d"
+    "token": "93144b288eb1fdccbe46d6fc0f241a51766ecd3d",
+    "is_admin": "true"
 }
 ```
 

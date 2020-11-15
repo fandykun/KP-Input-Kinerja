@@ -18,6 +18,7 @@ request. A Token can be acquired from the Login view above.
 
 ## Account
 * [Show Account Information](account/get.md) : `GET /api/account/info/`
+* [Change Password](account/change-password.md) : `POST /api/account/change-password/`
 
 ## Submission
 * [Show All Non Validate Data](submission.md) : `GET /api/submission/`
