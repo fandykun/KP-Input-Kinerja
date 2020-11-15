@@ -48,6 +48,12 @@ const Navbar = () => {
     setAnchorEl(null);
   }
 
+  const handleAccount = () => {
+    console.log("clicked")
+    history.push('/account')
+    setAnchorEl(null);
+  }
+
   const handleLogout = () => {
     AuthService.logout()
     dispatchUser({
@@ -93,7 +99,7 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>My account</MenuItem>
+                <MenuItem onClick={handleAccount}>My account</MenuItem>
                 { user.isAdmin &&
                   <MenuItem onClick={handleSubmission}>Submission</MenuItem>
                 }

@@ -7,7 +7,7 @@ import { Loader } from 'Layout';
 
 const headCells = [
   { id: 'detail', numeric: false, disablePadding: true, label: 'Detail' },
-  { id: 'journal', numeric: false, disablePadding: false, label: 'Detail Jurnal' },
+  { id: 'category', numeric: false, disablePadding: false, label: 'Detail Jurnal' },
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 

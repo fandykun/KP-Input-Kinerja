@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import { UserContext } from 'Context';
 import {useField, Form, Formik} from 'formik';
@@ -12,7 +11,6 @@ import Grid from '@material-ui/core/Grid';
 import { Typography, CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AuthService } from 'Services';
-import { AuthHeader } from 'Helper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -84,15 +82,10 @@ const Login = () => {
   const submitHandler = async ({ username, password} ) => {
     const payload = await AuthService.login(username, password)
     if (payload) {
-      const user_info = await axios.get(`${process.env.REACT_APP_API_URL}account/info/`, {
-        headers: AuthHeader()
-      })
-      const { is_admin } = user_info.data
       dispatchUser({
         type: 'LOGIN_SUCCESS', 
         payload: {
           ...payload,
-          'is_admin': is_admin,
         }
       })
       setGoHome(true)

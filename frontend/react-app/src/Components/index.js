@@ -3,3 +3,4 @@ export * from './PageList';
 export * from './EntryForm';
 export * from './ViewDetail';
 export * from './AlertDialog';
+export * from './AccountForm';

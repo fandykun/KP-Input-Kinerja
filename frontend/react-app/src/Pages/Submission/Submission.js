@@ -7,9 +7,9 @@ import { PageList } from 'Components';
 import { Loader } from 'Layout';
 
 const headCells = [
-  { id: 'detail', numeric: false, disablePadding: true, label: 'Submission' },
-  { id: 'nama', numeric: false, disablePadding: true, label: 'Nama' },
-  { id: 'jenis', numeric: false, disablePadding: false, label: 'Jenis' },
+  { id: 'name', numeric: false, disablePadding: true, label: 'Submission' },
+  { id: 'source', numeric: false, disablePadding: true, label: 'Nama' },
+  { id: 'tingkat', numeric: false, disablePadding: false, label: 'Jenis' },
 ];
 
 const titleCase = (string)  => {
@@ -27,7 +27,7 @@ function createData(id, name, source, tingkat) {
 }
 
 const Submission = () => {
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
   const [error, setError] = useState(0)
   const [rows, setRows] = useState([])

@@ -39,7 +39,7 @@ const App = () => {
         return {
           ...state, 
           isAuthenticated: true,
-          isAdmin: action.payload.is_admin,
+          isAdmin: action.payload.isAdmin,
           profile: action.payload.profile,
           token: action.payload.token,
         }

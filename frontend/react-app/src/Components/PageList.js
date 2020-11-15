@@ -238,12 +238,13 @@ const renderRow = (row) => {
 const PageList = ({title, rows, headCells}) => {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
-  const [orderBy, setOrderBy] = useState('calories');
+  const [orderBy, setOrderBy] = useState('detail');
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('')
   const rowsPerPage = 5
 
   const handleRequestSort = (event, property) => {
+    console.log(property)
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);

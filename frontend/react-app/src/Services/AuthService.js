@@ -1,18 +1,11 @@
 import axios from 'axios';
 
 const login = async (username, password) => {
-  // const dummy = {
-  //   token: "12345",
-  //   profile: {
-  //     username: username,
-  //   }
-  // }
-  // localStorage.setItem('REACT_APP_SESSION', JSON.stringify(dummy))
-  // return dummy;
   try {
     const resp = await axios.post(`${process.env.REACT_APP_API_URL}login/`, { username : username, password : password })
     const data = {
       token: resp.data.token,
+      isAdmin: resp.data.is_admin,
       profile: {
         username: username,
       }
