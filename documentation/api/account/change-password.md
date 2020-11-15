@@ -4,7 +4,7 @@ Show all Departemen Data
 
 **URL** : `/api/account/change-password/`
 
-**Method** : `GET`
+**Method** : `POST`
 
 **Auth required** : YES
 

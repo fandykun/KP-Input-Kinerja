@@ -24,6 +24,7 @@ Show all Departemen Data
 {
     "username": "fandykun",
     "is_admin": false,
+    "departemen": "Informatika",
     "mahasiswa": {
         "id": 1,
         "nama": "Fandy Kuncoro",
