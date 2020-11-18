@@ -7,6 +7,7 @@ const login = async (username, password) => {
       token: resp.data.token,
       isAdmin: resp.data.is_admin,
       profile: {
+        nama: resp.data.nama,
         username: username,
       }
     }

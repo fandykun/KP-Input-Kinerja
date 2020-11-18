@@ -66,7 +66,7 @@ const Dashboard = () => {
         <Grid justify="space-evenly" container style={{padding:"50px", maxWidth: "100%", maxHeight: "75%"}}>
           <Grid item xs={12} justify="center" spacing={5}>
             <Hidden mdDown>
-              <WelcomeMessage user={user.profile.username} />
+              <WelcomeMessage user={user.profile.nama} />
             </Hidden>
           </Grid>
           <Grid spacing={5} item container justify="space-between">

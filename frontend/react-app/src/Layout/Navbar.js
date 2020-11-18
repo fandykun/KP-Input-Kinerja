@@ -88,7 +88,7 @@ const Navbar = () => {
               </SwitchTransition>
             </Grid>
             <Grid item container xs={6} justify="flex-end" alignItems="center" className={classes.supportingContent} >
-              <Typography align="right" color="secondary" variant="subtitle1">{ user.profile.username}</Typography>
+              <Typography align="right" color="secondary" variant="subtitle1">{ user.profile.nama}</Typography>
               <IconButton className={classes.navlink} aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <AccountCircle color="secondary"/>
               </IconButton>

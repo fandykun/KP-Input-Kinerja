@@ -12,8 +12,8 @@ const Account = () => {
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
-      title: "Account Info",
-      routeStack: ["Account Info"],
+      title: "Info Akun",
+      routeStack: ["Info Akun"],
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
