@@ -20,15 +20,8 @@ const Account = () => {
       const user_info = await axios.get(`${process.env.REACT_APP_API_URL}account/info/`, {
         headers: AuthHeader()
       })
-      const departemen = await axios.get(`${process.env.REACT_APP_API_URL}departemen`, {
-        headers: AuthHeader()
-      })
       const { data } = user_info
-      const departmentName = data.departemen ? departemen.data[data.department - 1].nama : departemen.data[0].nama
-      setData({
-        ...data,
-        'departemen': departmentName,
-      })
+      setData(data)
       setLoading(false)
     }
     fetchAPI()
