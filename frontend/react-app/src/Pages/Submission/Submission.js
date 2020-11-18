@@ -39,22 +39,20 @@ const Submission = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      const resp = await axios.get(`${process.env.REACT_APP_API_URL}submission/`, {
-        headers: AuthHeader()
-      })
-      const user_info = await axios.get(`${process.env.REACT_APP_API_URL}account/info/`, {
-        headers: AuthHeader()
-      })
-      if (!user_info.data.is_admin) {
-        setError(403)
+      try {
+        const resp = await axios.get(`${process.env.REACT_APP_API_URL}submission/`, {
+          headers: AuthHeader()
+        })
+        const { data } = resp
+        let r = []
+        for (let i = 0; i < resp.data.length; i++) {
+          const cur = data[i]
+          r.push(createData(cur.id, cur.judul, cur.nama, cur.modul))
+        }
+        setRows(r)
+      } catch (error) {
+        setError(error.response.status)
       }
-      const { data } = resp
-      let r = []
-      for (let i = 0; i < resp.data.length; i++) {
-        const cur = data[i]
-        r.push(createData(cur.id, cur.judul, cur.nama, cur.modul))
-      }
-      setRows(r)
       setLoading(false)
     }
     fetchAPI()
