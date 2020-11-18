@@ -2,7 +2,7 @@
 
 Show a single Training data if current User has access permissions to it.
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/training/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Training data on the
 server.
