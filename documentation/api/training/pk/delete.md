@@ -2,7 +2,7 @@
 
 Allow the Authenticated User to delete Training data
 
-**URL** : `/api/accounts/:pk/`
+**URL** : `/api/training/:pk/`
 
 **URL Parameters** : `pk=[integer]` where `pk` is the ID of the Account in the
 database.

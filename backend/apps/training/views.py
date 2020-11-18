@@ -62,13 +62,10 @@ class TrainingDetailsAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
+        train_dosen = self.get_object(pk)
         if isAdminPermission:
-            train_dosen = self.get_object(pk)
-            train_dosen = get_object_or_404(train_dosen, pk=pk)
             train_dosen.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 # Validated API
 @api_view(['POST'])
