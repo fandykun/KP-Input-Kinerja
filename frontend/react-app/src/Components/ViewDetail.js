@@ -44,8 +44,8 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     display: "block",
-    maxWidth : '800px',
-    maxHeight : '400px',
+    maxWidth : '600px',
+    maxHeight : '300px',
     marginTop: theme.spacing(3),
     marginLeft: "auto",
     marginRight: "auto",
@@ -54,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
     width: '75%',
     marginLeft: theme.spacing(2),
+  },
+  form: {
+    maxHeight: '100px',
   },
 }));
 

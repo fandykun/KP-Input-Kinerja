@@ -122,6 +122,7 @@ const AlertDialog = (props) => {
         onClose={props.closeHandler}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        disableBackdropClick={true}
       >
         <DialogTitle id="alert-dialog-title">
           <Title classes={classes} title={props.title} isSubmitting={props.isSubmitting} submitStatus={props.submitStatus} submitMessage={props.submitMessage} failMessage={props.failMessage} successMessage={props.successMessage}/>
