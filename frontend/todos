@@ -1,9 +1,7 @@
 Todos:
-- Add Account Page
-
-Unnecessary:
-- Take is admin from login to context
-- Fix Sorting
+- Limit file size and extension
+- maxheight for any resolution on any detail
+- resize modal height
 
 Revised:
 -Django Trailing slash (APPEND_SLASH = False)
