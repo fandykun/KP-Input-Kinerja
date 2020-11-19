@@ -8,7 +8,7 @@ class Prestasi(models.Model):
     peringkat = models.CharField(max_length=255)
     tanggal = models.DateField()
     url = models.CharField(max_length=255)
-    filepath = models.FileField(upload_to='prestasi/')
+    filepath = models.FileField(upload_to='prestasi/',null=True)
     uploaded_at = models.DateTimeField(auto_now=True)
     is_validated = models.BooleanField(default=False)
     
