@@ -35,6 +35,7 @@ Show all Prestasi Data
         "name": "Fadhil Musaad, Fandykun",
         "lomba": "Compfest",
         "tingkat": "Nasional",
+        "jenis": "Mahasiswa",
         "peringkat": "Pertama",
         "tanggal": "2020-08-25",
         "url": "www.prestasi.com",

@@ -11,6 +11,7 @@ class Prestasi(models.Model):
     filepath = models.FileField(upload_to='prestasi/',null=True)
     uploaded_at = models.DateTimeField(auto_now=True)
     is_validated = models.BooleanField(default=False)
+    jenis = models.CharField(max_length=100)
     
     def __str__(self):
         return self.name

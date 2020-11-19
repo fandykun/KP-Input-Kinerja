@@ -16,6 +16,7 @@ Create a prestasi data
 {
     "name": "[unicode 255 chars max]",
     "tingkat": "[unicode 100 chars max]",
+    "jenis": "[unicode 100 chars max]",
     "peringkat": "[unicode 100 chars max]",
     "tanggal": "[date field (format: YYYY-MM-DD)]",
     "url": "[unicode 255 chars max]",
@@ -30,6 +31,7 @@ Create a prestasi data
 {
     "name": "Fadhil Musaad, Fandykun",
     "tingkat": "Nasional",
+    "jenis": "Mahasiswa",
     "peringkat": "Pertama",
     "tanggal": "2020-08-25",
     "url": "www.prestasi.com",
