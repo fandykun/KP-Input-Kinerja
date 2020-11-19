@@ -52,6 +52,7 @@ const viewPrestasi = (data) => {
   return [
     { type: "prestasi", form: "text", label: "Judul Kegiatan", value: data.lomba },
     { type: "prestasi", form: "text", label: "Pelaku", value: data.name },
+    { type: "prestasi", form: "text", label: "Jenis", value: data.jenis },
     { type: "prestasi", form: "text", label: "Tingkat", value: data.tingkat },
     { type: "prestasi", form: "text", label: "Peringkat", value: data.peringkat },
     { type: "prestasi", form: "text", label: "Tanggal", value: data.tanggal },

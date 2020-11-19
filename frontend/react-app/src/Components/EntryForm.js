@@ -79,6 +79,12 @@ const dropdownJenisTraining = [
   {label: "Karyawan", value: "Karyawan"},
 ]
 
+const dropdownJenisPrestasi = [
+  {label: "Dosen", value: "Dosen"},
+  {label: "Karyawan", value: "Karyawan"},
+  {label: "Mahasiswa", value: "Mahasiswa"},
+]
+
 const RenderCheckbox = (props) => {
   const {options, ...rest} = props
   return (
@@ -385,6 +391,19 @@ const DetailPrestasi = ({classes, setFieldValue}) => {
         />
       </Grid>
       <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Jenis"
+          name="jenis"
+          color="secondary"
+          options={dropdownJenisPrestasi}
+        />
+      </Grid>
+      <Grid item xs={12}>
         <TextFieldForm
           required
           className={classes.field}
@@ -556,7 +575,8 @@ const EntryForm = ({departemen}) => {
           data.append("tingkat", value.tingkat)
           data.append("tanggal", value.date)
           data.append("departemen", value.departemen)
-          data.append("filepath", value.file)
+          if (value.file !== null)
+            data.append("filepath", value.file)
           await axios.post(`${process.env.REACT_APP_API_URL}kuliah-tamu/`, data, {
             headers: AuthHeader({'Content-Type': 'multipart/form-data'})
           })
@@ -630,12 +650,14 @@ const EntryForm = ({departemen}) => {
           break
         case "Prestasi":
           data.append("name", value.source)
+          data.append("jenis", value.jenis)
           data.append("lomba", value.name)
           data.append("peringkat", value.rank)
           data.append("tingkat", value.tingkat)
           data.append("url", value.url)
           data.append("tanggal", value.date)
-          data.append("filepath", value.file)
+          if (value.file !== null)
+            data.append("filepath", value.file)
           await axios.post(`${process.env.REACT_APP_API_URL}prestasi/`, data, {
             headers: AuthHeader({'Content-Type': 'multipart/form-data'})
           })
@@ -656,7 +678,8 @@ const EntryForm = ({departemen}) => {
           data.append("tempat", value.tempat)
           data.append("date_start", value.date)
           data.append("date_end", value.date_end)
-          data.append("filepath", value.file)
+          if (value.file !== null)
+            data.append("filepath", value.file)
           await axios.post(`${process.env.REACT_APP_API_URL}training/`, data, {
             headers: AuthHeader({'Content-Type': 'multipart/form-data'})
           })

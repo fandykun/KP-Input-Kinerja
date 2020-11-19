@@ -216,6 +216,8 @@ const renderRow = (row) => {
         return <TableCell align="left">{styledJurnal(row.detail)}</TableCell>
       case "Konferensi":
         return <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
+      case "Prestasi":
+        return <TableCell align="left">{row.jenis}</TableCell>
       case "Training":
         return <TableCell align="left">{row.tempat}</TableCell>
       case "Submission":

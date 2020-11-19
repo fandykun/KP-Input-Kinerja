@@ -84,7 +84,7 @@ const Field = ({classes, data, isAdmin, isValidated, openHandlerValidate, openHa
         case 'media':
           return (
             <Grid item xs={12} key={field.label}>
-              { field.value &&
+              { field.value !== null && field.value !== 'null' &&
                 <img className={classes.media} src={`${process.env.REACT_APP_MEDIA_URL}${field.value}`} alt="media"/>
               }
             </Grid>

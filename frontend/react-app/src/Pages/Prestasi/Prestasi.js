@@ -7,11 +7,12 @@ import { Loader } from 'Layout';
 
 const headCells = [
   { id: 'detail', numeric: false, disablePadding: true, label: 'Lomba' },
+  { id: 'jenis', numeric: false, disablePadding: false, label: 'Jenis' },
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 
-function createData(id, name, tingkat, source, date) {
-  return { id, type:"Prestasi", name, tingkat, source, date, link:'/detail/prestasi/' + id};
+function createData(id, name, tingkat, source, date, jenis) {
+  return { id, type:"Prestasi", name, tingkat, source, date, link:'/detail/prestasi/' + id, jenis};
 }
 
 
@@ -34,7 +35,7 @@ const Prestasi = () => {
       let r = []
       for (let i = 0; i < resp.data.length; i++) {
         const cur = data[i]
-        r.push(createData(cur.id, cur.lomba, cur.tingkat, cur.name, cur.tanggal))
+        r.push(createData(cur.id, cur.lomba, cur.tingkat, cur.name, cur.tanggal, cur.jenis))
       }
       setRows(r)
       setLoading(false)
