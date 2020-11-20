@@ -286,6 +286,7 @@ const PageList = ({title, rows, headCells}) => {
     setSearch(event.target.value)
     const filteredData = filterSearch(rows)
     setCount(filteredData.length)
+    setPage(0)
   }
 
   const filterSearch = (data) => {
