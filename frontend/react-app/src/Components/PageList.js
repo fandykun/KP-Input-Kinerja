@@ -45,11 +45,12 @@ function stableSort(array, comparator) {
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    height: 'calc(100vh - 64px)',
     paddingTop: theme.spacing(2),
+    minHeight: 'calc(100vh - 64px)',
     backgroundImage: 'url(/static/images/bg-light.jpg)',
     background: '#fff',
     backgroundSize: 'cover',
+    paddingBottom: theme.spacing(2),
   },
   paper: {
     width: '100%',
