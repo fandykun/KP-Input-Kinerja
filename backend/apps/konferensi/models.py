@@ -1,5 +1,7 @@
 from django.db import models
 
+from ..masters.models import Departemen
+
 # Create your models here.
 class Konferensi(models.Model):
     judul = models.CharField(max_length=255)
@@ -17,6 +19,7 @@ class Konferensi(models.Model):
     tanggal_selesai = models.DateField()
     is_validated = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(auto_now=True)
+    departemen = models.ForeignKey(to=Departemen, on_delete=models.DO_NOTHING, null=True)
     
     def __str__(self):
         return self.judul

@@ -96,5 +96,6 @@ class KonferensiList(ListAPIView):
         'konf_hal',
         'tempat',
         'tanggal_mulai',
-        'tanggal_selesai'
+        'tanggal_selesai',
+        'departemen'
     ]

@@ -95,5 +95,6 @@ class JurnalList(ListAPIView):
         'tingkat',
         'pi',
         'pn',
-        'scopus'
+        'scopus',
+        'departemen'
     ]

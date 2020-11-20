@@ -1,4 +1,5 @@
 from django.db import models
+from ..masters.models import Departemen
 
 # Create your models here.
 class Jurnal(models.Model):
@@ -15,6 +16,7 @@ class Jurnal(models.Model):
     scopus = models.BooleanField(default=False)
     is_validated = models.BooleanField(default=False)
     uploaded_at = models.DateTimeField(auto_now=True)
+    departemen = models.ForeignKey(to=Departemen, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return self.judul
