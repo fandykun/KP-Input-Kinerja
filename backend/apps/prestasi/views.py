@@ -83,7 +83,7 @@ class PrestasiList(ListAPIView):
     serializer_class = PrestasiSerializer
     queryset = Prestasi.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['name', 'lomba', 'tingkat', 'peringkat', 'tanggal', 'url', 'jenis']
+    filter_fields = ['name', 'lomba', 'tingkat', 'peringkat', 'tanggal', 'url', 'jenis','departemen']
 
         
     

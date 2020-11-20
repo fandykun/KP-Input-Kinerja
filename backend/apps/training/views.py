@@ -91,4 +91,5 @@ class TrainingList(ListAPIView):
         'date_start',
         'date_end',
         'tempat',
+        'departemen',
     ]

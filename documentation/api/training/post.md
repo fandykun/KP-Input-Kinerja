@@ -18,6 +18,7 @@ Create a training data
     "jenis":"[unicode 50 chars max]",
     "judul": "[unicode 255 chars max]",
     "tempat": "[unicode 255 chars max]",
+    "departemen": "[departemen_id]",
     "date_start": "[date field (format: YYYY-MM-DD)]",
     "date_end": "[date field (format: YYYY-MM-DD)]",
     "filepath":"[file uploaded using multipart/form-data]"
@@ -32,6 +33,7 @@ Create a training data
     "jenis":"Dosen",
     "judul": "Pelatihan Mengajar",
     "tempat": "Surabaya",
+    "departemen": 1,
     "date_start": "2020-08-25",
     "date_end": "2020-08-26",
     "filepath": "/media/training/training1.png"

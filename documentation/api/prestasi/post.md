@@ -20,6 +20,7 @@ Create a prestasi data
     "peringkat": "[unicode 100 chars max]",
     "tanggal": "[date field (format: YYYY-MM-DD)]",
     "url": "[unicode 255 chars max]",
+    "departemen": "[departemen_id]",
     "filepath":"[file uploaded using multipart/form-data]",
     "is_validated": "[boolean field]"
 }
@@ -35,6 +36,7 @@ Create a prestasi data
     "peringkat": "Pertama",
     "tanggal": "2020-08-25",
     "url": "www.prestasi.com",
+    "departemen": 1,
     "filepath": "prestasi_mhs1.png",
     "is_validated": "1"
 }

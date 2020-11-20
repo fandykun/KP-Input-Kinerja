@@ -39,7 +39,8 @@ Show all Training Data
         "date_start": "2020-08-25",
         "date_end": "2020-08-26",
         "filepath": "/media/training/training1.png",
-        "uploaded_at": "2020-07-25 06:20:38.974508"
+        "uploaded_at": "2020-07-25 06:20:38.974508",
+        "departemen": 1
     }
 ]
 ```

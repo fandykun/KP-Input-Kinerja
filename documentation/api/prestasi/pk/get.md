@@ -36,6 +36,7 @@ server.
     "filepath": "/media/prestasi/prestasi_mhs1.png",
     "uploaded_at": "2020-07-25 06:20:38.974508",
     "is_validated": false,
+    "departemen": 1
 }
 ```
 
