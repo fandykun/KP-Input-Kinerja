@@ -124,12 +124,14 @@ class AllNonValidateView(APIView):
                 serializer = PrestasiSerializer(entry)
                 judul = serializer.data['lomba']
                 nama = serializer.data['name']
-            
+
+            departemen = serializer.data['departemen']           
             results.append({
                 'id': serializer.data['id'], 
                 'modul': item_type, 
                 'judul': judul,
-                'nama': nama
+                'nama': nama,
+                'departemen': departemen
             })
         
         return Response(results)
