@@ -266,11 +266,26 @@ const PageList = ({title, rows, headCells}) => {
       if (search === null || search === '')
         return true;
       else {
-        for (const value of Object.entries(item)) {
-          if (value.toString().toLowerCase().includes(search.toString().toLowerCase()))
-            return true;
+        const searchList = search.split("|")
+        for (let i = 0; i < searchList.length; i++) {
+          let found = false;
+          for (const value of Object.entries(item)) {
+            if (value[0] === "name" || value[0] === "source") {
+              if (value[1].toString().toLowerCase().includes(searchList[i].toString().trim().toLowerCase())) {
+                found = true
+              }
+            } else {
+              if (value[1].toString().includes(searchList[i].toString().trim())) {
+                console.log(value[1].toString())
+                console.log(searchList[i].toString().trim())
+                found = true
+              }
+            }
+          }
+          if (!found)
+            return false;
         }
-        return false;
+        return true;
       }
     })
   }
