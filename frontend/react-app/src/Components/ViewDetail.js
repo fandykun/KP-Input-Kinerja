@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     backgroundImage: 'url(/static/images/bg.jpg)',
     background: '#fff',
-    backgroundSize: 'cover',
+    backgroundSize: 'auto',
   },
   paper: {
     paddingTop: theme.spacing(1),

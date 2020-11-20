@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(2),
     backgroundImage: 'url(/static/images/bg.jpg)',
     background: '#fff',
-    backgroundSize: 'cover',
+    backgroundSize: 'auto',
   },
   paper: {
     paddingTop: theme.spacing(1),
@@ -47,9 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     marginTop: theme.spacing(2),
-    marginLeft: theme.spacing(3),
-    marginRight: theme.spacing(2),
     marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(3),
+  },
+  reset: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(2),
+    marginRight: theme.spacing(3),
   }
 }));
 
@@ -560,6 +564,16 @@ const EntryForm = ({departemen}) => {
     closeHandler()
   }
 
+  const resetHandler = () => {
+    const value = formRef.current.values
+    formRef.current.resetForm({
+      values: {
+        ...initialValues,
+        type: value.type,
+      }
+    })
+  }
+
   const agreeHandler = async () => {
     const value = formRef.current.values
     setIsSubmitting(true)
@@ -839,15 +853,30 @@ const EntryForm = ({departemen}) => {
                         Detail Kegiatan
                       </Typography>
                       <DetailControl type={type} classes={classes} setFieldValue={props.setFieldValue} />
-                      <Button
-                        disabled={props.isSubmitting}
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                      >
-                          Submit
-                      </Button>
+                      <Grid container justify="space-between">
+                        <Grid item>
+                          <Button
+                            disabled={props.isSubmitting}
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                          >
+                              Submit
+                          </Button>
+                        </Grid>
+                        <Grid item>
+                          <Button
+                            disabled={props.isSubmitting}
+                            variant="contained"
+                            color="secondary"
+                            className={classes.reset}
+                            onClick={resetHandler}
+                          >
+                              Reset
+                          </Button>
+                        </Grid>
+                      </Grid>
                     </Paper>
                   </div>
                 </CSSTransition>
