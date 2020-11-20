@@ -116,9 +116,9 @@ const Detail = () => {
         setIsValidated(resp.data.is_validated)
         setIsAdmin(user_info.data.is_admin)
         const { data } = resp
+        data.departemen = data.departemen ? departemen.data[data.departemen - 1].nama : "undefined"
         switch (type) {
           case 'kultam':
-            data.departemen = data.departemen ? departemen.data[data.departemen - 1].nama : "undefined"
             setData(viewKultam(data));
             break;
           case 'konferensi':
