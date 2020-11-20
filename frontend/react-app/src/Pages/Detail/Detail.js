@@ -23,6 +23,7 @@ const viewKonferensi = (data) => {
   return [
     { type: "konferensi", form: "text", label: "Judul Kegiatan", value: data.judul },
     { type: "konferensi", form: "text", label: "Author", value: data.author },
+    { type: "konferensi", form: "text", label: "Departemen", value: data.departemen },
     { type: "konferensi", form: "text", label: "Dipublish di", value: data.published_at },
     { type: "konferensi", form: "text", label: "URL", value: data.url },
     { type: "konferensi", form: "text", label: "Tingkat", value: data.tingkat },
@@ -38,6 +39,7 @@ const viewJurnal = (data) => {
   return [
     { type: "konferensi", form: "text", label: "Judul Kegiatan", value: data.judul },
     { type: "konferensi", form: "text", label: "Author", value: data.author },
+    { type: "konferensi", form: "text", label: "Departemen", value: data.departemen },
     { type: "konferensi", form: "text", label: "Dipublish di", value: data.published_at },
     { type: "konferensi", form: "text", label: "URL", value: data.url },
     { type: "konferensi", form: "text", label: "Tingkat", value: data.tingkat },
@@ -52,6 +54,7 @@ const viewPrestasi = (data) => {
   return [
     { type: "prestasi", form: "text", label: "Judul Kegiatan", value: data.lomba },
     { type: "prestasi", form: "text", label: "Pelaku", value: data.name },
+    { type: "prestasi", form: "text", label: "Departemen", value: data.departemen },
     { type: "prestasi", form: "text", label: "Jenis", value: data.jenis },
     { type: "prestasi", form: "text", label: "Tingkat", value: data.tingkat },
     { type: "prestasi", form: "text", label: "Peringkat", value: data.peringkat },
@@ -66,6 +69,7 @@ const viewTraining = (data) => {
     { type: "training", form: "text", label: "Judul Kegiatan", value: data.judul },
     { type: "training", form: "text", label: "Jenis", value: data.jenis },
     { type: "training", form: "text", label: "Pelaku", value: data.peserta },
+    { type: "training", form: "text", label: "Departemen", value: data.departemen },
     { type: "training", form: "text", label: "Tempat", value: data.tempat },
     { type: "training", form: "text", label: "Tanggal Mulai", value: data.date_start },
     { type: "training", form: "text", label: "Tanggal Selesai", value: data.date_end },

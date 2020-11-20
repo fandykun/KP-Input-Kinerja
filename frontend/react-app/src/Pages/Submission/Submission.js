@@ -9,6 +9,7 @@ import { Loader } from 'Layout';
 const headCells = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Submission' },
   { id: 'source', numeric: false, disablePadding: true, label: 'Nama' },
+  { id: 'departemen', numeric: false, disablePadding: false, label: 'Departemen' },
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Jenis' },
 ];
 
@@ -20,10 +21,10 @@ const titleCase = (string)  => {
   return sentence;
 }
 
-function createData(id, name, source, tingkat) {
+function createData(id, name, source, tingkat, departemen) {
   const apiType = tingkat === 'kuliahtamu' ? 'kultam' : tingkat
   const modul = tingkat === 'kuliahtamu' ? 'Kuliah Tamu' : titleCase(tingkat);
-  return { id, type:"Submission", name, source, link:`/detail/${apiType}/${id}`, tingkat: modul };
+  return { id, type:"Submission", name, source, link:`/detail/${apiType}/${id}`, tingkat: modul, departemen };
 }
 
 const Submission = () => {
@@ -43,11 +44,15 @@ const Submission = () => {
         const resp = await axios.get(`${process.env.REACT_APP_API_URL}submission/`, {
           headers: AuthHeader()
         })
+        const departemen = await axios.get(`${process.env.REACT_APP_API_URL}departemen/`, {
+          headers: AuthHeader()
+        })
+        const nama = departemen.data
         const { data } = resp
         let r = []
         for (let i = 0; i < resp.data.length; i++) {
           const cur = data[i]
-          r.push(createData(cur.id, cur.judul, cur.nama, cur.modul))
+          r.push(createData(cur.id, cur.judul, cur.nama, cur.modul, cur.departemen ? nama[cur.departemen - 1].nama : "undefined"))
         }
         setRows(r)
       } catch (error) {

@@ -214,15 +214,40 @@ const renderRow = (row) => {
       case "Kultam":
         return <TableCell align="left">{row.departemen}</TableCell>
       case "Jurnal":
-        return <TableCell align="left">{styledJurnal(row.detail)}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{styledJurnal(row.detail)}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+          </>
+        )
       case "Konferensi":
-        return <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+          </>
+        )
       case "Prestasi":
-        return <TableCell align="left">{row.jenis}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{row.jenis}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+          </>
+        )
       case "Training":
-        return <TableCell align="left">{row.tempat}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{row.tempat}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+          </>
+        )
       case "Submission":
-        return <TableCell align="left">{row.source}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{row.source}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+          </>
+        )
       default:
         return null;
     }
@@ -241,13 +266,13 @@ const renderRow = (row) => {
 const PageList = ({title, rows, headCells}) => {
   const classes = useStyles();
   const [order, setOrder] = useState('asc');
+  const [count, setCount] = useState(rows.length)
   const [orderBy, setOrderBy] = useState('detail');
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('')
   const rowsPerPage = 5
 
   const handleRequestSort = (event, property) => {
-    console.log(property)
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -257,15 +282,17 @@ const PageList = ({title, rows, headCells}) => {
     setPage(newPage);
   };
 
-
   const handleSearchChange = (event) => {
     setSearch(event.target.value)
+    const filteredData = filterSearch(rows)
+    setCount(filteredData.length)
   }
 
   const filterSearch = (data) => {
-    return data.filter(item => {
-      if (search === null || search === '')
+    const filteredData = data.filter(item => {
+      if (search === null || search === '') {
         return true;
+      }
       else {
         const searchList = search.split("|")
         for (let i = 0; i < searchList.length; i++) {
@@ -277,8 +304,6 @@ const PageList = ({title, rows, headCells}) => {
               }
             } else {
               if (value[1].toString().includes(searchList[i].toString().trim())) {
-                console.log(value[1].toString())
-                console.log(searchList[i].toString().trim())
                 found = true
               }
             }
@@ -289,6 +314,7 @@ const PageList = ({title, rows, headCells}) => {
         return true;
       }
     })
+    return filteredData
   }
 
   return (
@@ -338,7 +364,7 @@ const PageList = ({title, rows, headCells}) => {
               <TablePagination
                 rowsPerPageOptions={[]}
                 component="div"
-                count={rows.length}
+                count={count}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

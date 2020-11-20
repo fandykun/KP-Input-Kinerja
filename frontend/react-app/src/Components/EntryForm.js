@@ -216,6 +216,19 @@ const DetailJurnal = ({classes}) => {
         />
       </Grid>
       <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Departemen"
+          name="departemen"
+          color="secondary"
+          options={dropdownDepartemen}
+        />
+      </Grid>
+      <Grid item xs={12}>
         <TextFieldForm 
           className={classes.bigField}
           required
@@ -295,6 +308,19 @@ const DetailKonferensi = ({classes}) => {
           name="source"
           color="secondary"
           autoComplete="off"
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Departemen"
+          name="departemen"
+          color="secondary"
+          options={dropdownDepartemen}
         />
       </Grid>
       <Grid item xs={12}>
@@ -402,6 +428,19 @@ const DetailPrestasi = ({classes, setFieldValue}) => {
           className={classes.field}
           margin="normal"
           variant="outlined"
+          label="Departemen"
+          name="departemen"
+          color="secondary"
+          options={dropdownDepartemen}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
           label="Jenis"
           name="jenis"
           color="secondary"
@@ -479,6 +518,19 @@ const DetailTraining = ({classes, setFieldValue}) => {
           name="jenis"
           color="secondary"
           options={dropdownJenisTraining}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <SelectForm
+          required
+          select
+          className={classes.field}
+          margin="normal"
+          variant="outlined"
+          label="Departemen"
+          name="departemen"
+          color="secondary"
+          options={dropdownDepartemen}
         />
       </Grid>
       <Grid item xs={12}>
@@ -610,6 +662,7 @@ const EntryForm = ({departemen}) => {
           scopus = value.category.indexOf('Scopus') !== -1
           pi = value.tingkatOther.indexOf('Internasional') !== -1
           data.append("judul", value.name)
+          data.append("departemen", value.departemen)
           data.append("author", value.source)
           data.append("published_at", value.published_at)
           data.append("url", value.url)
@@ -640,6 +693,7 @@ const EntryForm = ({departemen}) => {
           scopus = value.category.indexOf('Scopus') !== -1
           pi = value.tingkatOther.indexOf('Internasional') !== -1
           data.append("judul", value.name)
+          data.append("departemen", value.departemen)
           data.append("author", value.source)
           data.append("published_at", value.published_at)
           data.append("url", value.url)
@@ -665,6 +719,7 @@ const EntryForm = ({departemen}) => {
           break
         case "Prestasi":
           data.append("name", value.source)
+          data.append("departemen", value.departemen)
           data.append("jenis", value.jenis)
           data.append("lomba", value.name)
           data.append("peringkat", value.rank)
@@ -688,6 +743,7 @@ const EntryForm = ({departemen}) => {
           break
         case "Training":
           data.append("peserta", value.source)
+          data.append("departemen", value.departemen)
           data.append("jenis", value.jenis)
           data.append("judul", value.name)
           data.append("tempat", value.tempat)

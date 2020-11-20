@@ -8,11 +8,12 @@ import { Loader } from 'Layout';
 const headCells = [
   { id: 'detail', numeric: false, disablePadding: true, label: 'Detail' },
   { id: 'konferensi', numeric: false, disablePadding: false, label: 'Detail Konferensi' },
+  { id: 'departemen', numeric: false, disablePadding: false, label: 'Departemen' },
   { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 
-function createData(id, type, name, tingkat, source, date, detail) {
-  return { id, type, name, tingkat, source, date, link:'/detail/' + type.toLowerCase() + "/" + id, detail };
+function createData(id, type, name, tingkat, source, date, detail, departemen) {
+  return { id, type, name, tingkat, source, date, link:'/detail/' + type.toLowerCase() + "/" + id, detail, departemen };
 }
 
 const Konferensi = () => {
@@ -30,11 +31,15 @@ const Konferensi = () => {
       const resp = await axios.get(`${process.env.REACT_APP_API_URL}konferensi/`, {
         headers: AuthHeader()
       })
+      const departemen = await axios.get(`${process.env.REACT_APP_API_URL}departemen/`, {
+        headers: AuthHeader()
+      })
+      const nama = departemen.data
       const { data } = resp
       let r = []
       for (let i = 0; i < resp.data.length; i++) {
         const cur = data[i]
-        r.push(createData(cur.id, "Konferensi", cur.judul, cur.tingkat, cur.author, cur.tanggal_mulai, { konfhal: cur.konf_hal, tempat: cur.tempat, category: []}))
+        r.push(createData(cur.id, "Konferensi", cur.judul, cur.tingkat, cur.author, cur.tanggal_mulai, { konfhal: cur.konf_hal, tempat: cur.tempat, category: []}, cur.departemen ? nama[cur.departemen - 1].nama : "undefined"))
       }
       setRows(r)
       setLoading(false)
