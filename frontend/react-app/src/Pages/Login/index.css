@@ -1,0 +1,16 @@
+.subtitle-enter {
+  opacity:0;
+  transform:  translate(0, 80px)  ;
+}
+
+.subtitle-enter-active {
+  opacity:1;
+  transform:  translate(0, 0)  ;
+  transition: opacity 1000ms, transform 1000ms;
+}
+
+.bounding-box {
+  min-height: 100px;
+  overflow: hidden;
+  height: 100%;
+}

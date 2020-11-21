@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { CSSTransition } from 'react-transition-group';
 import { Redirect } from 'react-router-dom';
-import { UserContext } from 'Context';
+import { UserContext, PageContext } from 'Context';
 import {useField, Form, Formik} from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -11,6 +12,8 @@ import Grid from '@material-ui/core/Grid';
 import { Typography, CircularProgress, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AuthService } from 'Services';
+
+import './index.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,12 +53,39 @@ const useStyles = makeStyles((theme) => ({
   loginGrid: {
     backgroundColor: theme.palette.secondary.main,
   },
+  titleContainer: {
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(15),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main, 
+  },
+  subtitleContainer: {
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(15),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    backgroundColor: 'white', 
+    opacity: '85%',
+  },
+  subsubtitleContainer: {
+    padding: theme.spacing(1),
+    marginLeft: theme.spacing(5),
+    marginRight: theme.spacing(15),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    backgroundColor: theme.palette.primary.main, 
+    opacity: '90%',
+  }
 }));
 
 const Login = () => {
   const classes = useStyles();
   
   const {dispatchUser} = useContext(UserContext)
+  const {dispatchPage} = useContext(PageContext)
 
   const initialValue = {
     username: "",
@@ -64,13 +94,24 @@ const Login = () => {
 
   const [goHome, setGoHome] = useState(false)
   const [authError, setAuthError] = useState('')
+  const [subtitle1, setSubtitle1] = useState(false)
+  const [subtitle2, setSubtitle2] = useState(false)
+  const [subtitle3, setSubtitle3] = useState(false)
 
   useEffect(() => {
-    const fetchAPI = async () => {
-      await new Promise(r => setTimeout(r, 2000));
+    setSubtitle1(false)
+    setSubtitle2(false)
+    setSubtitle3(false)
+    setTimeout(() => {setSubtitle1(true)}, 300)
+    setTimeout(() => {setSubtitle2(true)}, 600)
+    setTimeout(() => {setSubtitle3(true)}, 900)
+
+    const pageDetail = {
+      title: "Login",
+      routeStack: [],
     }
-    fetchAPI()
-  }, [])
+    dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
+  }, [dispatchPage])
 
   const loginSchema = Yup.object().shape({
     username: Yup.string()
@@ -107,7 +148,50 @@ const Login = () => {
       {goHome && <Redirect to='/' />}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.blank} />
+        <Grid container item xs={false} sm={4} md={7} className={classes.blank} justify="center" alignItems="flex-start" direction="column">
+          <Grid item>
+          <div className="bounding-box">
+            <CSSTransition
+              in={subtitle1}
+              classNames="subtitle"
+              timeout={800} 
+              mountOnEnter
+            >
+              <Typography variant="h2" color="primary" className={classes.titleContainer}>
+                <strong>Monitoring Kinerja</strong>
+              </Typography>
+            </CSSTransition>
+          </div>
+          </Grid>
+          <Grid item>
+          <div className="bounding-box">
+            <CSSTransition
+              in={subtitle2}
+              classNames="subtitle"
+              timeout={800} 
+              mountOnEnter
+            >
+              <Typography variant="h4" color="primary" className={classes.subtitleContainer}>
+                Fakultas Teknologi Elektro dan Informatika Cerdas (FTEIC)
+              </Typography>
+            </CSSTransition>
+          </div>
+          </Grid>
+          <Grid item>
+          <div className="bounding-box">
+            <CSSTransition
+              in={subtitle3}
+              classNames="subtitle"
+              timeout={800} 
+              mountOnEnter
+            >
+              <Typography variant="h6" color="secondary" className={classes.subsubtitleContainer}>
+                Institut Teknologi Sepuluh Nopember (ITS)
+              </Typography>
+            </CSSTransition>
+          </div>
+          </Grid>
+        </Grid>
         <Grid className={classes.loginGrid} item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <div className={classes.paper}>
             <Card raised={true} elevation={20}>
@@ -136,7 +220,6 @@ const Login = () => {
                       name="username"
                       color="secondary"
                       autoComplete="off"
-                      autoFocus
                     />
                     <MyTextField
                       required
