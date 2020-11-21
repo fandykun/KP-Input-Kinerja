@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react'
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthHeader } from 'Helper';
 import { SwitchTransition, CSSTransition } from 'react-transition-group';
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
+import { Hidden, Fab, TextField, Button, Typography, Paper, Grid } from '@material-ui/core';
 import { AlertDialog } from 'Components';
+import { ArrowBack } from '@material-ui/icons';
 
 import SelectForm from './SelectForm'
 import TextFieldForm from './TextFieldForm'
@@ -55,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(2),
     marginRight: theme.spacing(3),
+  },
+  back: {
+    marginLeft: theme.spacing(5),
   }
 }));
 
@@ -838,6 +843,20 @@ const EntryForm = ({departemen}) => {
   const classes = useStyles()
   return (
     <div className={classes.root} >
+      <div className={classes.back}>
+        <Hidden mdDown>
+          <Fab variant="extended" color="secondary" component={Link} to='/dashboard'>
+            <ArrowBack />
+            Dashboard
+          </Fab>
+        </Hidden>
+        <Hidden lgUp>
+          <Fab color="secondary" component={Link} to='/dashboard'>
+            <ArrowBack />
+          </Fab>
+        </Hidden>
+      </div>
+      
       <Formik
         innerRef={formRef}
         initialValues={initialValues}
