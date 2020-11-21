@@ -270,7 +270,7 @@ const PageList = ({title, rows, headCells}) => {
   const [orderBy, setOrderBy] = useState('detail');
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('')
-  const rowsPerPage = 5
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -288,6 +288,11 @@ const PageList = ({title, rows, headCells}) => {
     setCount(filteredData.length)
     setPage(0)
   }
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
 
   const filterSearch = (data) => {
     const filteredData = data.filter(item => {
@@ -363,12 +368,13 @@ const PageList = ({title, rows, headCells}) => {
                 </Table>
               </TableContainer>
               <TablePagination
-                rowsPerPageOptions={[]}
+                rowsPerPageOptions={[5, 10, 25, 100]}
                 component="div"
                 count={count}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
               />
             </>
             ) : (
