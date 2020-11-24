@@ -18,6 +18,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 from url_filter.integrations.drf import DjangoFilterBackend
 
+from datetime import datetime
 from openpyxl import Workbook
 
 class KuliahTamuViewSet(viewsets.ViewSet):
@@ -89,12 +90,12 @@ class KuliahTamuList(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filter_fields = ['topik', 'pemateri', 'institusi', 'tingkat', 'tanggal', 'departemen']
 
-# Export CSV API
+# Export Excel API
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def export_data(request):
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename="kuliah-tamu.xlsx"'
+    response['Content-Disposition'] = 'attachment; filename={date}-kuliah-tamu.xlsx'.format(date=datetime.now().strftime('%d-%m-%Y'))
 
     if request.user.is_admin:
         queryset = KuliahTamu.objects.all()
