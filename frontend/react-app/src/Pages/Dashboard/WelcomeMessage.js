@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { CSSTransition } from 'react-transition-group';
-import {Typography, Paper} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import './index.css';
 
 const WelcomeMessage = ({user}) => {
@@ -13,7 +13,7 @@ const WelcomeMessage = ({user}) => {
     setTimeout(() => {setInUser(true)}, 1000)
   }, [])
   return (
-    <Paper elevation={0} style={{minHeight: "128px"}}>
+    <>
       <div className="bounding-box">
         <CSSTransition
           in={inWelcome}
@@ -38,7 +38,7 @@ const WelcomeMessage = ({user}) => {
           </Typography>
         </CSSTransition>
       </div>
-    </Paper>
+    </>
   )
 }
 

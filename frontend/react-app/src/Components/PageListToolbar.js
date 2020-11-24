@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Hidden, Fab, Grid, TextField } from '@material-ui/core';
+import { MenuItem, Hidden, Fab, Grid, TextField } from '@material-ui/core';
 import { Loop, ArrowBack, Search } from '@material-ui/icons';
 
 const useToolbarStyles = makeStyles((theme) => ({
@@ -16,6 +16,9 @@ const useToolbarStyles = makeStyles((theme) => ({
   flip: {
     marginLeft: theme.spacing(2),
   },
+  field: {
+    marginLeft: theme.spacing(2),
+  }
 }));
 
 const FlipButton = ({type, classes}) => {
@@ -68,7 +71,7 @@ const FlipIcon = ({type, classes}) => {
 
 const PageListToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { title, search, handleSearchChange } = props;
+  const { title, search, handleSearchChange, year, handleYearChange, department, handleDepartmentChange, yearOption, departmentOption } = props;
 
   return (
     <Toolbar
@@ -96,7 +99,25 @@ const PageListToolbar = (props) => {
         </Grid>
         <Grid item container xs={6} justify="flex-end" alignItems="flex-end">
           <Grid item>
-            <TextField label="Cari" value={search} onChange={handleSearchChange} />
+            <TextField select value={year} onChange={handleYearChange} className={classes.field} label="Tahun">
+              {yearOption.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option === 0 ? "Semua Tahun" : option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item>
+            <TextField select value={department} onChange={handleDepartmentChange} className={classes.field} label="Departemen">
+              {departmentOption.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option === 0 ? "Semua Departemen" : option}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+          <Grid item>
+            <TextField label="Cari" value={search} onChange={handleSearchChange} className={classes.field}/>
           </Grid>
           <Hidden mdDown>
             <Grid item>

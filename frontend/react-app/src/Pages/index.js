@@ -10,3 +10,4 @@ export * from './Entry';
 export * from './Detail';
 export * from './Error';
 export * from './Account';
+export * from './Download';

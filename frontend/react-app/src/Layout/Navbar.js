@@ -47,6 +47,11 @@ const Navbar = () => {
     history.push('/submission')
     setAnchorEl(null);
   }
+  
+  const handleDownload = () => {
+    history.push('/download')
+    setAnchorEl(null);
+  }
 
   const handleAccount = () => {
     console.log("clicked")
@@ -99,10 +104,11 @@ const Navbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleAccount}>My account</MenuItem>
+                <MenuItem onClick={handleAccount}>Account</MenuItem>
                 { user.isAdmin &&
                   <MenuItem onClick={handleSubmission}>Submission</MenuItem>
                 }
+                <MenuItem onClick={handleDownload}>Download</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Grid>

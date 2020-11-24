@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -40,6 +40,10 @@ function stableSort(array, comparator) {
     return a[1] - b[1];
   });
   return stabilizedThis.map((el) => el[0]);
+}
+
+const distinct = (value, index, self) => {
+  return self.indexOf(value) === index
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -230,6 +234,7 @@ const renderRow = (row) => {
       case "Prestasi":
         return (
           <>
+            <TableCell align="left">{row.peringkat}</TableCell>
             <TableCell align="left">{row.jenis}</TableCell>
             <TableCell align="left">{row.departemen}</TableCell>
           </>
@@ -265,12 +270,39 @@ const renderRow = (row) => {
 
 const PageList = ({title, rows, headCells}) => {
   const classes = useStyles();
+  const [yearOption, setYearOption] = useState([])
+  const [departmentOption, setDepartmentOption] = useState([])
+  const [year, setYear] = useState(0)
+  const [department, setDepartment] = useState(0)
   const [order, setOrder] = useState('asc');
   const [count, setCount] = useState(rows.length)
   const [orderBy, setOrderBy] = useState('detail');
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState('')
   const [rowsPerPage, setRowsPerPage] = useState(5)
+
+  useEffect(() => {
+    let y = [0]
+    let dp = [0]
+    for (let i = 0; i < rows.length; i++) {
+      const d = new Date(rows[i].date)
+      const year = d.getFullYear()
+      y.push(year)
+      dp.push(rows[i].departemen)
+    }
+    setYearOption(y.filter(distinct))
+    setDepartmentOption(dp.filter(distinct))
+  }, [rows])
+
+  const handleYearChange = (event) => {
+    setYear(event.target.value)
+    setPage(0)
+  }
+
+  const handleDepartmentChange = (event) => {
+    setDepartment(event.target.value)
+    setPage(0)
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -296,7 +328,7 @@ const PageList = ({title, rows, headCells}) => {
 
   const filterSearch = (data) => {
     const filteredData = data.filter(item => {
-      if (search === null || search === '') {
+      if ((search === null || search === '') && (department === 0 && year === 0)) {
         return true;
       }
       else {
@@ -304,6 +336,18 @@ const PageList = ({title, rows, headCells}) => {
         for (let i = 0; i < searchList.length; i++) {
           let found = false;
           for (const value of Object.entries(item)) {
+            if (department !== 0 && value[0] === 'departemen') {
+              if (department !== value[1]) {
+                return false
+              }
+            }
+            if (year !== 0 && value[0] === 'date') {
+              const d = new Date(value[1])
+              console.log(d.getFullYear())
+              if (year !== d.getFullYear()) {
+                return false
+              }
+            }
             if (value[0] === "name" || value[0] === "source") {
               if (value[1].toString().toLowerCase().includes(searchList[i].toString().trim().toLowerCase())) {
                 found = true
@@ -327,7 +371,7 @@ const PageList = ({title, rows, headCells}) => {
     <div className={classes.root}>
       <Grid container justify="center">
         <Grid item xs={8} >
-          <PageListToolbar title={title} search={search} handleSearchChange={handleSearchChange}/>
+          <PageListToolbar title={title} search={search} handleSearchChange={handleSearchChange} year={year} handleYearChange={handleYearChange} department={department} handleDepartmentChange={handleDepartmentChange} yearOption={yearOption} departmentOption={departmentOption}/>
           <Paper className={classes.paper} elevation={5}>
             { rows.length !== 0 ? (
             <>
