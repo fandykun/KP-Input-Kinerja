@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'apps.prestasi',
     'apps.training',
     'apps.trainingkaryawan',
-    'apps.jurnal'
+    'apps.jurnal',
+    'apps.sertifikasi'
 ]
 
 MIDDLEWARE = [
