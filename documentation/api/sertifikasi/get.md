@@ -36,6 +36,7 @@ Show all Sertifikasi Data
         "lembaga_sertifikasi": "aws amazon verification",
         "nama": "Fadhil Musaad",
         "tanggal": "2020-08-25",
+        "tanggal_berakhir": "2021-08-25",
         "nomor": "4KMYW0E",
         "departemen": 1,
         "filepath": "/media/sertifikasi/sertifikasi_fadhil.png",

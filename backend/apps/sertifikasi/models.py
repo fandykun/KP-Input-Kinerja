@@ -1,5 +1,6 @@
 from django.db import models
 from ..masters.models import Departemen
+from datetime import datetime
 
 # Create your models here.
 class Sertifikasi(models.Model):
@@ -7,6 +8,7 @@ class Sertifikasi(models.Model):
     lembaga_sertifikasi = models.CharField(max_length=255)
     nama = models.CharField(max_length=255)
     tanggal = models.DateField()
+    tanggal_berakhir = models.DateField(default=datetime.now)
     nomor = models.CharField(max_length=255)
     departemen = models.ForeignKey(to=Departemen, on_delete=models.DO_NOTHING,null=True)
     filepath = models.FileField(upload_to='sertifikasi/',null=True)
