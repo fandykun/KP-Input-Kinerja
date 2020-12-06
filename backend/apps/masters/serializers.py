@@ -15,16 +15,17 @@ class MasterDosenSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = MasterDosen
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class MasterMahasiswaSerializer(serializers.ModelSerializer):
+    
 
     class Meta:
         model = MasterMahasiswa
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
 
 class MasterTendikSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MasterTendik
-        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
