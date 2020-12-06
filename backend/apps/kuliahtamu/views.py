@@ -88,7 +88,7 @@ class KuliahTamuList(ListAPIView):
     serializer_class = KuliahTamuSerializer
     queryset = KuliahTamu.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['topik', 'pemateri', 'institusi', 'tingkat', 'tanggal', 'departemen']
+    filter_fields = ['topik', 'pemateri', 'institusi', 'tingkat', 'tanggal', 'departemen', 'url']
 
 # Export Excel API
 @api_view(['GET'])
@@ -121,7 +121,8 @@ def export_data(request):
         'Institusi', 
         'Tingkat', 
         'Tanggal', 
-        'Departemen'
+        'Departemen',
+        'URL'
     ]
     row_num = 1
 
@@ -141,7 +142,8 @@ def export_data(request):
             data.institusi,
             data.tingkat,
             data.tanggal,
-            data.departemen.nama
+            data.departemen.nama,
+            data.url
         ]
 
         # Assign the data for each cell of the row
