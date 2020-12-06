@@ -8,12 +8,12 @@ from .permissions import isAdminPermission
 from ..jurnal.models import Jurnal
 from ..konferensi.models import Konferensi
 from ..kuliahtamu.models import KuliahTamu
-from ..prestasi.models import Prestasi
+from ..prestasidosen.models import PrestasiDosen
 
 from ..jurnal.serializers import JurnalSerializer
 from ..konferensi.serializers import KonferensiSerializer
 from ..kuliahtamu.serializers import KuliahTamuSerializer
-from ..prestasi.serializers import PrestasiSerializer
+from ..prestasidosen.serializers import PrestasiDosenSerializer
 
 from rest_framework import parsers, renderers
 from rest_framework.authtoken.models import Token
@@ -99,7 +99,7 @@ class AllNonValidateView(APIView):
         query_jurnal = Jurnal.objects.filter(is_validated=False)
         query_konferensi = Konferensi.objects.filter(is_validated=False)
         query_kultam = KuliahTamu.objects.filter(is_validated=False)
-        query_prestasi = Prestasi.objects.filter(is_validated=False)
+        query_prestasi = PrestasiDosen.objects.filter(is_validated=False)
 
         results_list = list(chain(query_jurnal, query_konferensi, query_kultam, query_prestasi))
 
@@ -120,10 +120,10 @@ class AllNonValidateView(APIView):
                 serializer = KuliahTamuSerializer(entry)
                 judul = serializer.data['topik']
                 nama = serializer.data['pemateri']
-            elif isinstance(entry, Prestasi):
-                serializer = PrestasiSerializer(entry)
-                judul = serializer.data['lomba']
-                nama = serializer.data['name']
+            elif isinstance(entry, PrestasiDosen):
+                serializer = PrestasiDosenSerializer(entry)
+                judul = serializer.data['nama_penghargaan']
+                nama = serializer.data['nama']
 
             departemen = serializer.data['departemen']           
             results.append({

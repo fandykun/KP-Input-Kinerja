@@ -89,7 +89,7 @@ class PrestasiDosenList(ListAPIView):
     serializer_class = PrestasiDosenSerializer
     queryset = PrestasiDosen.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filter_fields = ['__all__']
+    filter_fields = '__all__'
 
 # Export Excel API
 @api_view(['GET'])
