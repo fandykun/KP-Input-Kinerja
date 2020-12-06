@@ -8,7 +8,7 @@ def departemen_seed(apps, schema_editor):
         'Teknik Elektro',
         'Teknik Biomedik',
         'Teknik Komputer',
-        'Informatika',
+        'Teknik Informatika',
         'Sistem Informasi',
         'Teknologi Informasi'
     ]

@@ -27,4 +27,7 @@ class PrestasiDosen(models.Model):
     return self.dosen.nama
   
   def get_departemen(self):
-    return self.dosen.departemen.nama
+    if self.dosen.departemen:
+      return self.dosen.departemen.nama
+    
+    return None
