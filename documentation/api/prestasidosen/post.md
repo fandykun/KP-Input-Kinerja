@@ -14,8 +14,9 @@ Create a prestasi dosen data
 
 ```json
 {
-    "dosen": "[dosen_id]",
-    "kategori_peserta": "[unicode 100 chars max]",
+    "nama": "[unicode 100 chars max]",
+    "NIP": "[unicode 32 chars max]",
+    "departemen": "[departemen_id]",
     "kategori_prestasi": "[unicode 100 chars max]",
     "nama_penghargaan": "[unicode 100 chars max]",
     "jenis_penghargaan": "[unicode 100 chars max]",
@@ -31,7 +32,9 @@ Create a prestasi dosen data
 
 ```json
 {
-    "dosen": 5,
+    "nama": "Prof. Ir. Abdullah Alkaf, Ph.D.",
+    "NIP": "195501231980031002",
+    "departemen": 1,
     "kategori_peserta": "Individu",
     "kategori_prestasi": "Nasional",
     "nama_penghargaan": "SINTA Award 2019",
