@@ -4,7 +4,9 @@ from ..masters.models import MasterDosen
 
 # Create your models here.
 class PrestasiDosen(models.Model):
-  dosen = models.ForeignKey(to=MasterDosen, on_delete=models.DO_NOTHING)
+  NIP = models.CharField(max_length=32, default=None)
+  nama = models.CharField(max_length=255, default=None)
+  departemen = models.ForeignKey(Departemen, on_delete=models.CASCADE, null=True)
   kategori_peserta = models.CharField(max_length=100)
   kategori_prestasi = models.CharField(max_length=100)
   nama_penghargaan = models.CharField(max_length=255)
@@ -19,15 +21,3 @@ class PrestasiDosen(models.Model):
 
   def __str__(self):
     return self.nama_penghargaan
-
-  def get_NIP(self):
-    return self.dosen.NIP
-  
-  def get_nama(self):
-    return self.dosen.nama
-  
-  def get_departemen(self):
-    if self.dosen.departemen:
-      return self.dosen.departemen.nama
-    
-    return None

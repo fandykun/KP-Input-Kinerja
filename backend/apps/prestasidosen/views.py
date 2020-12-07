@@ -142,9 +142,9 @@ def export_data(request):
 
         # Define the data for each cell in the row
         row = [
-            data.get_nama(),
-            data.get_NIP(),
-            data.get_departemen(),
+            data.nama,
+            data.NIP,
+            data.departemen.nama,
             data.kategori_peserta,
             data.kategori_prestasi,
             data.nama_penghargaan, 
