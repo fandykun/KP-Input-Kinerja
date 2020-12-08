@@ -26,7 +26,7 @@ const Nav = [
     delay: 500,
   },
   {
-    title: "Prestasi",
+    title: "Prestasi Dosen",
     logo: <EmojiEventsOutlined style={largeIcon}/>,
     href: '/prestasi',
     delay: 700,
