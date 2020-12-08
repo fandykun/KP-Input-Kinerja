@@ -166,6 +166,8 @@ const StyledName = ({row}) => {
         return <EmojiEvents />
       case "Training":
         return <People />
+      case "Sertifikasi":
+        return <People />
       default:
         return null;
     }
@@ -216,12 +218,18 @@ const renderRow = (row) => {
   const second = type => {
     switch (type) {
       case "Kultam":
-        return <TableCell align="left">{row.departemen}</TableCell>
+        return (
+          <>
+            <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
+          </>
+        )
       case "Jurnal":
         return (
           <>
             <TableCell align="left">{styledJurnal(row.detail)}</TableCell>
             <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
           </>
         )
       case "Konferensi":
@@ -229,17 +237,26 @@ const renderRow = (row) => {
           <>
             <TableCell align="left">{styledKonferensi(row.detail)}</TableCell>
             <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
           </>
         )
       case "Prestasi":
         return (
           <>
             <TableCell align="left">{row.peringkat}</TableCell>
-            <TableCell align="left">{row.jenis}</TableCell>
             <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
           </>
         )
       case "Training":
+        return (
+          <>
+            <TableCell align="left">{row.tempat}</TableCell>
+            <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
+          </>
+        )
+      case "Sertifikasi":
         return (
           <>
             <TableCell align="left">{row.tempat}</TableCell>
@@ -251,6 +268,7 @@ const renderRow = (row) => {
           <>
             <TableCell align="left">{row.source}</TableCell>
             <TableCell align="left">{row.departemen}</TableCell>
+            <TableCell align="left">{row.tingkat}</TableCell>
           </>
         )
       default:
@@ -263,7 +281,6 @@ const renderRow = (row) => {
       <StyledName row={row} />
     </TableCell>
     {second(row.type)}
-    <TableCell align="left">{row.tingkat}</TableCell>
     </>
   )
 }

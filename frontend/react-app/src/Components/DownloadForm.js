@@ -49,6 +49,7 @@ const DownloadForm = ({departemen, year}) => {
     {label: "Konferensi", value: "konferensi"},
     {label: "Prestasi", value: "prestasi"},
     {label: "Training", value: "training"},
+    {label: "Sertifikasi", value: "sertifikasi"},
   ]
 
   const handleBackLink = () => {

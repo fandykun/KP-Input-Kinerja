@@ -15,6 +15,11 @@
   max-height: 100px;
 }
 
+.bounding-box-nav {
+  height: 100%;
+  max-height: 1000px;
+}
+
 .welcome-message-enter {
   transform: translateX(-300px);
 }

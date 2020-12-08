@@ -15,6 +15,7 @@ const viewKultam = (data) => {
     { type: "kultam", form: "text", label: "Departemen", value: data.departemen },
     { type: "kultam", form: "text", label: "Tingkat", value: data.tingkat },
     { type: "kultam", form: "text", label: "Tanggal", value: data.tanggal },
+    { type: "kultam", form: "text", label: "URL", value: data.url },
     { type: "kultam", form: "media", label: "media", value: data.filepath },
   ]
 }
@@ -52,14 +53,17 @@ const viewJurnal = (data) => {
 
 const viewPrestasi = (data) => {
   return [
-    { type: "prestasi", form: "text", label: "Judul Kegiatan", value: data.lomba },
-    { type: "prestasi", form: "text", label: "Pelaku", value: data.name },
+    { type: "prestasi", form: "text", label: "Nama Penghargaan", value: data.nama_penghargaan },
+    { type: "prestasi", form: "text", label: "NIP", value: data.NIP },
+    { type: "prestasi", form: "text", label: "Pelaku", value: data.nama },
     { type: "prestasi", form: "text", label: "Departemen", value: data.departemen },
-    { type: "prestasi", form: "text", label: "Jenis", value: data.jenis },
-    { type: "prestasi", form: "text", label: "Tingkat", value: data.tingkat },
-    { type: "prestasi", form: "text", label: "Peringkat", value: data.peringkat },
+    { type: "prestasi", form: "text", label: "Kategori Peserta", value: data.kategori_peserta },
+    { type: "prestasi", form: "text", label: "Jenis Prestasi", value: data.jenis_penghargaan },
+    { type: "prestasi", form: "text", label: "Lembaga Penyenggara", value: data.lembaga_penyelenggara},
+    { type: "prestasi", form: "text", label: "Tingkat", value: data.kategori_prestasi },
+    { type: "prestasi", form: "text", label: "Capaian", value: data.capaian },
     { type: "prestasi", form: "text", label: "Tanggal", value: data.tanggal },
-    { type: "prestasi", form: "text", label: "URL", value: data.url },
+    { type: "prestasi", form: "text", label: "URL", value: data.web_berita },
     { type: "prestasi", form: "media", label: "media", value: data.filepath },
   ]
 }
@@ -74,6 +78,19 @@ const viewTraining = (data) => {
     { type: "training", form: "text", label: "Tanggal Mulai", value: data.date_start },
     { type: "training", form: "text", label: "Tanggal Selesai", value: data.date_end },
     { type: "training", form: "media", label: "media", value: data.filepath },
+  ]
+}
+
+const viewSertifikasi = (data) => {
+  return [
+    { type: "sertifikasi", form: "text", label: "Nama Sertifikasi", value: data.nama_sertifikasi },
+    { type: "sertifikasi", form: "text", label: "Lembaga Sertifikasi", value: data.lembaga_sertifikasi },
+    { type: "sertifikasi", form: "text", label: "Nama Peserta", value: data.nama },
+    { type: "sertifikasi", form: "text", label: "Departemen", value: data.departemen },
+    { type: "sertifikasi", form: "text", label: "Nomor", value: data.nomor },
+    { type: "sertifikasi", form: "text", label: "Tanggal Dikeluarkan", value: data.tanggal },
+    { type: "sertifikasi", form: "text", label: "Valid Sampai", value: data.tanggal_berakhir },
+    { type: "sertifikasi", form: "media", label: "media", value: data.filepath },
   ]
 }
 
@@ -102,7 +119,7 @@ const Detail = () => {
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      const apiType = type === 'kultam' ? 'kuliah-tamu' : type;
+      const apiType = type === 'kultam' ? 'kuliah-tamu' : type === 'prestasi' ? 'prestasi/dosen' : type;
       try {
         const resp = await axios.get(`${process.env.REACT_APP_API_URL}${apiType}/${id}`, {
           headers: AuthHeader()
@@ -116,6 +133,7 @@ const Detail = () => {
         setIsValidated(resp.data.is_validated)
         setIsAdmin(user_info.data.is_admin)
         const { data } = resp
+        console.log(data)
         data.departemen = data.departemen ? departemen.data[data.departemen - 1].nama : "undefined"
         switch (type) {
           case 'kultam':
@@ -132,6 +150,9 @@ const Detail = () => {
             break;
           case 'training':
             setData(viewTraining(data));
+            break;
+          case 'sertifikasi':
+            setData(viewSertifikasi(data));
             break;
           default:
             break;

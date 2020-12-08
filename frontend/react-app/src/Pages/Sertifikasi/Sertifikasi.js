@@ -1,35 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthHeader } from 'Helper';
 import axios from 'axios';
+import { AuthHeader } from 'Helper';
 import { PageContext } from 'Context';
 import { PageList } from 'Components';
 import { Loader } from 'Layout';
 
 const headCells = [
-  { id: 'detail', numeric: false, disablePadding: true, label: 'Kuliah Tamu' },
+  { id: 'detail', numeric: false, disablePadding: true, label: 'Sertifikasi' },
+  { id: 'tempat', numeric: false, disablePadding: false, label: 'Lembaga' },
   { id: 'departemen', numeric: false, disablePadding: false, label: 'Departemen' },
-  { id: 'tingkat', numeric: false, disablePadding: false, label: 'Tingkat' },
 ];
 
-function createData(id, name, departemen, tingkat, source, date, url) {
-  return { id, type:"Kultam", name, departemen, tingkat, source, date, link:'/detail/kultam/' + id, url };
+function createData(id, name, source, date, tempat, departemen) {
+  return { id, type:"Sertifikasi", name, source, date, link:'/detail/sertifikasi/' + id, tempat, departemen};
 }
 
-// let rows = [{}];
-
-const Kultam = () => {
+const Sertifikasi = () => {
   const [isLoading, setLoading] = useState(true)
   const {dispatchPage} = useContext(PageContext)
   const [rows, setRows] = useState([])
   useEffect(() => {
     setLoading(true)
     const pageDetail = {
-      title: "Kuliah Tamu",
-      routeStack: ["Kuliah Tamu"],
+      title: "Sertifikasi",
+      routeStack: ["Sertifikasi"],
     }
     dispatchPage({type: 'STACK_REPLACE', data: pageDetail}) 
     const fetchAPI = async () => {
-      const resp = await axios.get(`${process.env.REACT_APP_API_URL}kuliah-tamu/`, {
+      const resp = await axios.get(`${process.env.REACT_APP_API_URL}sertifikasi/`, {
         headers: AuthHeader()
       })
       const departemen = await axios.get(`${process.env.REACT_APP_API_URL}departemen/`, {
@@ -37,10 +35,11 @@ const Kultam = () => {
       })
       const nama = departemen.data
       const { data } = resp
+      console.log(data)
       let r = []
-      for (let i = 0; i < resp.data.length; i++) {
+      for (let i = 0; i < data.length; i++) {
         const cur = data[i]
-        r.push(createData(cur.id, cur.topik, cur.departemen ? nama[cur.departemen - 1].nama : "undefined", cur.tingkat, cur.pemateri, cur.tanggal, cur.url))
+        r.push(createData(cur.id, cur.nama_sertifikasi, cur.nama, cur.tanggal, cur.lembaga_sertifikasi, cur.departemen ? nama[cur.departemen - 1].nama : "undefined"))
       }
       setRows(r)
       setLoading(false)
@@ -50,9 +49,9 @@ const Kultam = () => {
   return (
     <React.Fragment>
       <Loader isLoading={isLoading} />
-      {!isLoading && <PageList title="Kuliah Tamu" rows={rows} headCells={headCells} />}
+      {!isLoading && <PageList title="Training" rows={rows} headCells={headCells} />}
     </React.Fragment>
   )
 }
 
-export { Kultam }
+export { Sertifikasi }
