@@ -988,7 +988,7 @@ const EntryForm = ({departemen, masterDosen}) => {
     {label: "Kuliah Tamu", value: "Kultam"},
     {label: "Jurnal", value: "Jurnal"},
     {label: "Konferensi", value: "Konferensi"},
-    {label: "Prestasi", value: "Prestasi"},
+    {label: "Prestasi Dosen", value: "Prestasi"},
     {label: "Training", value: "Training"},
     {label: "Sertifikasi", value: "Sertifikasi"},
   ]
