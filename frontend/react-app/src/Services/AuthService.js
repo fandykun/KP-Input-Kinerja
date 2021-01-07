@@ -9,7 +9,8 @@ const login = async (username, password) => {
       profile: {
         nama: resp.data.nama,
         username: username,
-      }
+      },
+      timestamp: new Date().getTime(),
     }
     localStorage.setItem('REACT_APP_SESSION', JSON.stringify(data))
     return data
@@ -23,8 +24,22 @@ const logout = () => {
   localStorage.clear()
 }
 
-const getSession = () => {
-  return JSON.parse(localStorage.getItem('REACT_APP_SESSION'))
+const getSession = () => { //remove session if too old or dont have timestamp
+  const data =  JSON.parse(localStorage.getItem('REACT_APP_SESSION'))
+  const now = new Date().getTime();
+  if (!data || !data.timestamp) {
+    logout()
+    return null
+  } else {
+    const diff = now - data.timestamp;
+    console.log(diff)
+    if (diff > 86400000) {
+      logout()
+      return null
+    }
+    localStorage.setItem('REACT_APP_SESSION', JSON.stringify({...data, timestamp: now}))
+    return data
+  }
 }
 
 const AuthService = {

@@ -47,8 +47,9 @@ const DownloadForm = ({departemen, year}) => {
     {label: "Kuliah Tamu", value: "kuliah-tamu"},
     {label: "Jurnal", value: "jurnal"},
     {label: "Konferensi", value: "konferensi"},
-    {label: "Prestasi", value: "prestasi"},
+    {label: "Prestasi Dosen", value: "prestasi/dosen"},
     {label: "Training", value: "training"},
+    {label: "Sertifikasi", value: "sertifikasi"},
   ]
 
   const handleBackLink = () => {
@@ -61,8 +62,8 @@ const DownloadForm = ({departemen, year}) => {
     tahun: year[year.length - 1].value,
   }
   
-  const submitHandler = (value, action) => {
-    try {
+  const submitHandler = async (value, action) => {
+    const fetchAPI = () => {
       const {jenis, tahun} = value
       const departemenName = departemen[value.departemen].label.split(' ').join('_').toLowerCase()
       const jenisName = jenis.split('-').join('_')
@@ -71,7 +72,7 @@ const DownloadForm = ({departemen, year}) => {
       let URL = `${process.env.REACT_APP_API_URL}${jenis}/export?tahun=${tahun}` 
       if (value.departemen !== 0)
         URL.concat(`&departemen=${value.departemen}`)
-      axios.get(URL, {headers: AuthHeader(), responseType: 'blob'})
+      return axios.get(URL, {headers: AuthHeader(), responseType: 'blob'})
       .then(response => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
@@ -79,10 +80,11 @@ const DownloadForm = ({departemen, year}) => {
         link.setAttribute('download', `${filename}.xlsx`); //or any other extension
         link.click();
       })
-    } catch (error) {
-
+      .catch(error => {
+        console.log(error)
+      })
     }
-    action.setSubmitting(false)
+    return await fetchAPI()
   }
 
   const ValidationSchema = Yup.object().shape({

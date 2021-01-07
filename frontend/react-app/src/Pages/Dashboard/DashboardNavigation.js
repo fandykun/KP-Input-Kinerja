@@ -7,7 +7,7 @@ import './index.css';
 
 const useStyles = makeStyles((theme) => ({
   cards: {
-    height: '300px', 
+    height: '250px', 
     display: 'flex',
   },
   navTitle: {
@@ -47,8 +47,7 @@ const DashboardNavigation = ({item}) => {
     setTimeout(() => {setInProps(true)}, delay)
   }, [delay])
   return (
-    <React.Fragment>
-    <Grid item xs={12} sm={6} md={3}>
+    <Grid item xs={12} sm={6} lg={4}>
       <CSSTransition
         in={inProps}
         timeout={1000}
@@ -69,7 +68,6 @@ const DashboardNavigation = ({item}) => {
       </div>
       </CSSTransition>
     </Grid>
-    </React.Fragment>
   )
 }
 

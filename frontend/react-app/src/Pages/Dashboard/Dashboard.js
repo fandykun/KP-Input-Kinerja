@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { PageContext, UserContext } from 'Context';
 import { Hidden, CssBaseline, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
+import { CardMembershipOutlined, FolderSharedOutlined, FitnessCenterOutlined, EmojiEventsOutlined, CastForEducation } from '@material-ui/icons';
 import DashboardNavigation from './DashboardNavigation';
 import WelcomeMessage from './WelcomeMessage';
 import './index.css';
@@ -26,7 +26,7 @@ const Nav = [
     delay: 500,
   },
   {
-    title: "Prestasi",
+    title: "Prestasi Dosen",
     logo: <EmojiEventsOutlined style={largeIcon}/>,
     href: '/prestasi',
     delay: 700,
@@ -36,6 +36,12 @@ const Nav = [
     logo: <FitnessCenterOutlined style={largeIcon}/>,
     href: '/training',
     delay: 900,
+  },
+  {
+    title: "Sertifikasi",
+    logo: <CardMembershipOutlined style={largeIcon}/>,
+    href: '/sertifikasi',
+    delay: 1100,
   },
 ]
 
@@ -69,7 +75,7 @@ const Dashboard = () => {
               <WelcomeMessage user={user.profile.nama} />
             </Hidden>
           </Grid>
-          <Grid spacing={5} item container justify="space-between">
+          <Grid spacing={5} item container justify="flex-start" className="bounding-box-nav">
             {Nav.map((item, idx) => (<DashboardNavigation key={idx} item={item}/>))}
           </Grid>
         </Grid>

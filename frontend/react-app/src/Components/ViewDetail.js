@@ -174,7 +174,7 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
   const agreeValidateHandler = async () => {
     setIsSubmittingValidate(true)
     try {
-      const apiType = type === 'kultam' ? 'kuliah-tamu' : type;
+      const apiType = type === 'kultam' ? 'kuliah-tamu' : type === 'prestasi' ? 'prestasi/dosen' : type;
       await axios.post(`${process.env.REACT_APP_API_URL}${apiType}/${id}/validate`, {}, {
         headers: AuthHeader()
       })
@@ -192,7 +192,7 @@ const ViewDetail = ({data, type, id, isAdmin, isValidated, setIsValidated}) => {
   const agreeDeleteHandler = async () => {
     setIsSubmittingDelete(true)
     try {
-      const apiType = type === 'kultam' ? 'kuliah-tamu' : type;
+      const apiType = type === 'kultam' ? 'kuliah-tamu' : type === 'prestasi' ? 'prestasi/dosen' : type;
       await axios.delete(`${process.env.REACT_APP_API_URL}${apiType}/${id}`, {
         headers: AuthHeader()
       })

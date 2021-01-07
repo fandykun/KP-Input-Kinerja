@@ -5,6 +5,7 @@ export * from './Kultam';
 export * from './Training';
 export * from './Konferensi';
 export * from './Jurnal';
+export * from './Sertifikasi';
 export * from './Submission';
 export * from './Entry';
 export * from './Detail';

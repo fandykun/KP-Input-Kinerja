@@ -22,8 +22,8 @@ const titleCase = (string)  => {
 }
 
 function createData(id, name, source, tingkat, departemen) {
-  const apiType = tingkat === 'kuliahtamu' ? 'kultam' : tingkat
-  const modul = tingkat === 'kuliahtamu' ? 'Kuliah Tamu' : titleCase(tingkat);
+  const apiType = tingkat === 'kuliahtamu' ? 'kultam' : tingkat === 'prestasidosen' ? 'prestasi' : tingkat
+  const modul = tingkat === 'kuliahtamu' ? 'Kuliah Tamu' : tingkat === 'prestasidosen' ? 'Prestasi Dosen' : titleCase(tingkat);
   return { id, type:"Submission", name, source, link:`/detail/${apiType}/${id}`, tingkat: modul, departemen };
 }
 
