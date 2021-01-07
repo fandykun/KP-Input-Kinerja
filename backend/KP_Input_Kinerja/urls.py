@@ -17,8 +17,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.models import Group
 
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework.authtoken.models import Token
+
+admin.site.site_header = "FTEIC-ITS Administrator"
+admin.site.site_title = "FTEIC-ITS Admin"
+
+admin.site.unregister([
+    Token,
+    Group
+])
 
 urlpatterns = [
     path('admin/', admin.site.urls),
